@@ -1,0 +1,28 @@
+{
+  "name": "strangelove",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "./dist/cjs/index.js",
+  "exports": {
+    ".": {
+      "development": {
+        "import": "./dist/esm/dev.js",
+        "require": "./dist/cjs/dev.js"
+      },
+      "production": {
+        "import": "./dist/esm/prod.js",
+        "require": "./dist/cjs/prod.js"
+      },
+      "import": "./dist/esm/prod.js",
+      "require": "./dist/cjs/prod.js"
+    },
+    "./*": "./*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
