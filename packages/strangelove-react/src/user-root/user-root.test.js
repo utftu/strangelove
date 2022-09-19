@@ -1,19 +1,50 @@
-// import {render} from '@testing-library/react';
-// import '@testing-library/jest-dom';
-// import {describe, expect, it} from '@jest/globals';
+/**
+ * @jest-environment jsdom
+ */
+
+import {render} from '@testing-library/react';
+import {createElement} from 'react'
+import {describe, expect, it} from '@jest/globals';
 import useRoot from './use-root.js';
-// import {UserRoot} from 'strangelove/dist/esm/dev.js';
+import defaultRoot from "../default-root.js";
+import {UserRoot} from 'strangelove';
+import {StrangeLoveProvider} from "../context.js";
 
 describe('use-root', () => {
-  it('a', () => {});
-  // it.skip('custom root', () => {
-  //   const customRoot = new UserRoot();
-  //   let root;
-  //   function Component() {
-  //     root = useRoot(customRoot);
-  //     return null;
-  //   }
-  //   render(Component);
-  //   expect(root).toBe(customRoot);
-  // });
+  it('custom root', () => {
+    const customRoot = new UserRoot();
+    let root;
+    function Component() {
+      root = useRoot(customRoot);
+
+      return null;
+    }
+    render(createElement(Component));
+    expect(root).toBe(customRoot);
+  });
+  it('default root', () => {
+    let root;
+    function Component() {
+      root = useRoot();
+
+      return null;
+    }
+    render(createElement(Component));
+    expect(root).toBe(defaultRoot);
+  });
+  it('context root', () => {
+    const contextRoot = new UserRoot()
+    function Parent() {
+      return createElement(StrangeLoveProvider, {value: contextRoot}, createElement(Component))
+    }
+
+    let root;
+    function Component() {
+      root = useRoot();
+
+      return null;
+    }
+    render(createElement(Parent));
+    expect(root).toBe(contextRoot);
+  })
 });

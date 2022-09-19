@@ -1,4 +1,4 @@
-import useStrangeLove from './use-strange-love.js';
+import useStrangeLove from './use-strange-love/use-strange-love.js';
 import useStrangeLoveSelect from './use-strange-love-select.js';
 import {
   strangeLoveContext,

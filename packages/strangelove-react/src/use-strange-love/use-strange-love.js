@@ -1,8 +1,7 @@
 import {useEffect, useMemo, useState} from 'react';
 import useForceUpdate from 'utftu/useForceUpdate';
-import {useStrangeLoveRoot} from './context.js';
 import {Atom, Root} from 'strangelove';
-import useRoot from './user-root/use-root.js';
+import useRoot from '../user-root/use-root.js';
 
 function parseArgs(args) {
   const atoms = [];
@@ -38,7 +37,7 @@ function useStrangeLove(...args) {
     store.atom = root.createSyncAtom({
       onUpdate: forceUpdate,
     });
-    atoms.forEach((atom) => Atom.connect(atom, newAtom));
+    atoms.forEach((atom) => Atom.connect(atom, store.atom));
   }, atoms);
 
   useEffect(() => {

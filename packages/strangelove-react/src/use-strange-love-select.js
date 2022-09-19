@@ -1,4 +1,3 @@
-import {select} from 'strangelove';
 import useForceUpdate from 'utftu/useForceUpdate';
 import {useEffect, useMemo, useState} from 'react';
 import useRoot from './user-root/use-root.js';
