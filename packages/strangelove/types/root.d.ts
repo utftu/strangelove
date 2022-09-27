@@ -1,6 +1,6 @@
 import Atom from './atom';
 
-declare class Root {
+export class Root {
   constructor(updater: {update: (...args: any) => any});
   update(atom: Atom): any;
 }

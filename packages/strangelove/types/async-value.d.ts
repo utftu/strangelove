@@ -7,7 +7,7 @@ interface Config<TData> {
   value: TData;
 }
 
-declare class ReadAsync<TData> {
+export class ReadAsync<TData> {
   constructor(control: ReadAsyncControl<TData>, config?: Config<TData>);
   value: Promise<TData>;
   get(): Promise<TData>;
@@ -21,11 +21,11 @@ interface ReadWriteAsyncControl<TData> extends ReadSyncControl<TData> {
   set(data: TData);
 }
 
-declare class ReadWriteAsync<TData> extends ReadSync<TData> {
+export class ReadWriteAsync<TData> extends ReadSync<TData> {
   constructor(control: ReadWriteAsyncControl<TData>, config?: Config<TData>);
   set(data: TData): Promise<boolean>;
 }
 
-declare function createAsyncStore<TData>(
+export function createAsyncStore<TData>(
   constructor: ReadWriteAsyncControl<TData> & Config<TData>
 ): ReadAsync<TData> | ReadWriteAsync<TData>;

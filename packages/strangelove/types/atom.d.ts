@@ -7,13 +7,13 @@ type AtomValues<TValue> =
   | ReadWriteSync<TValue>
   | ReadSync<TValue>;
 
-export declare interface AtomConfig<TValue> {
+export interface AtomConfig<TValue> {
   value: AtomValues<TValue>;
   onBeforeUpdate: () => boolean;
   onUpdate: () => void;
 }
 
-declare class Atom<TValue = any> {
+export abstract class Atom<TValue = any> {
   connect(parent: Atom, child: Atom);
   disconnect(parent: Atom, child: Atom);
   constructor(config: AtomConfig<TValue>);
@@ -23,11 +23,11 @@ declare class Atom<TValue = any> {
   relations: Relations;
 }
 
-export declare class SyncAtom<TValue> extends Atom<TValue> {
+export class SyncAtom<TValue> extends Atom<TValue> {
   value: ReadWriteSync<TValue> | ReadSync<TValue>;
 }
 
-export declare class AsyncAtom<TValue> extends Atom<TValue> {
+export class AsyncAtom<TValue> extends Atom<TValue> {
   value: ReadWriteSync<TValue> | ReadSync<TValue>;
 }
 

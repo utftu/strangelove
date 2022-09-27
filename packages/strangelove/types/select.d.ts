@@ -10,7 +10,7 @@ export interface Helpers<TValue> {
   set: <TAtomData>(atom: Atom<TAtomData>, data: TAtomData) => boolean;
 }
 
-declare function select<TValue, TConfig = Config<TValue>>(
+export function select<TValue, TConfig = Config<TValue>>(
   cb: (helpers: Helpers<TValue>) => TValue | undefined,
   config: Config<TValue>
 ): AsyncAtom<TValue> | SyncAtom<TValue>;

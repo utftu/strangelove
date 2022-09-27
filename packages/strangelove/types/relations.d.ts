@@ -1,6 +1,6 @@
 import Atom from './atom';
 
-declare class Relations {
+export class Relations {
   static connect(parent: Atom, child: Atom);
   static disconnect(parent: Atom, child: Atom);
   atom: Atom;

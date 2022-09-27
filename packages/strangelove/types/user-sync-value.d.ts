@@ -7,6 +7,6 @@ interface Config<TValue> {
   needCheckPrev?: boolean;
 }
 
-export declare const createSyncStore: <TValue>(
+export const createSyncStore: <TValue>(
   config: Config<TValue>
 ) => SyncUserAtom<TValue>;
