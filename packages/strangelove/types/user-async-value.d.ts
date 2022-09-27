@@ -1,0 +1,12 @@
+import {SyncUserAtom} from './user-atom';
+
+interface Config<TValue> {
+  get(): Promise<TValue>;
+  set(value: TValue);
+  value: TValue;
+  needCheckPrev?: boolean;
+}
+
+export declare const createAsyncStore: <TValue>(
+  config: Config<TValue>
+) => SyncUserAtom<TValue>;

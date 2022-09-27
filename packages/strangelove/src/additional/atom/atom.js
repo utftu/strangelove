@@ -2,8 +2,9 @@ import {SyncAtom, AsyncAtom} from '../../essential/atom/atom.js';
 import {createSyncStore} from '../../essential/value/sync.js';
 
 export class SyncUserAtom extends SyncAtom {
-  constructor({root, ...atomConfig}) {
+  constructor({root, name, ...atomConfig}) {
     super(atomConfig);
+    this.name = name;
     this.root = root;
   }
   get() {

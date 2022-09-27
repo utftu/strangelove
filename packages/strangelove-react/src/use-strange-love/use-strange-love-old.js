@@ -47,7 +47,7 @@ function useStrangeLove(...args) {
   }, []);
 
   console.log('-----', 'here');
-  return atoms.map((atom) => atom.get())
+  return atoms.map((atom) => atom.get());
   // return useMemo(() => {
   //   console.log('-----', 'here');
   //   return atoms.map((atom) => atom.get());

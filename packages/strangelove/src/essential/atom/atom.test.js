@@ -28,17 +28,14 @@ describe('atom', () => {
 
   it('constructor()', () => {
     const value = {};
-    const name = 'text_name';
     const onBeforeUpdate = () => {};
     const onUpdate = () => {};
     const atom = new Atom({
       value,
       onBeforeUpdate,
       onUpdate,
-      name,
     });
     expect(atom.value).toBe(value);
-    expect(atom.name).toBe(name);
     expect(atom.onBeforeUpdate).toBe(onBeforeUpdate);
     expect(atom.listeners.listeners.length).toBe(1);
     expect(atom.listeners.listeners[0]).toBe(onUpdate);

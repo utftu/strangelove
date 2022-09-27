@@ -11,7 +11,7 @@ class Atom {
     return Relations.disconnect(parentAtom, childAtom);
   }
 
-  constructor({value, onBeforeUpdate = alwaysYes, onUpdate, name} = {}) {
+  constructor({value, onBeforeUpdate = alwaysYes, onUpdate} = {}) {
     this.listeners = new Listeners();
     if (onUpdate) {
       this.listeners.subscribe(onUpdate);
@@ -19,7 +19,6 @@ class Atom {
     this.onBeforeUpdate = onBeforeUpdate;
     this.value = value;
     this.relations = new Relations(this);
-    this.name = name;
   }
 }
 
