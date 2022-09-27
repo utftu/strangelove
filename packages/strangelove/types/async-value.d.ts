@@ -17,11 +17,11 @@ export class ReadAsync<TData> {
   setCacheAsync(data: Promise<TData>): Promise<void>;
 }
 
-interface ReadWriteAsyncControl<TData> extends ReadSyncControl<TData> {
+interface ReadWriteAsyncControl<TData> extends ReadAsyncControl<TData> {
   set(data: TData);
 }
 
-export class ReadWriteAsync<TData> extends ReadSync<TData> {
+export class ReadWriteAsync<TData> extends ReadAsync<TData> {
   constructor(control: ReadWriteAsyncControl<TData>, config?: Config<TData>);
   set(data: TData): Promise<boolean>;
 }

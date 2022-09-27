@@ -1,6 +1,6 @@
 export class Async {}
 
-export class ReadAsync extends Async {
+export class AsyncRead extends Async {
   constructor(control, {needCheckPrev = false, value} = {}) {
     super();
     this.control = control;
@@ -53,7 +53,7 @@ export class ReadAsync extends Async {
   }
 }
 
-export class ReadWriteAsync extends ReadAsync {
+export class AsyncReadWrite extends AsyncRead {
   constructor(control, needCheckPrev) {
     super(control, needCheckPrev);
   }
@@ -70,7 +70,7 @@ export class ReadWriteAsync extends ReadAsync {
 
 export function createAsyncStore({get, set, value, needCheckPrev}) {
   if (set) {
-    return new ReadWriteAsync(
+    return new AsyncReadWrite(
       {
         get,
         set,
@@ -81,7 +81,7 @@ export function createAsyncStore({get, set, value, needCheckPrev}) {
       }
     );
   } else {
-    return new ReadAsync(
+    return new AsyncRead(
       {
         get,
       },

@@ -3,10 +3,10 @@ import {AsyncAtom, SyncAtom} from '../atom/atom.js';
 import runCb from './run-cb.js';
 import Root from '../root/root.js';
 import selectAsync from './async.js';
-import {ReadWriteAsync} from '../value/async.js';
+import {AsyncReadWrite} from '../value/async.js';
 
 function createReadWriteAsync(value) {
-  return new ReadWriteAsync({
+  return new AsyncReadWrite({
     value,
     async get() {
       return this.value;

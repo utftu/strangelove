@@ -1,5 +1,7 @@
 import Listeners from './listeners';
 import Relations from './relations';
+import {ReadAsync, ReadWriteAsync} from './async-value';
+import {ReadSync, ReadWriteSync} from './sync-value';
 
 type AtomValues<TValue> =
   | ReadAsync<TValue>

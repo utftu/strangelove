@@ -1,13 +1,13 @@
 import {describe, expect, it, jest} from '@jest/globals';
 import awaitTime from 'utftu/awaitTime';
-import {createAsyncStore, ReadAsync, ReadWriteAsync} from './async.js';
+import {createAsyncStore, AsyncRead, AsyncReadWrite} from './async.js';
 import {createSyncStore, ReadSync, ReadWriteSync} from './sync.js';
 
 describe('value sync', () => {
   describe('read value', () => {
     it('init call', async () => {
       const get = jest.fn(async () => 'new value');
-      await new ReadAsync({
+      await new AsyncRead({
         get,
       });
       expect(get.mock.calls.length).toBe(0);
@@ -16,7 +16,7 @@ describe('value sync', () => {
   it('set value', async () => {
     const get = jest.fn(async () => {});
     const set = jest.fn(async (newValue) => newValue + ' hello');
-    const store = new ReadWriteAsync({
+    const store = new AsyncReadWrite({
       get,
       set,
     });
@@ -32,7 +32,7 @@ describe('value sync', () => {
       await awaitTime(10);
       return newValue + ' bar';
     });
-    const atom = await new ReadWriteAsync({
+    const atom = await new AsyncReadWrite({
       get,
       set,
     });
@@ -46,14 +46,14 @@ describe('value sync', () => {
       const store = createAsyncStore({
         get: () => {},
       });
-      expect(store instanceof ReadAsync).toBe(true);
+      expect(store instanceof AsyncRead).toBe(true);
     });
     it('write', () => {
       const store = createAsyncStore({
         get: () => {},
         set: () => {},
       });
-      expect(store instanceof ReadWriteAsync).toBe(true);
+      expect(store instanceof AsyncReadWrite).toBe(true);
     });
   });
 });

@@ -1,12 +1,12 @@
 import {AsyncAtom} from '../atom/atom.js';
-import {ReadAsync} from '../value/async.js';
+import {AsyncRead} from '../value/async.js';
 import runCb from './run-cb.js';
 
 const updateTimeKey = Symbol('update time');
 
 async function selectAsync({cb, value, children, parents, createAtom}) {
   const atom = createAtom({
-    value: new ReadAsync({
+    value: new AsyncRead({
       async get() {
         const startDate = Date.now();
         atom[updateTimeKey] = startDate;

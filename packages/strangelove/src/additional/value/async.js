@@ -1,8 +1,8 @@
-import {ReadAsync, ReadWriteAsync} from '../../essential/value/async.js';
+import {AsyncRead, AsyncReadWrite} from '../../essential/value/async.js';
 
 export function createAsyncStore({get, set, value, needCheckPrev}) {
   if (set) {
-    return new ReadWriteAsync(
+    return new AsyncReadWrite(
       {
         get,
         set,
@@ -13,7 +13,7 @@ export function createAsyncStore({get, set, value, needCheckPrev}) {
       }
     );
   } else {
-    return new ReadAsync(
+    return new AsyncRead(
       {
         get,
       },
