@@ -1,12 +1,12 @@
 class Relations {
   static connect(parentAtom, childAtom) {
-    parentAtom.relations._addChild(childAtom);
-    childAtom.relations._addParent(parentAtom);
+    parentAtom.relations.children.add(childAtom);
+    childAtom.relations.parents.add(parentAtom);
   }
 
   static disconnect(parentAtom, childAtom) {
-    parentAtom.relations._removeChild(childAtom);
-    childAtom.relations._removeParent(parentAtom);
+    parentAtom.relations.children.delete(childAtom);
+    childAtom.relations.parents.delete(parentAtom);
   }
 
   constructor(atom) {
@@ -14,12 +14,8 @@ class Relations {
   }
 
   parents = new Set();
-  _addParent(parent) {
-    this.parents.add(parent);
-  }
-  _removeParent(parent) {
-    this.parents.delete(parent);
-  }
+  children = new Set();
+
   replaceParents(newParents) {
     for (const oldParent of this.parents.values()) {
       Relations.disconnect(oldParent, this.atom);
@@ -28,14 +24,6 @@ class Relations {
     for (const newParent of newParents.values()) {
       Relations.connect(newParent, this.atom);
     }
-  }
-
-  children = new Set();
-  _addChild(child) {
-    this.children.add(child);
-  }
-  _removeChild(child) {
-    this.children.delete(child);
   }
 
   replaceChildren(newChildren) {
