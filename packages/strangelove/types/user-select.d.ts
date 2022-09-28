@@ -1,9 +1,9 @@
 import {SelectHelpers} from './select';
-import {AsyncUserAtom, SyncUserAtom} from './user-atom';
+import {AsyncUserAtom, SyncUserAtom, UserAtomConfig} from './user-atom';
 
 export interface UserSelectConfig<TValue> {
-  createAsyncAtom: (config: any) => AsyncUserAtom<TValue>;
-  createSyncAtom: (config: any) => SyncUserAtom<TValue>;
+  createAsyncAtom: (config: UserAtomConfig<TValue>) => AsyncUserAtom<TValue>;
+  createSyncAtom: (config: UserAtomConfig<TValue>) => SyncUserAtom<TValue>;
 }
 
 export type UserSelect = <TValue>(
