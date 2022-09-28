@@ -6,7 +6,7 @@ function useStrangeLoveSelect(cb, customRoot) {
   const [store] = useState({});
   const forceUpdate = useForceUpdate();
 
-  const root = useRoot();
+  const root = useRoot(customRoot);
 
   useMemo(() => {
     if (store.atom) {

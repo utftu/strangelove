@@ -5,14 +5,14 @@ export interface Config<TValue> {
   createSyncAtom: (config: AtomConfig<TValue>) => SyncAtom<TValue>;
 }
 
-export interface Helpers<TValue> {
+export interface SelectHelpers<TValue> {
   get: <TAtomData>(atom: Atom<TAtomData>) => TAtomData;
   set: <TAtomData>(atom: Atom<TAtomData>, data: TAtomData) => boolean;
 }
 
-export function select<TValue, TConfig = Config<TValue>>(
-  cb: (helpers: Helpers<TValue>) => TValue | undefined,
+export type Select<TValue, TConfig = Config<TValue>> = (
+  cb: (helpers: SelectHelpers<TValue>) => TValue | undefined,
   config: Config<TValue>
-): AsyncAtom<TValue> | SyncAtom<TValue>;
+) => AsyncAtom<TValue> | SyncAtom<TValue>;
 
-export default select;
+export default Select;

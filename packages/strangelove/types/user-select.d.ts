@@ -1,14 +1,14 @@
-import {Helpers} from './select';
+import {SelectHelpers} from './select';
 import {AsyncUserAtom, SyncUserAtom} from './user-atom';
 
-export interface Config<TValue> {
+export interface UserSelectConfig<TValue> {
   createAsyncAtom: (config: any) => AsyncUserAtom<TValue>;
   createSyncAtom: (config: any) => SyncUserAtom<TValue>;
 }
 
-export const userSelect: <TValue>(
-  helpers: Helpers<TValue>,
-  config: Config<TValue>
+export type UserSelect = <TValue>(
+  helpers: SelectHelpers<TValue>,
+  config: UserSelectConfig<TValue>
 ) => SyncUserAtom<TValue> | AsyncUserAtom<TValue>;
 
-export default userSelect;
+export default UserSelect;

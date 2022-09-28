@@ -1,3 +1,3 @@
-import type {Atom} from 'strangelove';
+import type {Atom, Root} from 'strangelove';
 
-export const useStrangeLove: (...args: Atom[]) => {};
+export type useStrangeLove = (...args: (Atom | Root)[]) => any[];
