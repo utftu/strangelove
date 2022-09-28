@@ -10,13 +10,12 @@ export default function select(
     createSyncAtom = (config) => new SyncAtom(config),
   } = {}
 ) {
-  const {value, children, parents} = runCb(cb);
+  const {value, parents} = runCb(cb);
 
   if (value instanceof Promise) {
     return selectAsync({
       cb,
       value,
-      children,
       parents,
       createAtom: createAsyncAtom,
     });
@@ -24,7 +23,6 @@ export default function select(
     return selectSync({
       cb,
       value,
-      children,
       parents,
       createAtom: createSyncAtom,
     });

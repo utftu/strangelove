@@ -38,7 +38,6 @@ function useStrangeLove(...args) {
   }));
 
   useMemo(() => {
-    console.log('-----', 'useMemo');
     store.atom.relations.replaceParents(new Set());
 
     atoms.forEach((atom) => Atom.connect(atom, store.atom));

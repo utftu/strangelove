@@ -30,7 +30,7 @@ describe('select sync', () => {
 
     const calls = jest.fn();
     const selectorAtom = selectSync({
-      ...runCb(({get}) => {
+      ...runCb((get) => {
         const parent1Value = get(parent1);
         const parent2Value = get(parent2);
         calls(parent1Value + parent2Value);
@@ -60,7 +60,7 @@ describe('select sync', () => {
     const parent2 = new SyncAtom({value: createReadWriteSync(parent2Value)});
 
     const selector = selectSync({
-      ...runCb(({get}) => {
+      ...runCb((get) => {
         if (parentNum === 1) {
           get(parent1);
         } else {

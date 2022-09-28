@@ -30,7 +30,7 @@ describe('async', () => {
 
     const calls = jest.fn();
     const selectorAtom = await selectAsync({
-      ...runCb(async ({get}) => {
+      ...runCb(async (get) => {
         const parent1Value = await get(parent1);
         const parent2Value = await get(parent2);
         calls(parent1Value + parent2Value);

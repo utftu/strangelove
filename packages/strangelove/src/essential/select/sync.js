@@ -1,14 +1,13 @@
 import {ReadSync} from '../value/sync.js';
 import runCb from './run-cb.js';
 
-function selectSync({cb, value, children, parents, createAtom}) {
+function selectSync({cb, value, parents, createAtom}) {
   const atom = createAtom({
     value: new ReadSync({
       get() {
-        const {value, children, parents} = runCb(cb);
+        const {value, parents} = runCb(cb);
 
         atom.relations.replaceParents(parents);
-        // atom.relations.replaceChildren(children);
 
         return value;
       },
@@ -16,7 +15,6 @@ function selectSync({cb, value, children, parents, createAtom}) {
   });
   atom.value.setCache(value);
   atom.relations.replaceParents(parents);
-  atom.relations.replaceChildren(children);
 
   return atom;
 }
