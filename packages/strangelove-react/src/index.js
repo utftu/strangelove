@@ -1,5 +1,6 @@
 import useStrangeLove from './use-strange-love/use-strange-love.js';
 import useStrangeLoveSelect from './use-stange-love-select/use-strange-love-select.js';
+import defaultRoot from './default-root.js';
 import {
   strangeLoveContext,
   StrangeLoveProvider,
@@ -12,6 +13,7 @@ export {
   strangeLoveContext,
   StrangeLoveProvider,
   useStrangeLoveRoot,
+  defaultRoot,
 };
 
 export default {
@@ -20,4 +22,5 @@ export default {
   strangeLoveContext,
   StrangeLoveProvider,
   useStrangeLoveRoot,
+  defaultRoot,
 };

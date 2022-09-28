@@ -8,7 +8,7 @@ export interface UserSelectConfig<TValue> {
 
 export type UserSelect = <TValue>(
   helpers: SelectHelpers<TValue>,
-  config: UserSelectConfig<TValue>
+  config?: UserSelectConfig<TValue>
 ) => SyncUserAtom<TValue> | AsyncUserAtom<TValue>;
 
 export default UserSelect;

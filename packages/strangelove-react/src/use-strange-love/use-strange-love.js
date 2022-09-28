@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useSyncExternalStore,
-} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import useForceUpdate from 'utftu/useForceUpdate';
 import {Atom, Root} from 'strangelove';
 import useRoot from '../user-root/use-root.js';
@@ -36,23 +30,25 @@ function useStrangeLove(...args) {
   const first = useCallback(() => {
     store.changedBeforeMount = true;
   }, []);
-  const [store] = useState({
+  const [store] = useState(() => ({
     atom: root.createSyncAtom({
       onUpdate: first,
     }),
     changedBeforeMount: false,
-  });
+  }));
 
   useMemo(() => {
-    if (store.atom) {
-      store.atom.relations.replaceParents(new Set());
-    }
+    console.log('-----', 'useMemo');
+    store.atom.relations.replaceParents(new Set());
+
     atoms.forEach((atom) => Atom.connect(atom, store.atom));
   }, []);
 
   useEffect(() => {
     store.atom.listeners.unsubscribe(first);
-    store.atom.listeners.subscribe(forceUpdate);
+    if (!store.atom.listeners.listeners.includes(forceUpdate)) {
+      store.atom.listeners.subscribe(forceUpdate);
+    }
   }, []);
 
   useEffect(() => {
@@ -63,6 +59,8 @@ function useStrangeLove(...args) {
   }, [store.changedBeforeMount]);
 
   useEffect(() => {
+    store.atom.relations.replaceParents(new Set());
+    atoms.forEach((atom) => Atom.connect(atom, store.atom));
     return () => {
       store.atom.relations.replaceParents(new Set());
     };

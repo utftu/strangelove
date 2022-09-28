@@ -2,10 +2,26 @@
   "name": "strangelove-react",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "types": "./dist/types/index.d.ts",
+  "main": "./dist/cjs/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "exports": {
+    ".": {
+      "development": {
+        "import": "./dist/esm/dev.js",
+        "require": "./dist/cjs/dev.js"
+      },
+      "production": {
+        "import": "./dist/esm/prod.js",
+        "require": "./dist/cjs/prod.js"
+      },
+      "import": "./dist/esm/prod.js",
+      "require": "./dist/cjs/prod.js"
+    },
+    "./*": "./*"
   },
   "devDependencies": {
     "strangelove": "workspace:*"
@@ -15,5 +31,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/react": "^18.0.21"
+  }
 }

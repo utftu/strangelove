@@ -18,7 +18,7 @@ async function selectAsync({cb, value, children, parents, createAtom}) {
         }
 
         atom.relations.replaceParents(parents);
-        atom.relations.replaceChildren(children);
+        // atom.relations.replaceChildren(children);
 
         return value;
       },

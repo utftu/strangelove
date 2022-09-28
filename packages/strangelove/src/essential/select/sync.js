@@ -5,12 +5,12 @@ function selectSync({cb, value, children, parents, createAtom}) {
   const atom = createAtom({
     value: new ReadSync({
       get() {
-        const {result, children, parents} = runCb(cb);
+        const {value, children, parents} = runCb(cb);
 
         atom.relations.replaceParents(parents);
-        atom.relations.replaceChildren(children);
+        // atom.relations.replaceChildren(children);
 
-        return result;
+        return value;
       },
     }),
   });
