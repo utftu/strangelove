@@ -23,6 +23,9 @@
     },
     "./*": "./*"
   },
+  "files": [
+    "dist/**/*"
+  ],
   "devDependencies": {
     "strangelove": "workspace:*"
   },
