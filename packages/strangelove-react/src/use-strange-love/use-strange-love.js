@@ -65,7 +65,7 @@ function useStrangeLove(...args) {
     };
   }, []);
 
-  return atoms.map((atom) => atom.get());
+  return [...atoms.map((atom) => atom.get()), store.atom];
 }
 
 export default useStrangeLove;

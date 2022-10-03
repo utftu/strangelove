@@ -8,11 +8,7 @@ import CommentList from './comment-list';
 
 const Home: NextPage = () => {
   const store = useMemo(() => {
-    const users = new MainStore();
-    users.atoms.users.listeners.subscribe(() => {
-      console.log('-----', 'update');
-    });
-    return users;
+    return new MainStore();
   }, []);
   // @ts-ignore
   globalThis.store = store;
@@ -22,6 +18,18 @@ const Home: NextPage = () => {
         <UserList store={store} />
         <CommentList store={store} />
         <UserComments store={store} />
+        <button
+          onClick={() => store.atoms.users.set(['New-user-1', 'New-user-2'])}
+        >
+          New Users
+        </button>
+        <button
+          onClick={() =>
+            store.atoms.comments.set(['New-comment-1', 'New-comment-2'])
+          }
+        >
+          New Comments
+        </button>
       </div>
     </StrangeLoveProvider>
   );

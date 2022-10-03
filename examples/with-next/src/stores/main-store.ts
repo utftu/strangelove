@@ -9,7 +9,7 @@ interface Atoms {
 
 class MainStore {
   constructor() {
-    this.atoms.userComments = defaultRoot.select(({get}) => {
+    this.atoms.userComments = defaultRoot.select((get) => {
       const users = get(this.atoms.users);
       const comments = get(this.atoms.comments);
 
@@ -17,8 +17,11 @@ class MainStore {
     }) as SyncUserAtom<string[]>;
   }
   atoms: Atoms = {
-    users: defaultRoot.createSyncStateAtom(['aleksey', 'denis']),
-    comments: defaultRoot.createSyncStateAtom(['comment1', 'comment2']),
+    users: defaultRoot.createSyncStateAtom(['Old-user-1', 'Old-user-2']),
+    comments: defaultRoot.createSyncStateAtom([
+      'Old-comment-1',
+      'Old-comment-2',
+    ]),
     userComments: null as any,
   };
 }

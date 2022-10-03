@@ -73,7 +73,7 @@ describe('updaters/fast', () => {
     root.update(atom1);
     await awaitTime(1);
     root.update(atom1);
-    await awaitTime(50);
+    await awaitTime(100);
     expect(onUpdateAtom3.mock.calls.length).toBe(1);
   });
 });

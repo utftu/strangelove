@@ -2,6 +2,7 @@ import Listeners from './listeners';
 import Relations from './relations';
 import {ReadAsync, ReadWriteAsync} from './async-value';
 import {ReadSync, ReadWriteSync} from './sync-value';
+import UserRoot from './user-root';
 
 type AtomValues<TValue> =
   | ReadAsync<TValue>
@@ -29,8 +30,16 @@ export class SyncAtom<TValue> extends Atom<TValue> {
   value: ReadWriteSync<TValue> | ReadSync<TValue>;
 }
 
+export class SyncUserAtom<TValue> extends SyncAtom<TValue> {
+  root: UserRoot;
+}
+
 export class AsyncAtom<TValue> extends Atom<TValue> {
   value: ReadWriteSync<TValue> | ReadSync<TValue>;
+}
+
+export class AsyncUserAtom<TValue> extends AsyncAtom<TValue> {
+  root: UserRoot;
 }
 
 export default Atom;
