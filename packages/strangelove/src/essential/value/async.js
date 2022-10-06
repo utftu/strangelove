@@ -1,7 +1,7 @@
 export class Async {}
 
 export class AsyncRead extends Async {
-  constructor(control, {needCheckPrev = false, value} = {}) {
+  constructor(control, {needCheckPrev = true, value} = {}) {
     super();
     this.control = control;
     this.needCheckPrev = needCheckPrev;

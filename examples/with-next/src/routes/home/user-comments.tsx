@@ -6,7 +6,7 @@ interface Props {
 }
 
 function UserList(props: Props) {
-  console.log('UserList Component');
+  console.log('UserComments Component');
   const [userComment] = useStrangeLove(props.store.atoms.userComments);
 
   return (

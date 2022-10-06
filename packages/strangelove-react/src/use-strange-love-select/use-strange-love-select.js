@@ -10,6 +10,7 @@ function useStrangeLoveSelect(cb, customRoot) {
   }, []);
   const [store] = useState(() => {
     const atom = root.select(cb);
+
     atom.listeners.subscribe(first);
     return {
       atom: atom,
@@ -25,12 +26,14 @@ function useStrangeLoveSelect(cb, customRoot) {
   }, []);
 
   useEffect(() => {
+    store.atom.value.update();
+
     return () => {
       store.atom.relations.replaceParents(new Set());
     };
   }, []);
 
-  return store.atom;
+  return [store.atom.get(), store.atom];
 }
 
 export default useStrangeLoveSelect;

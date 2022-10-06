@@ -1,4 +1,4 @@
-import {SelectHelpers} from './select';
+import {selectGetter} from './select';
 import {AsyncUserAtom, SyncUserAtom, UserAtomConfig} from './user-atom';
 
 export interface UserSelectConfig<TValue> {
@@ -7,8 +7,8 @@ export interface UserSelectConfig<TValue> {
 }
 
 export type UserSelect = <TValue>(
-  helpers: SelectHelpers<TValue>,
+  runFn: typeof selectGetter,
   config?: UserSelectConfig<TValue>
-) => SyncUserAtom<TValue> | AsyncUserAtom<TValue>;
+) => TValue extends Promise<any> ? AsyncUserAtom<TValue> : SyncUserAtom<TValue>;
 
 export default UserSelect;

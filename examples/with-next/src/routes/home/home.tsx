@@ -4,6 +4,7 @@ import {useMemo} from 'react';
 import MainStore from '../../stores/main-store';
 import UserList from './user-list';
 import UserComments from './user-comments';
+import UserCommentsSelect from './user-comments-select';
 import CommentList from './comment-list';
 
 const Home: NextPage = () => {
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
         <UserList store={store} />
         <CommentList store={store} />
         <UserComments store={store} />
+        <UserCommentsSelect store={store} />
         <button
           onClick={() => store.atoms.users.set(['New-user-1', 'New-user-2'])}
         >

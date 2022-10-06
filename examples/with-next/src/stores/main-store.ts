@@ -9,12 +9,14 @@ interface Atoms {
 
 class MainStore {
   constructor() {
-    this.atoms.userComments = defaultRoot.select((get) => {
+    const a = defaultRoot.select((get) => {
       const users = get(this.atoms.users);
       const comments = get(this.atoms.comments);
 
-      return users.map((user, i) => `${user}: "${comments[i]}"`);
-    }) as SyncUserAtom<string[]>;
+      const b = users.map((user, i) => `${user}: "${comments[i]}"`);
+      return b;
+    });
+    this.atoms.userComments = a;
   }
   atoms: Atoms = {
     users: defaultRoot.createSyncStateAtom(['Old-user-1', 'Old-user-2']),

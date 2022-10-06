@@ -1,16 +1,20 @@
 import {describe, expect, it, jest} from '@jest/globals';
 import awaitTime from 'utftu/awaitTime';
 import {createAsyncStore, AsyncRead, AsyncReadWrite} from './async.js';
-import {createSyncStore, ReadSync, ReadWriteSync} from './sync.js';
 
 describe('value sync', () => {
   describe('read value', () => {
-    it('init call', async () => {
+    it('init', async () => {
       const get = jest.fn(async () => 'new value');
-      await new AsyncRead({
-        get,
-      });
+      const valueStore = await new AsyncRead(
+        {
+          get,
+        },
+        {value: 'hello'}
+      );
       expect(get.mock.calls.length).toBe(0);
+      expect(await valueStore.asyncValue).toBe('hello');
+      expect(valueStore.syncValue).toBe('hello');
     });
   });
   it('set value', async () => {

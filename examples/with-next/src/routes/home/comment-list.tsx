@@ -5,8 +5,8 @@ interface Props {
   store: MainStore;
 }
 
-function UserComments(props: Props) {
-  console.log('UserComments Component');
+function CommentList(props: Props) {
+  console.log('CommentList Component');
   const [comments] = useStrangeLove(props.store.atoms.comments);
 
   return (
@@ -19,4 +19,4 @@ function UserComments(props: Props) {
   );
 }
 
-export default UserComments;
+export default CommentList;

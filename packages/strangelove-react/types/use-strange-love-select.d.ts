@@ -1,7 +1,14 @@
-import type {Root, SelectHelpers, UserSelectConfig} from 'strangelove';
+import type {Root, UserSelectConfig} from 'strangelove';
 import {AsyncUserAtom, SyncUserAtom} from 'strangelove/types/user-atom';
+import {Atom} from 'strangelove';
 
-export type UseStrangeLoveSelect<TValue> = (
-  cb: (helpers: SelectHelpers<TValue>, config: UserSelectConfig<TValue>) => any,
+export function useStrangeLoveSelect<TValue>(
+  cb: (
+    helpers: <TValue>(atom: Atom<TValue>) => TValue,
+    config: UserSelectConfig<TValue>
+  ) => TValue,
   customRoot?: Root
-) => SyncUserAtom<TValue> | AsyncUserAtom<TValue>;
+): [
+  TValue,
+  TValue extends Promise<any> ? AsyncUserAtom<TValue> : SyncUserAtom<TValue>
+];
