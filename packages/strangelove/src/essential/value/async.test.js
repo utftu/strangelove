@@ -6,12 +6,10 @@ describe('value sync', () => {
   describe('read value', () => {
     it('init', async () => {
       const get = jest.fn(async () => 'new value');
-      const valueStore = await new AsyncRead(
-        {
-          get,
-        },
-        {value: 'hello'}
-      );
+      const valueStore = await new AsyncRead({
+        get,
+        value: 'hello',
+      });
       expect(get.mock.calls.length).toBe(0);
       expect(await valueStore.asyncValue).toBe('hello');
       expect(valueStore.syncValue).toBe('hello');

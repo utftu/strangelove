@@ -3,9 +3,10 @@ export class Sync {}
 const defaultInitValue = {};
 
 export class ReadSync extends Sync {
-  constructor(control, {needCheckPrev = false, value} = {}) {
+  constructor({get, set, value, needCheckPrev = false} = {}) {
     super();
-    this.control = control;
+    this.externalGet = get;
+    this.externalSet = set;
     this.needCheckPrev = needCheckPrev;
     this.value = value ?? defaultInitValue;
   }
@@ -16,7 +17,7 @@ export class ReadSync extends Sync {
     return this.value;
   }
   update() {
-    this.setCache(this.control.get());
+    this.setCache(this.externalGet());
     return this;
   }
   setCache(newValue) {
@@ -25,14 +26,14 @@ export class ReadSync extends Sync {
 }
 
 export class ReadWriteSync extends ReadSync {
-  constructor(control, config) {
-    super(control, config);
+  constructor(config) {
+    super(config);
   }
   set(newValue) {
     if (this.needCheckPrev && this.value === newValue) {
       return false;
     }
-    this.control.set(newValue);
+    this.externalSet(newValue);
     this.value = newValue;
     return true;
   }
@@ -40,25 +41,17 @@ export class ReadWriteSync extends ReadSync {
 
 export function createSyncStore({get, set, value, needCheckPrev}) {
   if (set) {
-    return new ReadWriteSync(
-      {
-        get,
-        set,
-      },
-      {
-        value,
-        needCheckPrev,
-      }
-    );
+    return new ReadWriteSync({
+      get,
+      set,
+      value,
+      needCheckPrev,
+    });
   } else {
-    return new ReadSync(
-      {
-        get,
-      },
-      {
-        value,
-        needCheckPrev,
-      }
-    );
+    return new ReadSync({
+      get,
+      value,
+      needCheckPrev,
+    });
   }
 }

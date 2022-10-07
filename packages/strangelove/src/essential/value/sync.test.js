@@ -48,26 +48,22 @@ describe('value sync', () => {
   describe('set()', () => {
     it('not updated', () => {
       const set = jest.fn();
-      const valueStore = new ReadWriteSync(
-        {set},
-        {
-          value: 'hello',
-          needCheckPrev: true,
-        }
-      );
+      const valueStore = new ReadWriteSync({
+        set,
+        value: 'hello',
+        needCheckPrev: true,
+      });
       const setResult = valueStore.set('hello');
       expect(setResult).toBe(false);
       expect(set.mock.calls.length).toBe(0);
     });
     it('updated', () => {
       const set = jest.fn();
-      const valueStore = new ReadWriteSync(
-        {set},
-        {
-          value: 'hello',
-          needCheckPrev: true,
-        }
-      );
+      const valueStore = new ReadWriteSync({
+        set,
+        value: 'hello',
+        needCheckPrev: true,
+      });
       const setResult = valueStore.set('hello-new');
       expect(setResult).toBe(true);
       expect(set.mock.calls.length).toBe(1);

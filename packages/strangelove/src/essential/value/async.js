@@ -1,9 +1,10 @@
 export class Async {}
 
 export class AsyncRead extends Async {
-  constructor(control, {needCheckPrev = true, value} = {}) {
+  constructor({get, set, needCheckPrev = true, value} = {}) {
     super();
-    this.control = control;
+    this.externalGet = get;
+    this.externalSet = set;
     this.needCheckPrev = needCheckPrev;
 
     if (value) {
@@ -11,7 +12,7 @@ export class AsyncRead extends Async {
     }
   }
   async updateValue() {
-    const getValue = this.control.get();
+    const getValue = this.externalGet();
     return this.setCacheAsync(getValue);
   }
   setPromise;
@@ -62,7 +63,7 @@ export class AsyncReadWrite extends AsyncRead {
       return false;
     }
     this.setCache(newValue);
-    this.setPromise = this.control.set(newValue);
+    this.setPromise = this.externalSet(newValue);
     await this.setPromise;
     return true;
   }
@@ -70,25 +71,17 @@ export class AsyncReadWrite extends AsyncRead {
 
 export function createAsyncStore({get, set, value, needCheckPrev}) {
   if (set) {
-    return new AsyncReadWrite(
-      {
-        get,
-        set,
-      },
-      {
-        initValue: value,
-        needCheckPrev,
-      }
-    );
+    return new AsyncReadWrite({
+      get,
+      set,
+      initValue: value,
+      needCheckPrev,
+    });
   } else {
-    return new AsyncRead(
-      {
-        get,
-      },
-      {
-        initValue: value,
-        needCheckPrev,
-      }
-    );
+    return new AsyncRead({
+      get,
+      initValue: value,
+      needCheckPrev,
+    });
   }
 }
