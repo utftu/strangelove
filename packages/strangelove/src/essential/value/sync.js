@@ -3,7 +3,7 @@ export class Sync {}
 const defaultInitValue = {};
 
 export class ReadSync extends Sync {
-  constructor({get, set, value, needCheckPrev = false} = {}) {
+  constructor({get, set, value, needCheckPrev = true}) {
     super();
     this.externalGet = get;
     this.externalSet = set;

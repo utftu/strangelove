@@ -31,8 +31,9 @@ export function createSyncStateAtom(value) {
 }
 
 export class AsyncUserAtom extends AsyncAtom {
-  constructor({root, ...atomConfig}) {
+  constructor({root, name, ...atomConfig}) {
     super(atomConfig);
+    this.name = name;
     this.root = root;
   }
   get() {

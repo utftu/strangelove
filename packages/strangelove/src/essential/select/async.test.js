@@ -3,10 +3,11 @@ import {AsyncAtom, SyncAtom} from '../atom/atom.js';
 import runCb from './run-cb.js';
 import Root from '../root/root.js';
 import selectAsync from './async.js';
-import {AsyncReadWrite} from '../value/async.js';
+import {ReadWriteAsync} from '../value/async.js';
+import awaitTime from 'utftu/awaitTime';
 
 function createReadWriteAsync(value) {
-  return new AsyncReadWrite({
+  return new ReadWriteAsync({
     value,
     async get() {
       return this.value;
@@ -52,5 +53,31 @@ describe('async', () => {
     expect(calls.mock.calls.length).toBe(2);
     expect(calls.mock.calls[1][0]).toBe(newParent1Value + parent2Value);
   });
-  // it('discard old updates');
+  it('discard old updates', async () => {
+    const parent1 = new SyncAtom({value: createReadWriteAsync('paren1')});
+    const parent2 = new SyncAtom({value: createReadWriteAsync('parent1')});
+    let updateCount = 0;
+    const atom = await selectAsync({
+      ...runCb(async (get) => {
+        if (updateCount === 1) {
+          updateCount++;
+          get(parent1);
+          await awaitTime(100);
+          return 'one';
+        } else if (updateCount === 2) {
+          updateCount++;
+          get(parent2);
+          return 'two';
+        }
+        updateCount++;
+      }),
+      createAtom: createAsyncAtom,
+    });
+    atom.value.update();
+    await awaitTime(20);
+    atom.value.update();
+    await awaitTime(100);
+    expect(atom.relations.parents.size).toBe(1);
+    expect(atom.relations.parents.has(parent2)).toBe(true);
+  });
 });

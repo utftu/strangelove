@@ -2,6 +2,19 @@ import {describe, expect, it, jest} from '@jest/globals';
 import {createSyncStore, ReadSync, ReadWriteSync} from './sync.js';
 
 describe('value sync', () => {
+  it('init', () => {
+    const get = jest.fn();
+    const set = jest.fn();
+    const value = new ReadSync({
+      get,
+      set,
+      value: 'hello',
+    });
+    expect(value.externalGet === get).toBe(true);
+    expect(value.externalSet === set).toBe(true);
+    expect(value.needCheckPrev).toBe(true);
+    expect(value.get()).toBe('hello');
+  });
   it('init not call', () => {
     const get = jest.fn();
     new ReadSync({

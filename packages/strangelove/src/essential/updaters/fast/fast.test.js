@@ -2,7 +2,7 @@ import {describe, it, expect, jest} from '@jest/globals';
 import Fast from './index.js';
 import Atom, {AsyncAtom, SyncAtom} from '../../atom/atom.js';
 import awaitTime from 'utftu/awaitTime';
-import {AsyncRead, AsyncReadWrite} from '../../value/async.js';
+import {ReadAsync, ReadWriteAsync} from '../../value/async.js';
 import Root from '../../root/root.js';
 
 describe('updaters/fast', () => {
@@ -26,7 +26,7 @@ describe('updaters/fast', () => {
     const initValue = 'init';
     const afterValue = 'after';
     const atom = new AsyncAtom({
-      value: new AsyncReadWrite({
+      value: new ReadWriteAsync({
         value: initValue,
         async get() {
           return this.value;
@@ -50,11 +50,11 @@ describe('updaters/fast', () => {
     });
     const atom2 = new AsyncAtom({
       name: 'atom2',
-      value: new AsyncRead({
+      value: new ReadAsync({
         async get() {
           if (atom2Calls < 1) {
             atom2Calls++;
-            await awaitTime(40);
+            await awaitTime(50);
           }
         },
       }),

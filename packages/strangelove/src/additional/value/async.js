@@ -1,15 +1,15 @@
-import {AsyncRead, AsyncReadWrite} from '../../essential/value/async.js';
+import {ReadAsync, ReadWriteAsync} from '../../essential/value/async.js';
 
 export function createAsyncStore({get, set, value, needCheckPrev}) {
   if (set) {
-    return new AsyncReadWrite({
+    return new ReadWriteAsync({
       get,
       set,
       initValue: value,
       needCheckPrev,
     });
   } else {
-    return new AsyncRead({
+    return new ReadAsync({
       get,
       initValue: value,
       needCheckPrev,
