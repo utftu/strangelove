@@ -70,12 +70,6 @@ importers:
     devDependencies:
       strangelove: link:../strangelove
 
-  packages/strangelove-react/dist/cjs:
-    specifiers: {}
-
-  packages/strangelove/dist/cjs:
-    specifiers: {}
-
 packages:
 
   /@adobe/css-tools/4.0.1:

@@ -1,13 +1,3 @@
-// export * from './additional/index';
-// export * from './essential/index';
-// //
-// // type RootConnected = any;
-// // export const hello: any;
-// //
-// // export {RootConnected};
-//
-// export const hello: any;
-
 import {AtomRootAsync, AtomRootSync} from './additional/atom-root';
 import {RootConnected} from './additional/root-connected';
 import {SelectRoot, SelectRootConfig} from './additional/select-root';
@@ -21,21 +11,21 @@ import Root from './essential/root';
 
 export const hello: any;
 
-// export {
-//   AtomRootAsync,
-//   AtomRootSync,
-//   SelectRoot,
-//   SelectRootConfig,
-//   RootConnected,
-//   Atom,
-//   AtomSync,
-//   AtomAsync,
-//   ReadSync,
-//   ReadWriteSync,
-//   ReadAsync,
-//   ReadWriteAsync,
-//   Listeners,
-//   Relations,
-//   Select,
-//   Root,
-// };
+export {
+  AtomRootAsync,
+  AtomRootSync,
+  SelectRoot,
+  SelectRootConfig,
+  RootConnected,
+  Atom,
+  AtomSync,
+  AtomAsync,
+  ReadSync,
+  ReadWriteSync,
+  ReadAsync,
+  ReadWriteAsync,
+  Listeners,
+  Relations,
+  Select,
+  Root,
+};
