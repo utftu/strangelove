@@ -31,7 +31,7 @@ function useStrangeLove(...args) {
     store.changedBeforeMount = true;
   }, []);
   const [store] = useState(() => ({
-    atom: root.createSyncAtom({
+    atom: root.createAtomSync({
       onUpdate: first,
     }),
     changedBeforeMount: false,

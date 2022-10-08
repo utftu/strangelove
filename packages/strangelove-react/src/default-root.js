@@ -1,5 +1,5 @@
-import {UserRoot} from 'strangelove';
+import {RootConnected} from 'strangelove';
 
-const defaultRoot = new UserRoot();
+const defaultRoot = new RootConnected();
 
 export default defaultRoot;

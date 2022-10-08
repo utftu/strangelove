@@ -5,12 +5,10 @@ import {
   StrangeLoveProvider,
   UseStrangeLoveRoot,
 } from './context';
-import {UserRoot} from 'strangelove';
+import {RootConnected} from 'strangelove';
 
-// export const useStrangeLove: UseStrangeLove;
-// export type useStrangeLoveSelect<T> = useStrangeLoveSelect<T>;
 export type strangeLoveContext = StrangeLoveContext;
 export type useStrangeLoveRoot = UseStrangeLoveRoot;
 export const StrangeLoveProvider: StrangeLoveProvider;
-export const defaultRoot: UserRoot;
+export const defaultRoot: RootConnected;
 export {useStrangeLove, useStrangeLoveSelect};

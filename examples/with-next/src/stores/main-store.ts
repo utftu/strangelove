@@ -1,5 +1,5 @@
 import {defaultRoot} from 'strangelove-react';
-import {AtomRootSync} from 'strangelove/types/additional/atom-root';
+import {AtomRootSync} from 'strangelove';
 
 interface Atoms {
   users: AtomRootSync<string[]>;
@@ -19,8 +19,8 @@ class MainStore {
     this.atoms.userComments = a;
   }
   atoms: Atoms = {
-    users: defaultRoot.createSyncStateAtom(['Old-user-1', 'Old-user-2']),
-    comments: defaultRoot.createSyncStateAtom([
+    users: defaultRoot.createStateAtomSync(['Old-user-1', 'Old-user-2']),
+    comments: defaultRoot.createStateAtomSync([
       'Old-comment-1',
       'Old-comment-2',
     ]),

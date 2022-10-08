@@ -9,7 +9,6 @@ class FastUpdater {
   delayedCalls = new DelayedCalls();
   transactions = new WeakMap();
   update(atom, cb = noop) {
-    debugger;
     const [promise, promiseControls] = createControlledPromise();
     const transactionKey = {};
 
