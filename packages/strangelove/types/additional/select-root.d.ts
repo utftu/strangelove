@@ -1,18 +1,14 @@
-import {selectGetter} from './essential/select';
-import {
-  AsyncUserAtom,
-  SyncUserAtom,
-  UserAtomConfig,
-} from './additional/user-atom';
+import {selectGetter} from '../essential/select';
+import {AtomRootAsync, AtomRootSync, AtomRootConfig} from './atom-root';
 
-export interface UserSelectConfig<TValue> {
-  createAsyncAtom: (config: UserAtomConfig<TValue>) => AsyncUserAtom<TValue>;
-  createSyncAtom: (config: UserAtomConfig<TValue>) => SyncUserAtom<TValue>;
+export interface SelectRootConfig<TValue> {
+  createAsyncAtom: (config: AtomRootConfig<TValue>) => AtomRootAsync<TValue>;
+  createSyncAtom: (config: AtomRootConfig<TValue>) => AtomRootSync<TValue>;
 }
 
-export type UserSelect = <TValue>(
+export type SelectRoot = <TValue>(
   runFn: typeof selectGetter,
-  config?: UserSelectConfig<TValue>
-) => TValue extends Promise<any> ? AsyncUserAtom<TValue> : SyncUserAtom<TValue>;
+  config?: SelectRootConfig<TValue>
+) => TValue extends Promise<any> ? AtomRootAsync<TValue> : AtomRootSync<TValue>;
 
-export default UserSelect;
+export default SelectRoot;

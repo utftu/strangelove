@@ -1,14 +1,15 @@
-interface ReadAsyncControl<TData> {
+interface ReadConfig<TData> {
   get(): Promise<TData>;
-}
-
-interface Config<TData> {
   needCheckPrev: boolean;
   value: TData;
 }
 
+interface ReadWriteConfig<TValue> extends ReadConfig<TValue> {
+  set(data: TValue): Promise<boolean>;
+}
+
 export class ReadAsync<TData> {
-  constructor(control: ReadAsyncControl<TData>, config?: Config<TData>);
+  constructor(config?: ReadConfig<TData>);
   value: Promise<TData>;
   get(): Promise<TData>;
   getSync(): TData | undefined;
@@ -17,15 +18,15 @@ export class ReadAsync<TData> {
   setCacheAsync(data: Promise<TData>): Promise<void>;
 }
 
-interface ReadWriteAsyncControl<TData> extends ReadAsyncControl<TData> {
-  set(data: TData);
-}
-
 export class ReadWriteAsync<TData> extends ReadAsync<TData> {
-  constructor(control: ReadWriteAsyncControl<TData>, config?: Config<TData>);
+  constructor(config?: ReadWriteConfig<TData>);
   set(data: TData): Promise<boolean>;
 }
 
-export function createAsyncStore<TData>(
-  constructor: ReadWriteAsyncControl<TData> & Config<TData>
+type ConfigCreateFunc<TValue, TConfig> = TConfig extends {set: Function}
+  ? ReadConfig<TValue>
+  : ReadWriteConfig<TValue>;
+
+export function createAsyncStore<TData, Config = any>(
+  config: ConfigCreateFunc<TData, Config>
 ): ReadAsync<TData> | ReadWriteAsync<TData>;

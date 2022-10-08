@@ -1,10 +1,20 @@
-import {ReadSync, ReadWriteSync, createSyncStore} from './sync-value';
-import {ReadAsync, ReadWriteAsync, createAsyncStore} from './async-value';
-import {Atom, SyncAtom, AsyncAtom, SyncUserAtom, AsyncUserAtom} from './atom';
-import {Root} from './root';
-import {UserSelect, UserSelectConfig} from './user-select';
-import {SelectHelpers} from './select';
-import {UserRoot} from './user-root';
+import {ReadSync, ReadWriteSync, createSyncStore} from './essential/sync-value';
+import {
+  ReadAsync,
+  ReadWriteAsync,
+  createAsyncStore,
+} from './essential/async-value';
+import {
+  Atom,
+  AtomSync,
+  AtomAsync,
+  AtomRootSync,
+  AtomRootAsync,
+} from './essential/atom';
+import {Root} from './essential/root';
+import {SelectRoot, SelectRootConfig} from './additional/select-root';
+import {SelectHelpers} from './essential/select';
+import {RootConnected} from './additional/root-connected';
 
 export {
   ReadSync,
@@ -15,12 +25,12 @@ export {
   createAsyncStore,
   SelectHelpers,
   Atom,
-  SyncAtom,
-  AsyncAtom,
+  AtomSync,
+  AtomAsync,
   Root,
-  UserRoot,
-  UserSelect,
-  UserSelectConfig,
-  SyncUserAtom,
-  AsyncUserAtom,
+  RootConnected,
+  SelectRoot,
+  SelectRootConfig,
+  AtomRootSync,
+  AtomRootAsync,
 };

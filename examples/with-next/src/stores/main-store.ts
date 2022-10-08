@@ -1,10 +1,10 @@
 import {defaultRoot} from 'strangelove-react';
-import {SyncUserAtom} from 'strangelove/types/user-atom';
+import {AtomRootSync} from 'strangelove/types/additional/atom-root';
 
 interface Atoms {
-  users: SyncUserAtom<string[]>;
-  comments: SyncUserAtom<string[]>;
-  userComments: SyncUserAtom<string[]>;
+  users: AtomRootSync<string[]>;
+  comments: AtomRootSync<string[]>;
+  userComments: AtomRootSync<string[]>;
 }
 
 class MainStore {

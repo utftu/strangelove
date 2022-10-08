@@ -2,7 +2,7 @@ import Listeners from './listeners';
 import Relations from './relations';
 import {ReadAsync, ReadWriteAsync} from './async-value';
 import {ReadSync, ReadWriteSync} from './sync-value';
-import UserRoot from './user-root';
+import RootConnected from '../additional/root-connected';
 
 type AtomValues<TValue> =
   | ReadAsync<TValue>
@@ -26,20 +26,20 @@ export abstract class Atom<TValue = any> {
   relations: Relations;
 }
 
-export class SyncAtom<TValue> extends Atom<TValue> {
+export class AtomSync<TValue> extends Atom<TValue> {
   value: ReadWriteSync<TValue> | ReadSync<TValue>;
 }
 
-export class SyncUserAtom<TValue> extends SyncAtom<TValue> {
-  root: UserRoot;
+export class AtomRootSync<TValue> extends AtomSync<TValue> {
+  root: RootConnected;
 }
 
-export class AsyncAtom<TValue> extends Atom<TValue> {
+export class AtomAsync<TValue> extends Atom<TValue> {
   value: ReadWriteSync<TValue> | ReadSync<TValue>;
 }
 
-export class AsyncUserAtom<TValue> extends AsyncAtom<TValue> {
-  root: UserRoot;
+export class AtomRootAsync<TValue> extends AtomAsync<TValue> {
+  root: RootConnected;
 }
 
 export default Atom;

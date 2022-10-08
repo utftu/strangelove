@@ -1,6 +1,6 @@
-import Atom, {AtomAsync, AtomSync, AtomConfig} from './essential/atom';
-import {UserSelectConfig} from './user-select';
-import {AsyncUserAtom, SyncUserAtom} from './user-atom';
+import Atom, {AtomAsync, AtomSync, AtomConfig} from './atom';
+import {SelectRootConfig} from '../additional/select-root';
+import {AtomRootAsync, AtomRootSync} from '../additional/atom-root';
 
 export interface Config<TValue> {
   createAsyncAtom: (config: AtomConfig<TValue>) => AtomAsync<TValue>;
@@ -10,9 +10,9 @@ export interface Config<TValue> {
 export function selectGetter<TValue>(
   runFn: (
     getter: <TAtomValue>(a: Atom<TAtomValue>) => TAtomValue,
-    config?: UserSelectConfig<TValue>
+    config?: SelectRootConfig<TValue>
   ) => TValue
-): TValue extends Promise<any> ? AsyncUserAtom<TValue> : SyncUserAtom<TValue>;
+): TValue extends Promise<any> ? AtomRootAsync<TValue> : AtomRootSync<TValue>;
 
 export type Select<TValue, TConfig extends Config<TValue>> = (
   runFn: typeof selectGetter,

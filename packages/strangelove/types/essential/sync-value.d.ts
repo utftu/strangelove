@@ -1,29 +1,30 @@
-interface ReadSyncControl<TData> {
+interface ReadConfig<TData> {
   get(): TData;
-}
-
-interface Config<TData> {
   needCheckPrev: boolean;
   value: TData;
 }
 
-export class ReadSync<TData> {
-  constructor(control: ReadSyncControl<TData>, config?: Config<TData>);
-  value: TData;
-  get(): TData;
-  update();
-  setCache(data: TData);
+interface ReadWriteConfig<TValue> extends ReadConfig<TValue> {
+  set(data: TValue): boolean;
 }
 
-interface ReadWriteSyncControl<TData> extends ReadSyncControl<TData> {
-  set(data: TData);
+export class ReadSync<TValue> {
+  constructor(config?: ReadConfig<TValue>);
+  value: TValue;
+  get(): TValue;
+  update();
+  setCache(data: TValue);
 }
 
 export class ReadWriteSync<TData> extends ReadSync<TData> {
-  constructor(control: ReadWriteSyncControl<TData>, config?: Config<TData>);
+  constructor(config?: ReadWriteConfig<TData>);
   set(data: TData): boolean;
 }
 
-export function createSyncStore<TData>(
-  constructor: ReadWriteSyncControl<TData> & Config<TData>
-): ReadSync<TData> | ReadWriteSync<TData>;
+type ConfigCreateFunc<TValue, TConfig> = TConfig extends {set: Function}
+  ? ReadConfig<TValue>
+  : ReadWriteConfig<TValue>;
+
+export function createAsyncStore<TValue, Config = any>(
+  config: ConfigCreateFunc<TValue, Config>
+): ConfigCreateFunc<TValue, Config>;
