@@ -1,5 +1,9 @@
-import {selectGetter} from './select';
-import {AsyncUserAtom, SyncUserAtom, UserAtomConfig} from './user-atom';
+import {selectGetter} from './essential/select';
+import {
+  AsyncUserAtom,
+  SyncUserAtom,
+  UserAtomConfig,
+} from './additional/user-atom';
 
 export interface UserSelectConfig<TValue> {
   createAsyncAtom: (config: UserAtomConfig<TValue>) => AsyncUserAtom<TValue>;

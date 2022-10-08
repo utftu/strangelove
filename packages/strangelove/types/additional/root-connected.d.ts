@@ -1,6 +1,10 @@
-import Root from './root';
-import {AsyncUserAtom, SyncUserAtom, UserAtomConfig} from './user-atom';
-import {selectGetter} from './select';
+import Root from './essential/root';
+import {
+  AsyncUserAtom,
+  SyncUserAtom,
+  UserAtomConfig,
+} from './additional/user-atom';
+import {selectGetter} from './essential/select';
 
 export class UserRoot extends Root {
   createSyncAtom<TValue>(config: UserAtomConfig<TValue>): SyncUserAtom<TValue>;
