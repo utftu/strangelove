@@ -1,27 +1,27 @@
 import Root from '../../essential/root/root.js';
-import {createSyncStore} from '../../essential/value/sync.js';
-import {SyncUserAtom, AsyncUserAtom} from '../atom/atom.js';
-import userSelect from '../select/select.js';
+import {createStoreSync} from '../../essential/value/sync.js';
+import {AtomRootSync, AtomRootAsync} from '../atom/atom.js';
+import selectRoot from '../select/select.js';
 
-class UserRoot extends Root {
-  createSyncAtom(config) {
-    return new SyncUserAtom({root: this, ...config});
+class RootConnected extends Root {
+  createAtomSync(config) {
+    return new AtomRootSync({root: this, ...config});
   }
 
-  createAsyncAtom(config) {
-    return new AsyncUserAtom({
+  createAtomAsync(config) {
+    return new AtomRootAsync({
       root: this,
       ...config,
     });
   }
 
   select(cb) {
-    return userSelect(cb, this);
+    return selectRoot(cb, this);
   }
 
-  createSyncStateAtom(value) {
-    return this.createSyncAtom({
-      value: createSyncStore({
+  createStateAtomSync(value) {
+    return this.createAtomSync({
+      value: createStoreSync({
         get() {
           return this.value;
         },
@@ -32,6 +32,20 @@ class UserRoot extends Root {
       }),
     });
   }
+
+  createStateAtomAsync(value) {
+    return this.createAtomSync({
+      value: createStoreSync({
+        async get() {
+          return this.value;
+        },
+        async set(newValue) {
+          this.value = newValue;
+        },
+        value,
+      }),
+    });
+  }
 }
 
-export default UserRoot;
+export default RootConnected;

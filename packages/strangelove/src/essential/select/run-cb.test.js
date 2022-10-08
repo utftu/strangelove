@@ -1,10 +1,11 @@
 import runCb from './run-cb.js';
 import {expect, it} from '@jest/globals';
-import {createSyncStateAtom} from '../../additional/index.js';
+import {RootConnected} from '../../additional/index.js';
 
 it('run-cb', () => {
-  const parent1 = createSyncStateAtom('parent1');
-  const parent2 = createSyncStateAtom('parent2');
+  const root = new RootConnected();
+  const parent1 = root.createStateAtomSync('parent1');
+  const parent2 = root.createStateAtomSync('parent2');
   const resultValue = parent1.get() + parent2.get();
   const initCb = (get) => {
     const value = get(parent1) + get(parent2);

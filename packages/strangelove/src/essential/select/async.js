@@ -1,4 +1,4 @@
-import {AsyncAtom} from '../atom/atom.js';
+import {AtomAsync} from '../atom/atom.js';
 import {ReadAsync} from '../value/async.js';
 import runCb from './run-cb.js';
 

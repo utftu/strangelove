@@ -1,13 +1,13 @@
 import selectSync from './sync.js';
 import selectAsync from './async.js';
 import runCb from './run-cb.js';
-import {AsyncAtom, SyncAtom} from '../atom/atom.js';
+import {AtomAsync, AtomSync} from '../atom/atom.js';
 
 export default function select(
   cb,
   {
-    createAsyncAtom = (config) => new AsyncAtom(config),
-    createSyncAtom = (config) => new SyncAtom(config),
+    createAsyncAtom = (config) => new AtomAsync(config),
+    createSyncAtom = (config) => new AtomSync(config),
   } = {}
 ) {
   const {value, parents} = runCb(cb);

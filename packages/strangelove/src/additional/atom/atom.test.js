@@ -1,15 +1,15 @@
 import {describe, expect, it, jest} from '@jest/globals';
-import {AsyncUserAtom, createSyncStateAtom, SyncUserAtom} from './atom.js';
-import {AsyncAtom, SyncAtom} from '../../essential/atom/atom.js';
+import {AtomRootAsync, AtomRootSync} from './atom.js';
+import {AtomAsync, AtomSync} from '../../essential/atom/atom.js';
 import {ReadWriteSync, ReadWriteAsync} from '../../essential/index.js';
 
-describe('user atom', () => {
-  it('SyncUserAtom', () => {
+describe('additional atom', () => {
+  it('AtomRootSync', () => {
     const root = {
       update: jest.fn(),
     };
     const name = 'name123';
-    const atom = new SyncUserAtom({
+    const atom = new AtomRootSync({
       value: new ReadWriteSync({
         get: () => 'hello',
         set: () => '',
@@ -17,7 +17,7 @@ describe('user atom', () => {
       root,
       name,
     });
-    expect(atom instanceof SyncAtom).toBe(true);
+    expect(atom instanceof AtomSync).toBe(true);
     expect(atom.root).toBe(root);
     expect(atom.name).toBe(name);
     expect(atom.get()).toBe('hello');
@@ -25,12 +25,12 @@ describe('user atom', () => {
     expect(root.update.mock.calls.length).toBe(1);
     expect(root.update.mock.calls[0][0]).toBe(atom);
   });
-  it('AsyncUserAtom', async () => {
+  it('AtomRootAsync', async () => {
     const root = {
       update: jest.fn(),
     };
     const name = 'name123';
-    const atom = new AsyncUserAtom({
+    const atom = new AtomRootAsync({
       value: new ReadWriteAsync({
         get: async () => 'hello',
         set: async () => '',
@@ -38,23 +38,12 @@ describe('user atom', () => {
       root,
       name,
     });
-    expect(atom instanceof AsyncAtom).toBe(true);
+    expect(atom instanceof AtomAsync).toBe(true);
     expect(atom.root).toBe(root);
     expect(atom.name).toBe(name);
     expect(await atom.get()).toBe('hello');
     await atom.set('new-hello');
     expect(root.update.mock.calls.length).toBe(1);
     expect(root.update.mock.calls[0][0]).toBe(atom);
-  });
-  it('createSyncStateAtom()', () => {
-    const oldValue = 'old';
-    const newValue = 'new';
-    const atom = createSyncStateAtom(oldValue);
-    expect(atom.value.get()).toBe(oldValue);
-    atom.value.update();
-    expect(atom.value.get()).toBe(oldValue);
-
-    atom.value.set(newValue);
-    expect(atom.get()).toBe(newValue);
   });
 });

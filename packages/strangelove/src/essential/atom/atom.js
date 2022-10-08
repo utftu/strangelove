@@ -24,5 +24,5 @@ class Atom {
 
 export default Atom;
 export {Atom as Atom};
-export class SyncAtom extends Atom {}
-export class AsyncAtom extends Atom {}
+export class AtomSync extends Atom {}
+export class AtomAsync extends Atom {}

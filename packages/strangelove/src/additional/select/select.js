@@ -1,11 +1,11 @@
 import {select} from '../../essential/index.js';
-import {AsyncUserAtom, SyncUserAtom} from '../atom/atom.js';
+import {AtomRootAsync, AtomRootSync} from '../atom/atom.js';
 
-function userSelect(cb, root) {
+function selectRoot(cb, root) {
   return select(cb, {
-    createSyncAtom: (config) => new SyncUserAtom({root, ...config}),
-    createAsyncAtom: (config) => new AsyncUserAtom({root, ...config}),
+    createSyncAtom: (config) => new AtomRootSync({root, ...config}),
+    createAsyncAtom: (config) => new AtomRootAsync({root, ...config}),
   });
 }
 
-export default userSelect;
+export default selectRoot;

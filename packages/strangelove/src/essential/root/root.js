@@ -1,4 +1,4 @@
-import FastUpdater from '../updaters/fast/index.js';
+import FastUpdater from '../updaters/fast/fast.js';
 
 class Root {
   constructor({updater} = {}) {

@@ -1,7 +1,7 @@
 import selectSync from './sync.js';
 import {describe, expect, it, jest} from '@jest/globals';
-import {ReadWriteSync} from '../value/sync.js';
-import {SyncAtom} from '../atom/atom.js';
+import {createStoreSync, ReadWriteSync} from '../value/sync.js';
+import {AtomSync} from '../atom/atom.js';
 import Root from '../root/root.js';
 import runCb from './run-cb.js';
 
@@ -17,7 +17,7 @@ function createReadWriteSync(value) {
   });
 }
 
-const createSyncAtom = (config) => new SyncAtom(config);
+const createSyncAtom = (config) => new AtomSync(config);
 
 describe('select sync', () => {
   it('sync get', () => {
@@ -25,8 +25,8 @@ describe('select sync', () => {
     const newParent1Value = 'new parent1 value';
     const parent2Value = 'parent2 value';
 
-    const parent1 = new SyncAtom({value: createReadWriteSync(parent1Value)});
-    const parent2 = new SyncAtom({value: createReadWriteSync(parent2Value)});
+    const parent1 = new AtomSync({value: createReadWriteSync(parent1Value)});
+    const parent2 = new AtomSync({value: createReadWriteSync(parent2Value)});
 
     const calls = jest.fn();
     const selectorAtom = selectSync({
@@ -56,8 +56,8 @@ describe('select sync', () => {
     const parent2Value = 'parent2 value';
     let parentNum = 1;
 
-    const parent1 = new SyncAtom({value: createReadWriteSync(parent1Value)});
-    const parent2 = new SyncAtom({value: createReadWriteSync(parent2Value)});
+    const parent1 = new AtomSync({value: createReadWriteSync(parent1Value)});
+    const parent2 = new AtomSync({value: createReadWriteSync(parent2Value)});
 
     const selector = selectSync({
       ...runCb((get) => {
@@ -77,5 +77,36 @@ describe('select sync', () => {
     root.update(parent1);
     expect(selector.relations.parents.size).toBe(1);
     expect([...selector.relations.parents][0]).toBe(parent2);
+  });
+  it('save value', () => {
+    const parent1 = new AtomSync({
+      value: createStoreSync({
+        value: 'parent1',
+        get() {
+          return this.value;
+        },
+        set(newValue) {
+          this.value = newValue;
+        },
+      }),
+    });
+    const parent2 = new AtomSync({
+      value: createStoreSync({
+        value: 'parent2',
+        get() {
+          return this.value;
+        },
+        set(newValue) {
+          this.value = newValue;
+        },
+      }),
+    });
+    const atom = selectSync({
+      ...runCb((get) => {
+        return get(parent1) + get(parent2);
+      }),
+      createAtom: (config) => new AtomSync(config),
+    });
+    expect(atom.value.get()).toBe(parent1.value.get() + parent2.value.get());
   });
 });

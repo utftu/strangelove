@@ -39,19 +39,15 @@ export class ReadWriteSync extends ReadSync {
   }
 }
 
-export function createSyncStore({get, set, value, needCheckPrev}) {
+export function createStoreSync({set, ...config}) {
   if (set) {
     return new ReadWriteSync({
-      get,
       set,
-      value,
-      needCheckPrev,
+      ...config,
     });
   } else {
     return new ReadSync({
-      get,
-      value,
-      needCheckPrev,
+      ...config,
     });
   }
 }

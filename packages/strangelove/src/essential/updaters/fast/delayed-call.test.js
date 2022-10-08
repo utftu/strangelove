@@ -1,4 +1,4 @@
-import {expect, describe} from '@jest/globals';
+import {expect, describe, it} from '@jest/globals';
 import awaitTime from 'utftu/awaitTime';
 import DelayedCalls from './delayed-calls.js';
 

@@ -1,4 +1,4 @@
-import {AsyncAtom, SyncAtom} from '../../atom/atom.js';
+import {AtomAsync, AtomSync} from '../../atom/atom.js';
 import createControlledPromise from 'utftu/createControlledPromise';
 import {noop} from '../../consts/consts.js';
 import DelayedCalls from './delayed-calls.js';
@@ -9,6 +9,7 @@ class FastUpdater {
   delayedCalls = new DelayedCalls();
   transactions = new WeakMap();
   update(atom, cb = noop) {
+    debugger;
     const [promise, promiseControls] = createControlledPromise();
     const transactionKey = {};
 
@@ -49,10 +50,8 @@ class FastUpdater {
     return true;
   }
   _updateSelect(atom, transaction) {
-    if (atom instanceof SyncAtom) {
+    if (atom instanceof AtomSync) {
       this._updateSync(atom, transaction);
-    } else if (atom instanceof AsyncAtom) {
-      this._updateAsync(atom, transaction);
     } else {
       this._updateAsync(atom, transaction);
     }

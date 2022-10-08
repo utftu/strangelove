@@ -1,10 +1,12 @@
 import {describe, it, expect, jest} from '@jest/globals';
-import {AsyncAtom, SyncAtom} from '../atom/atom.js';
+import {AtomAsync, AtomSync} from '../atom/atom.js';
 import runCb from './run-cb.js';
 import Root from '../root/root.js';
 import selectAsync from './async.js';
-import {ReadWriteAsync} from '../value/async.js';
+import {createStoreAsync, ReadWriteAsync} from '../value/async.js';
 import awaitTime from 'utftu/awaitTime';
+import {createStoreSync} from '../value/sync.js';
+import selectSync from './sync.js';
 
 function createReadWriteAsync(value) {
   return new ReadWriteAsync({
@@ -18,7 +20,7 @@ function createReadWriteAsync(value) {
   });
 }
 
-const createAsyncAtom = (config) => new AsyncAtom(config);
+const createAsyncAtom = (config) => new AtomAsync(config);
 
 describe('async', () => {
   it('async get', async () => {
@@ -26,8 +28,8 @@ describe('async', () => {
     const newParent1Value = 'new parent1 value';
     const parent2Value = 'parent2 value';
 
-    const parent1 = new SyncAtom({value: createReadWriteAsync(parent1Value)});
-    const parent2 = new SyncAtom({value: createReadWriteAsync(parent2Value)});
+    const parent1 = new AtomSync({value: createReadWriteAsync(parent1Value)});
+    const parent2 = new AtomSync({value: createReadWriteAsync(parent2Value)});
 
     const calls = jest.fn();
     const selectorAtom = await selectAsync({
@@ -54,8 +56,8 @@ describe('async', () => {
     expect(calls.mock.calls[1][0]).toBe(newParent1Value + parent2Value);
   });
   it('discard old updates', async () => {
-    const parent1 = new SyncAtom({value: createReadWriteAsync('paren1')});
-    const parent2 = new SyncAtom({value: createReadWriteAsync('parent1')});
+    const parent1 = new AtomSync({value: createReadWriteAsync('paren1')});
+    const parent2 = new AtomSync({value: createReadWriteAsync('parent1')});
     let updateCount = 0;
     const atom = await selectAsync({
       ...runCb(async (get) => {
@@ -79,5 +81,38 @@ describe('async', () => {
     await awaitTime(100);
     expect(atom.relations.parents.size).toBe(1);
     expect(atom.relations.parents.has(parent2)).toBe(true);
+  });
+  it('save value', async () => {
+    const parent1 = new AtomSync({
+      value: createStoreSync({
+        value: 'parent1',
+        get() {
+          return this.value;
+        },
+        set(newValue) {
+          this.value = newValue;
+        },
+      }),
+    });
+    const parent2 = new AtomSync({
+      value: createStoreAsync({
+        value: 'parent2',
+        get() {
+          return this.value;
+        },
+        set(newValue) {
+          this.value = newValue;
+        },
+      }),
+    });
+    const atom = await selectAsync({
+      ...runCb((get) => {
+        return get(parent1) + get(parent2);
+      }),
+      createAtom: (config) => new AtomAsync(config),
+    });
+    expect(await atom.value.get()).toBe(
+      parent1.value.get() + parent2.value.get()
+    );
   });
 });

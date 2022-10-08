@@ -1,7 +1,8 @@
-import {SyncAtom, AsyncAtom} from '../../essential/atom/atom.js';
-import {createSyncStore} from '../../essential/value/sync.js';
+import {AtomSync, AtomAsync} from '../../essential/atom/atom.js';
+import {createStoreSync} from '../../essential/value/sync.js';
+import {createAsyncStore} from '../value/async.js';
 
-export class SyncUserAtom extends SyncAtom {
+export class AtomRootSync extends AtomSync {
   constructor({root, name, ...atomConfig}) {
     super(atomConfig);
     this.name = name;
@@ -16,21 +17,21 @@ export class SyncUserAtom extends SyncAtom {
   }
 }
 
-export function createSyncStateAtom(value) {
-  return new SyncUserAtom({
-    value: createSyncStore({
-      get() {
-        return this.value;
-      },
-      set(newValue) {
-        this.value = newValue;
-      },
-      value,
-    }),
-  });
-}
+// export function createStateAtomSync(value) {
+//   return new AtomRootSync({
+//     value: createStoreSync({
+//       get() {
+//         return this.value;
+//       },
+//       set(newValue) {
+//         this.value = newValue;
+//       },
+//       value,
+//     }),
+//   });
+// }
 
-export class AsyncUserAtom extends AsyncAtom {
+export class AtomRootAsync extends AtomAsync {
   constructor({root, name, ...atomConfig}) {
     super(atomConfig);
     this.name = name;
@@ -44,3 +45,17 @@ export class AsyncUserAtom extends AsyncAtom {
     return this.root.update(this);
   }
 }
+//
+// export function createStateAtomSync(value) {
+//   return new AtomRootSync({
+//     value: createAsyncStore({
+//       get() {
+//         return this.value;
+//       },
+//       set(newValue) {
+//         this.value = newValue;
+//       },
+//       value,
+//     }),
+//   });
+// }

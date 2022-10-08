@@ -1,5 +1,5 @@
 import {describe, expect, it, jest} from '@jest/globals';
-import {createSyncStore, ReadSync, ReadWriteSync} from './sync.js';
+import {createStoreSync, ReadSync, ReadWriteSync} from './sync.js';
 
 describe('value sync', () => {
   it('init', () => {
@@ -44,13 +44,13 @@ describe('value sync', () => {
   });
   describe('createSyncStore()', () => {
     it('read', () => {
-      const store = createSyncStore({
+      const store = createStoreSync({
         get: () => {},
       });
       expect(store instanceof ReadSync).toBe(true);
     });
     it('write', () => {
-      const store = createSyncStore({
+      const store = createStoreSync({
         get: () => {},
         set: () => {},
       });
@@ -81,6 +81,17 @@ describe('value sync', () => {
       expect(setResult).toBe(true);
       expect(set.mock.calls.length).toBe(1);
       expect(set.mock.calls[0][0]).toBe('hello-new');
+    });
+  });
+  describe('createStoreSync', () => {
+    it('set', () => {
+      const store = createStoreSync({set: () => {}});
+
+      expect(store instanceof ReadWriteSync).toBe(true);
+    });
+    it('not set', () => {
+      const store = createStoreSync({});
+      expect(store instanceof ReadSync).toBe(true);
     });
   });
 });
