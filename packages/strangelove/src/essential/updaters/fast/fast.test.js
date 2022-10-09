@@ -49,35 +49,28 @@ describe('updaters/fast', () => {
   it('throw first update', async () => {
     let atom2Calls = 0;
     const onUpdateAtom3 = jest.fn();
-    const atom1 = new AtomAsync({
-      name: 'atom1',
-    });
+    const atom1 = new AtomAsync();
     const atom2 = new AtomAsync({
-      name: 'atom2',
       value: new ReadAsync({
         async get() {
-          if (atom2Calls < 1) {
+          if (atom2Calls === 0) {
             atom2Calls++;
-            await waitTime(20);
+            await waitTime(40);
           }
         },
       }),
     });
     const atom3 = new AtomAsync({
-      name: 'atom2',
       onUpdate: onUpdateAtom3,
     });
     Atom.connect(atom1, atom2);
     Atom.connect(atom2, atom3);
-    atom1.name = 'atom1';
-    atom2.name = 'atom2';
-    atom3.name = 'atom3';
 
     const root = new Root();
     root.update(atom1);
-    await waitTime(1);
+    await waitTime(10);
     root.update(atom1);
-    await waitTime(30);
+    await waitTime(50);
     expect(onUpdateAtom3.mock.calls.length).toBe(1);
   });
   it('sync discard', async () => {
