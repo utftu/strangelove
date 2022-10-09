@@ -23,8 +23,7 @@
       },
       "import": "./dist/esm/prod.js",
       "require": "./dist/cjs/prod.js"
-    },
-    "./*": "./*"
+    }
   },
   "keywords": [],
   "author": "",

@@ -14,9 +14,9 @@ export function selectGetter<TValue>(
   ) => TValue
 ): TValue extends Promise<any> ? AtomRootAsync<TValue> : AtomRootSync<TValue>;
 
-export type Select<TValue, TConfig extends Config<TValue>> = (
+export function select<TValue, TConfig extends Config<TValue>>(
   runFn: typeof selectGetter,
   config?: Config<TValue>
-) => TValue extends Promise<any> ? AtomAsync<TValue> : AtomSync<TValue>;
+): TValue extends Promise<any> ? AtomAsync<TValue> : AtomSync<TValue>;
 
-export default Select;
+export default select;

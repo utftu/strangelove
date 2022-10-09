@@ -4,7 +4,7 @@
 
 import {render} from '@testing-library/react';
 import {describe, expect, it} from '@jest/globals';
-import {SyncUserAtom, UserRoot} from 'strangelove';
+import {AtomRootSync, RootConnected} from 'strangelove';
 import {act} from 'react-dom/test-utils';
 import useStrangeLoveSelect from './use-strange-love-select.js';
 import {createElement} from 'react';
@@ -12,9 +12,9 @@ import awaitTime from 'utftu/awaitTime';
 
 describe('use-strange-love', () => {
   it('values', async () => {
-    const root = new UserRoot();
-    const parent1 = root.createSyncStateAtom('parent1');
-    const parent2 = root.createSyncStateAtom('parent2');
+    const root = new RootConnected();
+    const parent1 = root.createStateAtomSync('parent1');
+    const parent2 = root.createStateAtomSync('parent2');
     let values;
     let updateCount = 0;
     function Component() {
@@ -27,12 +27,12 @@ describe('use-strange-love', () => {
     render(createElement(Component));
     expect(updateCount).toBe(1);
     expect(values[0]).toBe(parent1.get() + parent2.get());
-    expect(values[1] instanceof SyncUserAtom).toBe(true);
+    expect(values[1] instanceof AtomRootSync).toBe(true);
   });
   it('unsubscribe', async () => {
-    const root = new UserRoot();
-    const parent1 = root.createSyncStateAtom('parent1');
-    const parent2 = root.createSyncStateAtom('parent2');
+    const root = new RootConnected();
+    const parent1 = root.createStateAtomSync('parent1');
+    const parent2 = root.createStateAtomSync('parent2');
     let values;
     function Component() {
       values = useStrangeLoveSelect((get) => {
@@ -45,9 +45,9 @@ describe('use-strange-love', () => {
     expect(values[1].relations.parents.size).toBe(0);
   });
   it('updates', async () => {
-    const root = new UserRoot();
-    const parent1 = root.createSyncStateAtom('parent1');
-    const parent2 = root.createSyncStateAtom('parent2');
+    const root = new RootConnected();
+    const parent1 = root.createStateAtomSync('parent1');
+    const parent2 = root.createStateAtomSync('parent2');
     let values;
     let updateCount = 0;
     function Component() {

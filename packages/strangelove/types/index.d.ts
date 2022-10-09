@@ -6,10 +6,8 @@ import {ReadSync, ReadWriteSync} from './essential/sync-value';
 import {ReadAsync, ReadWriteAsync} from './essential/async-value';
 import Listeners from './essential/listeners';
 import Relations from './essential/relations';
-import {Select} from './essential/select';
+import {select} from './essential/select';
 import Root from './essential/root';
-
-export const hello: any;
 
 export {
   AtomRootAsync,
@@ -26,6 +24,6 @@ export {
   ReadWriteAsync,
   Listeners,
   Relations,
-  Select,
+  select,
   Root,
 };

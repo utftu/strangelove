@@ -7,12 +7,12 @@ import {createElement} from 'react';
 import {describe, expect, it} from '@jest/globals';
 import useRoot from './use-root.js';
 import defaultRoot from '../default-root.js';
-import {UserRoot} from 'strangelove';
+import {RootConnected} from 'strangelove';
 import {StrangeLoveProvider} from '../context.js';
 
 describe('use-root', () => {
   it('custom root', () => {
-    const customRoot = new UserRoot();
+    const customRoot = new RootConnected();
     let root;
     function Component() {
       root = useRoot(customRoot);
@@ -33,7 +33,7 @@ describe('use-root', () => {
     expect(root).toBe(defaultRoot);
   });
   it('context root', () => {
-    const contextRoot = new UserRoot();
+    const contextRoot = new RootConnected();
     function Parent() {
       return createElement(
         StrangeLoveProvider,
