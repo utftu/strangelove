@@ -1,5 +1,5 @@
 import {expect, describe, it} from '@jest/globals';
-import awaitTime from 'utftu/awaitTime';
+import waitTime from "utftu/wait-time.js";
 import DelayedCalls from './delayed-calls.js';
 
 describe('delayed calls', () => {
@@ -18,7 +18,7 @@ describe('delayed calls', () => {
     });
 
     expect(count).toBe(0);
-    await awaitTime();
+    await waitTime();
     expect(count).toBe(2);
   });
   it('clear old changes', async () => {
@@ -27,12 +27,12 @@ describe('delayed calls', () => {
     let b = 0;
     calls.add('a', () => a++);
     calls.add('b', () => b++);
-    await awaitTime();
+    await waitTime();
     expect(a).toBe(1);
     expect(b).toBe(1);
-    await awaitTime();
+    await waitTime();
     calls.add('a', () => a++);
-    await awaitTime();
+    await waitTime();
     expect(a).toBe(2);
     expect(b).toBe(1);
   });

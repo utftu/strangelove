@@ -8,7 +8,7 @@ import {RootConnected, AtomRootSync} from 'strangelove';
 import {act} from 'react-dom/test-utils';
 import useStrangeLove from './use-strange-love.js';
 import {createElement} from 'react';
-import awaitTime from 'utftu/awaitTime';
+import waitTime from "utftu/wait-time.js";
 
 describe('use-strange-love', () => {
   it('values', () => {
@@ -57,14 +57,14 @@ describe('use-strange-love', () => {
     expect(updateCount).toBe(1);
     await act(async () => {
       parent1.set('parent1-new');
-      await awaitTime(40);
+      await waitTime(40);
     });
     expect(values[0]).toBe(parent1.get());
     expect(values[1]).toBe(parent2.get());
     expect(updateCount).toBe(2);
     await act(async () => {
       parent2.set('parent2-new');
-      await awaitTime(40);
+      await waitTime(40);
     });
     expect(values[0]).toBe(parent1.get());
     expect(values[1]).toBe(parent2.get());

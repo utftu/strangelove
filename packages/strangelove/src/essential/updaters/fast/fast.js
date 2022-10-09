@@ -1,5 +1,5 @@
-import {AtomAsync, AtomSync} from '../../atom/atom.js';
-import createControlledPromise from 'utftu/createControlledPromise';
+import {AtomSync} from '../../atom/atom.js';
+import createControlledPromise from 'utftu/create-controlled-promise.js';
 import {noop} from '../../consts/consts.js';
 import DelayedCalls from './delayed-calls.js';
 

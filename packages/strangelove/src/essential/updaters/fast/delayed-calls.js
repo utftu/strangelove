@@ -1,4 +1,4 @@
-import createControlledPromise from 'utftu/createControlledPromise';
+import createControlledPromise from 'utftu/create-controlled-promise.js';
 
 class DelayedCalls {
   constructor(batch) {

@@ -1,7 +1,7 @@
 import {describe, it, expect, jest} from '@jest/globals';
 import Fast from './fast.js';
 import Atom, {AtomAsync, AtomSync} from '../../atom/atom.js';
-import awaitTime from 'utftu/awaitTime';
+import waitTime from "utftu/wait-time.js";
 import {
   createStoreAsync,
   ReadAsync,
@@ -22,7 +22,7 @@ describe('updaters/fast', () => {
     Atom.connect(parent, child);
     const fast = new Fast();
     fast.update(parent);
-    await awaitTime();
+    await waitTime();
     expect(parentOnUpdate.mock.calls.length).toBe(1);
     expect(childOnUpdate.mock.calls.length).toBe(1);
   });
@@ -36,7 +36,7 @@ describe('updaters/fast', () => {
           return this.value;
         },
         async set(newValue) {
-          awaitTime(10);
+          waitTime(10);
           this.value = newValue;
         },
       }),
@@ -58,7 +58,7 @@ describe('updaters/fast', () => {
         async get() {
           if (atom2Calls < 1) {
             atom2Calls++;
-            await awaitTime(20);
+            await waitTime(20);
           }
         },
       }),
@@ -75,9 +75,9 @@ describe('updaters/fast', () => {
 
     const root = new Root();
     root.update(atom1);
-    await awaitTime(1);
+    await waitTime(1);
     root.update(atom1);
-    await awaitTime(30);
+    await waitTime(30);
     expect(onUpdateAtom3.mock.calls.length).toBe(1);
   });
   it('sync discard', async () => {
@@ -88,7 +88,7 @@ describe('updaters/fast', () => {
     const parent1 = new AtomAsync({
       value: createStoreAsync({
         async get() {
-          await awaitTime(50);
+          await waitTime(50);
         },
       }),
     });
@@ -105,7 +105,7 @@ describe('updaters/fast', () => {
     expect(runCount).toBe(0);
 
     const update1 = root.update(parent1);
-    await awaitTime(10);
+    await waitTime(10);
     const update2 = root.update(parent2);
     await Promise.all([update1, update2]);
     expect(updateCount).toBe(1);
@@ -117,7 +117,7 @@ describe('updaters/fast', () => {
     const parent1 = new AtomAsync({
       value: createStoreAsync({
         async get() {
-          await awaitTime(50);
+          await waitTime(50);
         },
       }),
     });
@@ -134,7 +134,7 @@ describe('updaters/fast', () => {
     expect(updateCount).toBe(0);
 
     const update1 = root.update(parent1);
-    await awaitTime(10);
+    await waitTime(10);
     const update2 = root.update(parent2);
     await Promise.all([update1, update2]);
     expect(updateCount).toBe(1);
@@ -159,7 +159,7 @@ describe('updaters/fast', () => {
       onBeforeUpdate: async () => {
         if (runCount === 0) {
           runCount++;
-          await awaitTime(30);
+          await waitTime(30);
           return true;
         }
         return true;
@@ -170,7 +170,7 @@ describe('updaters/fast', () => {
     expect(updateCount).toBe(0);
 
     const update1 = root.update(parent1);
-    await awaitTime(10);
+    await waitTime(10);
     const update2 = root.update(parent2);
     await Promise.all([update1, update2]);
     expect(updateCount).toBe(1);
@@ -183,7 +183,7 @@ describe('updaters/fast', () => {
       onUpdate,
     });
     await root.update(atom);
-    await awaitTime(10);
+    await waitTime(10);
     expect(onUpdate.mock.calls.length).toBe(0);
   });
   it('async discard onBeforeUpdate()', async () => {
@@ -194,7 +194,7 @@ describe('updaters/fast', () => {
       onUpdate,
     });
     await root.update(atom);
-    await awaitTime(10);
+    await waitTime(10);
     expect(onUpdate.mock.calls.length).toBe(0);
   });
 });

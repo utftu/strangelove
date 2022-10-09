@@ -1,5 +1,5 @@
 import {describe, expect, it, jest} from '@jest/globals';
-import awaitTime from 'utftu/awaitTime';
+import waitTime from "utftu/wait-time.js";
 import {createStoreAsync, ReadAsync, ReadWriteAsync} from './async.js';
 
 describe('value sync', () => {
@@ -51,7 +51,7 @@ describe('value sync', () => {
     it('update wait set', async () => {
       const get = jest.fn(async () => {});
       const set = jest.fn(async (newValue) => {
-        await awaitTime(10);
+        await waitTime(10)
         return newValue + ' bar';
       });
       const atom = await new ReadWriteAsync({

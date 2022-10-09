@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
-import useForceUpdate from 'utftu/useForceUpdate';
+import useForceUpdate from 'utftu/use-force-update.js';
 import {Atom, Root} from 'strangelove';
 import useRoot from '../user-root/use-root.js';
 

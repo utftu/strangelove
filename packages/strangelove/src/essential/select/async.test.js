@@ -4,9 +4,8 @@ import runCb from './run-cb.js';
 import Root from '../root/root.js';
 import selectAsync from './async.js';
 import {createStoreAsync, ReadWriteAsync} from '../value/async.js';
-import awaitTime from 'utftu/awaitTime';
+import waitTime from "utftu/wait-time.js";
 import {createStoreSync} from '../value/sync.js';
-import selectSync from './sync.js';
 
 function createReadWriteAsync(value) {
   return new ReadWriteAsync({
@@ -64,7 +63,7 @@ describe('async', () => {
         if (updateCount === 1) {
           updateCount++;
           get(parent1);
-          await awaitTime(100);
+          await waitTime(100);
           return 'one';
         } else if (updateCount === 2) {
           updateCount++;
@@ -76,9 +75,9 @@ describe('async', () => {
       createAtom: createAsyncAtom,
     });
     atom.value.update();
-    await awaitTime(20);
+    await waitTime(20);
     atom.value.update();
-    await awaitTime(100);
+    await waitTime(100);
     expect(atom.relations.parents.size).toBe(1);
     expect(atom.relations.parents.has(parent2)).toBe(true);
   });
