@@ -27,15 +27,17 @@
     "dist/**/*"
   ],
   "devDependencies": {
+    "@testing-library/react": "^13.4.0",
+    "@types/react": "^18.0.21",
+    "react": ">=17",
+    "react-dom": "^18.2.0",
     "strangelove": "workspace:*"
   },
   "peerDependencies": {
+    "react": ">=17",
     "strangelove": "workspace:*"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@types/react": "^18.0.21"
-  }
+  "license": "ISC"
 }
