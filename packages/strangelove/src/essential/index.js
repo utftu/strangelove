@@ -1,6 +1,7 @@
 import {Atom, AtomAsync, AtomSync} from './atom/atom.js';
 import {ReadAsync, ReadWriteAsync, createStoreAsync} from './value/async.js';
 import {ReadSync, ReadWriteSync, createStoreSync} from './value/sync.js';
+import FastUpdater from "../essential/updaters/fast/fast.js";
 import Root from './root/root.js';
 import select from './select/index.js';
 
@@ -14,6 +15,7 @@ export {
   ReadWriteSync,
   createStoreAsync,
   createStoreSync,
+  FastUpdater,
   Root,
   select,
 };

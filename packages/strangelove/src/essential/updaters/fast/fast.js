@@ -5,8 +5,14 @@ import DelayedCalls from './delayed-calls.js';
 
 const transactionAtomKey = Symbol('transaction');
 
+function emptyBatch(cb) {
+  cb()
+}
+
 class FastUpdater {
-  delayedCalls = new DelayedCalls();
+  constructor({batch = emptyBatch} = {}) {
+    this.delayedCalls = new DelayedCalls(batch)
+  }
   transactions = new WeakMap();
   update(atom, cb = noop) {
     const [promise, promiseControls] = createControlledPromise();
@@ -72,7 +78,10 @@ class FastUpdater {
       return;
     }
 
-    atom.value?.update();
+    if (atom.value?.update() === false) {
+      this._finishTransactionOnAtom(transaction);
+      return;
+    }
 
     atom[transactionAtomKey] = transaction;
     this.delayedCalls.add(atom, () => atom.listeners.trigger(atom));
@@ -97,7 +106,10 @@ class FastUpdater {
       return;
     }
 
-    await atom.value?.update();
+    if (await atom.value?.update() === false) {
+      this._finishTransactionOnAtom(transaction);
+      return;
+    }
 
     if (!this._checkTimeAllowUpdate(atom, transaction)) {
       this._finishTransactionOnAtom(transaction);

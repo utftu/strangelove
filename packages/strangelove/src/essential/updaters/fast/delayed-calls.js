@@ -2,7 +2,7 @@ import createControlledPromise from 'utftu/create-controlled-promise.js';
 
 class DelayedCalls {
   constructor(batch) {
-    this.batch = batch || ((cb) => cb());
+    this.batch = batch;
   }
   calls = new Map();
   promise = null;
