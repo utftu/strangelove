@@ -16,6 +16,12 @@ export class AtomRootSync extends AtomSync {
     }
     return this.root.update(this);
   }
+  subscribe(cb) {
+    return this.listeners.subscribe(cb)
+  }
+  unsubscribe(cb) {
+    return this.listeners.subscribe(cb)
+  }
 }
 
 export class AtomRootAsync extends AtomAsync {
@@ -33,5 +39,11 @@ export class AtomRootAsync extends AtomAsync {
       return false
     }
     return this.root.update(this);
+  }
+  subscribe(cb) {
+    return this.listeners.subscribe(cb)
+  }
+  unsubscribe(cb) {
+    return this.listeners.subscribe(cb)
   }
 }
