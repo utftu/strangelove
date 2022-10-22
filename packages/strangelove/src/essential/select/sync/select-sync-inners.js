@@ -1,7 +1,7 @@
 import {ReadSync} from '../../value/sync.js';
 import runCb from '../run-cb/run-cb.js';
 
-function selectSync({cb, value, parents, createAtom}) {
+function selectSyncInners({cb, value, parents, createAtom}) {
   const atom = createAtom({
     value: new ReadSync({
       get() {
@@ -19,4 +19,4 @@ function selectSync({cb, value, parents, createAtom}) {
   return atom;
 }
 
-export default selectSync;
+export default selectSyncInners;

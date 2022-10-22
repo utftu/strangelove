@@ -3,7 +3,7 @@ import runCb from '../run-cb/run-cb.js';
 
 const updateTimeKey = Symbol('update time');
 
-async function selectAsync({cb, value, parents, createAtom}) {
+async function selectAsyncInners({cb, value, parents, createAtom}) {
   const atom = createAtom({
     value: new ReadAsync({
       async get() {
@@ -29,4 +29,4 @@ async function selectAsync({cb, value, parents, createAtom}) {
   return atom;
 }
 
-export default selectAsync;
+export default selectAsyncInners;

@@ -1,4 +1,4 @@
-import selectSync from './select-sync-inners.js';
+import selectSyncInners from './select-sync-inners.js';
 import {describe, expect, it, jest} from '@jest/globals';
 import {createStoreSync, ReadWriteSync} from '../../value/sync.js';
 import {AtomSync} from '../../atom/atom.js';
@@ -29,7 +29,7 @@ describe('select sync', () => {
     const parent2 = new AtomSync({value: createReadWriteSync(parent2Value)});
 
     const calls = jest.fn();
-    const selectorAtom = selectSync({
+    const selectorAtom = selectSyncInners({
       ...runCb((get) => {
         const parent1Value = get(parent1);
         const parent2Value = get(parent2);
@@ -59,7 +59,7 @@ describe('select sync', () => {
     const parent1 = new AtomSync({value: createReadWriteSync(parent1Value)});
     const parent2 = new AtomSync({value: createReadWriteSync(parent2Value)});
 
-    const selector = selectSync({
+    const selector = selectSyncInners({
       ...runCb((get) => {
         if (parentNum === 1) {
           get(parent1);
@@ -101,7 +101,7 @@ describe('select sync', () => {
         },
       }),
     });
-    const atom = selectSync({
+    const atom = selectSyncInners({
       ...runCb((get) => {
         return get(parent1) + get(parent2);
       }),

@@ -1,7 +1,7 @@
 import ReadValueAsync from './read-value-async.js';
 import ReadWriteValueAsync from './read-write-value-async.js';
 
-export function createStoreAsync({set, ...config}) {
+function createValueAsync({set, ...config}) {
   if (set) {
     return new ReadWriteValueAsync({
       set,
@@ -13,3 +13,5 @@ export function createStoreAsync({set, ...config}) {
     });
   }
 }
+
+export default createValueAsync;
