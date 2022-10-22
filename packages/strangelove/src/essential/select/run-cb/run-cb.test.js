@@ -1,6 +1,6 @@
 import runCb from './run-cb.js';
 import {expect, it} from '@jest/globals';
-import {RootConnected} from '../../additional/index.js';
+import {RootConnected} from '../../../additional/index.js';
 
 it('run-cb', () => {
   const root = new RootConnected();

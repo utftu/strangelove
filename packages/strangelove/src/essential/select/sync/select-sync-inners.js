@@ -1,5 +1,5 @@
-import {ReadSync} from '../value/sync.js';
-import runCb from './run-cb.js';
+import {ReadSync} from '../../value/sync.js';
+import runCb from '../run-cb/run-cb.js';
 
 function selectSync({cb, value, parents, createAtom}) {
   const atom = createAtom({

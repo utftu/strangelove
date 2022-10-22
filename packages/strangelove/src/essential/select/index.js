@@ -1,6 +1,6 @@
-import selectSync from './sync.js';
-import selectAsync from './async.js';
-import runCb from './run-cb.js';
+import selectSyncInners from './sync/select-sync-inners.js';
+import selectAsyncInners from './async/select-async-inners.js';
+import runCb from './run-cb/run-cb.js';
 import {AtomAsync, AtomSync} from '../atom/atom.js';
 
 export default function select(
@@ -13,14 +13,14 @@ export default function select(
   const {value, parents} = runCb(cb);
 
   if (value instanceof Promise) {
-    return selectAsync({
+    return selectAsyncInners({
       cb,
       value,
       parents,
       createAtom: createAsyncAtom,
     });
   } else {
-    return selectSync({
+    return selectSyncInners({
       cb,
       value,
       parents,

@@ -1,11 +1,11 @@
 import {describe, it, expect, jest} from '@jest/globals';
-import {AtomAsync, AtomSync} from '../atom/atom.js';
-import runCb from './run-cb.js';
-import Root from '../root/root.js';
-import selectAsync from './async.js';
-import {createStoreAsync, ReadWriteAsync} from '../value/async.js';
-import waitTime from "utftu/wait-time.js";
-import {createStoreSync} from '../value/sync.js';
+import {AtomAsync, AtomSync} from '../../atom/atom.js';
+import runCb from './../run-cb/run-cb.js';
+import Root from '../../root/root.js';
+import selectAsyncInners from './select-async-inners.js';
+import {createStoreAsync, ReadWriteAsync} from '../../value/async.js';
+import waitTime from 'utftu/wait-time.js';
+import {createStoreSync} from '../../value/sync.js';
 
 function createReadWriteAsync(value) {
   return new ReadWriteAsync({
@@ -31,7 +31,7 @@ describe('async', () => {
     const parent2 = new AtomSync({value: createReadWriteAsync(parent2Value)});
 
     const calls = jest.fn();
-    const selectorAtom = await selectAsync({
+    const selectorAtom = await selectAsyncInners({
       ...runCb(async (get) => {
         const parent1Value = await get(parent1);
         const parent2Value = await get(parent2);
@@ -58,7 +58,7 @@ describe('async', () => {
     const parent1 = new AtomSync({value: createReadWriteAsync('paren1')});
     const parent2 = new AtomSync({value: createReadWriteAsync('parent1')});
     let updateCount = 0;
-    const atom = await selectAsync({
+    const atom = await selectAsyncInners({
       ...runCb(async (get) => {
         if (updateCount === 1) {
           updateCount++;
@@ -104,7 +104,7 @@ describe('async', () => {
         },
       }),
     });
-    const atom = await selectAsync({
+    const atom = await selectAsyncInners({
       ...runCb((get) => {
         return get(parent1) + get(parent2);
       }),

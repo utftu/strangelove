@@ -1,5 +1,5 @@
-import {ReadAsync} from '../value/async.js';
-import runCb from './run-cb/run-cb.js';
+import {ReadAsync} from '../../value/async.js';
+import runCb from '../run-cb/run-cb.js';
 
 const updateTimeKey = Symbol('update time');
 
