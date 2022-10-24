@@ -6,10 +6,10 @@ function createStateAtomSync(value, root) {
     {
       value: createValueSync({
         get() {
-          return this.value;
+          return value;
         },
         set(newValue) {
-          this.value = newValue;
+          value = newValue;
         },
         value,
       }),

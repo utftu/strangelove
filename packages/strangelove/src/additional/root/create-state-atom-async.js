@@ -1,4 +1,3 @@
-import {createStoreSync} from '../../essential/index.js';
 import createValueAsync from '../../essential/value/async/create-value-async.js';
 import createAtomAsyncRoot from './create-atom-async.js';
 
@@ -7,10 +6,10 @@ function createStateAtomAsync(value, root) {
     {
       value: createValueAsync({
         async get() {
-          return this.value;
+          return value;
         },
         async set(newValue) {
-          this.value = newValue;
+          value = newValue;
         },
         value,
       }),

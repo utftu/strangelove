@@ -1,8 +1,8 @@
 import AtomAsyncRoot from '../atom/atom-async-root.js';
 
-function createAtomAsyncRoot(config) {
+function createAtomAsyncRoot(config, root) {
   return new AtomAsyncRoot({
-    root: this,
+    root,
     ...config,
   });
 }
