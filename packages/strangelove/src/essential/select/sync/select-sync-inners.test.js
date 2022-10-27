@@ -1,12 +1,13 @@
+import createStateValueSync from '../../value/sync/create-state-value-sync.js';
+import ReadWriteValueSync from '../../value/sync/read-write-value-sync.js';
 import selectSyncInners from './select-sync-inners.js';
 import {describe, expect, it, jest} from '@jest/globals';
-import {createStoreSync, ReadWriteSync} from '../../value/sync.js';
 import {AtomSync} from '../../atom/atom.js';
 import Root from '../../root/root.js';
 import runCb from '../run-cb/run-cb.js';
 
 function createReadWriteSync(value) {
-  return new ReadWriteSync({
+  return new ReadWriteValueSync({
     value,
     get() {
       return this.value;
@@ -80,7 +81,7 @@ describe('select sync', () => {
   });
   it('save value', () => {
     const parent1 = new AtomSync({
-      value: createStoreSync({
+      value: createStateValueSync({
         value: 'parent1',
         get() {
           return this.value;
@@ -91,7 +92,7 @@ describe('select sync', () => {
       }),
     });
     const parent2 = new AtomSync({
-      value: createStoreSync({
+      value: createStateValueSync({
         value: 'parent2',
         get() {
           return this.value;

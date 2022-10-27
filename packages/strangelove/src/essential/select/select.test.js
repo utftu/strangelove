@@ -1,6 +1,6 @@
 import {describe, it, expect} from '@jest/globals';
 import {AtomAsync, AtomSync} from '../atom/atom.js';
-import select from './index.js';
+import select from './select.js';
 
 describe('select', () => {
   it('sync', () => {

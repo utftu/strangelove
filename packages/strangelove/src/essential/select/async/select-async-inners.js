@@ -1,11 +1,11 @@
-import {ReadAsync} from '../../value/async.js';
 import runCb from '../run-cb/run-cb.js';
+import ReadValueAsync from '../../value/async/read-value-async.js';
 
 const updateTimeKey = Symbol('update time');
 
 async function selectAsyncInners({cb, value, parents, createAtom}) {
   const atom = createAtom({
-    value: new ReadAsync({
+    value: new ReadValueAsync({
       async get() {
         const startDate = Date.now();
         atom[updateTimeKey] = startDate;

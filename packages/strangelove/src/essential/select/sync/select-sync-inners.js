@@ -1,9 +1,9 @@
-import {ReadSync} from '../../value/sync.js';
 import runCb from '../run-cb/run-cb.js';
+import ReadValueSync from '../../value/sync/read-value-sync.js';
 
 function selectSyncInners({cb, value, parents, createAtom}) {
   const atom = createAtom({
-    value: new ReadSync({
+    value: new ReadValueSync({
       get() {
         const {value, parents} = runCb(cb);
 

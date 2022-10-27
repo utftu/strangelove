@@ -1,12 +1,10 @@
 import {describe, it, expect, jest} from '@jest/globals';
+import createValueAsync from '../../value/async/create-value-async.js';
+import ReadValueAsync from '../../value/async/read-value-async.js';
+import ReadWriteValueAsync from '../../value/async/read-write-value-async.js';
 import Fast from './fast.js';
 import Atom, {AtomAsync, AtomSync} from '../../atom/atom.js';
-import waitTime from "utftu/wait-time.js";
-import {
-  createStoreAsync,
-  ReadAsync,
-  ReadWriteAsync,
-} from '../../value/async.js';
+import waitTime from 'utftu/wait-time.js';
 import Root from '../../root/root.js';
 
 describe('updaters/fast', () => {
@@ -30,7 +28,7 @@ describe('updaters/fast', () => {
     const initValue = 'init';
     const afterValue = 'after';
     const atom = new AtomAsync({
-      value: new ReadWriteAsync({
+      value: new ReadWriteValueAsync({
         value: initValue,
         async get() {
           return this.value;
@@ -51,7 +49,7 @@ describe('updaters/fast', () => {
     const onUpdateAtom3 = jest.fn();
     const atom1 = new AtomAsync();
     const atom2 = new AtomAsync({
-      value: new ReadAsync({
+      value: new ReadValueAsync({
         async get() {
           if (atom2Calls === 0) {
             atom2Calls++;
@@ -79,14 +77,14 @@ describe('updaters/fast', () => {
     const root = new Root();
 
     const parent1 = new AtomAsync({
-      value: createStoreAsync({
+      value: createValueAsync({
         async get() {
           await waitTime(50);
         },
       }),
     });
     const parent2 = new AtomAsync({
-      value: createStoreAsync({
+      value: createValueAsync({
         async get() {},
       }),
     });
@@ -108,14 +106,14 @@ describe('updaters/fast', () => {
     const root = new Root();
 
     const parent1 = new AtomAsync({
-      value: createStoreAsync({
+      value: createValueAsync({
         async get() {
           await waitTime(50);
         },
       }),
     });
     const parent2 = new AtomAsync({
-      value: createStoreAsync({
+      value: createValueAsync({
         async get() {},
       }),
     });
@@ -138,12 +136,12 @@ describe('updaters/fast', () => {
     const root = new Root();
 
     const parent1 = new AtomAsync({
-      value: createStoreAsync({
+      value: createValueAsync({
         async get() {},
       }),
     });
     const parent2 = new AtomAsync({
-      value: createStoreAsync({
+      value: createValueAsync({
         async get() {},
       }),
     });
