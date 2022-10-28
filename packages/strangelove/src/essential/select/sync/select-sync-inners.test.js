@@ -1,4 +1,4 @@
-import createStateValueSync from '../../value/sync/create-state-value-sync.js';
+import createValueSync from '../../value/sync/create-state-value-sync.js';
 import ReadWriteValueSync from '../../value/sync/read-write-value-sync.js';
 import selectSyncInners from './select-sync-inners.js';
 import {describe, expect, it, jest} from '@jest/globals';
@@ -81,7 +81,7 @@ describe('select sync', () => {
   });
   it('save value', () => {
     const parent1 = new AtomSync({
-      value: createStateValueSync({
+      value: createValueSync({
         value: 'parent1',
         get() {
           return this.value;
@@ -92,7 +92,7 @@ describe('select sync', () => {
       }),
     });
     const parent2 = new AtomSync({
-      value: createStateValueSync({
+      value: createValueSync({
         value: 'parent2',
         get() {
           return this.value;

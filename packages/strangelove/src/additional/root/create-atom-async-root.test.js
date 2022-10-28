@@ -1,6 +1,6 @@
 import {it, expect} from '@jest/globals';
 import Root from '../../essential/root/root.js';
-import createAtomAsyncRoot from './create-atom-async.js';
+import createAtomAsyncRoot from './create-atom-async-root.js';
 import AtomAsyncRoot from '../atom/atom-async-root.js';
 
 it('createAsyncAtom()', () => {

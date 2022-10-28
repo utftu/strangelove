@@ -1,5 +1,6 @@
 import {it, jest, expect} from '@jest/globals';
-import {ReadWriteAsync, AtomAsync} from '../../essential/index.js';
+import {AtomAsync} from '../../essential/index.js';
+import ReadWriteValueAsync from '../../essential/value/async/read-write-value-async.js';
 import AtomAsyncRoot from './atom-async-root.js';
 
 it('AtomRootAsync', async () => {
@@ -8,7 +9,7 @@ it('AtomRootAsync', async () => {
   };
   const name = 'name123';
   const atom = new AtomAsyncRoot({
-    value: new ReadWriteAsync({
+    value: new ReadWriteValueAsync({
       get: async () => 'hello',
       set: async () => '',
     }),

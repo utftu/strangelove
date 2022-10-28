@@ -1,5 +1,5 @@
 import createValueAsync from '../../essential/value/async/create-value-async.js';
-import createAtomAsyncRoot from './create-atom-async.js';
+import createAtomAsyncRoot from './create-atom-async-root.js';
 
 function createStateAtomAsync(value, root) {
   return createAtomAsyncRoot(

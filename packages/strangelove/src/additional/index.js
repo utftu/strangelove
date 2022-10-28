@@ -1,10 +1,6 @@
-import {AtomRootSync, AtomRootAsync} from './atom/atom.js';
-import RootConnected from './root/root.js';
+import AtomSyncRoot from './atom/atom-sync-root.js';
+import AtomAsyncRoot from './atom/atom-async-root.js';
 
-export {AtomRootSync, AtomRootAsync, RootConnected};
+export {};
 
-export default {
-  SyncUserAtom: AtomRootSync,
-  AsyncUserAtom: AtomRootAsync,
-  UserRoot: RootConnected,
-};
+export default {};

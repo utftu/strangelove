@@ -1,6 +1,6 @@
 import ReadWriteValueSync from './read-write-value-sync.js';
 
-function createStateValueSync(value) {
+function createValueSync(value) {
   return new ReadWriteValueSync({
     get() {
       return value;
@@ -12,4 +12,4 @@ function createStateValueSync(value) {
   });
 }
 
-export default createStateValueSync;
+export default createValueSync;

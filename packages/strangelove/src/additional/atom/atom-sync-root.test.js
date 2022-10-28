@@ -1,5 +1,6 @@
 import {it, jest, expect} from '@jest/globals';
-import {ReadWriteSync, AtomSync} from '../../essential/index.js';
+import {AtomSync} from '../../essential/index.js';
+import ReadWriteValueSync from '../../essential/value/sync/read-write-value-sync.js';
 import AtomSyncRoot from './atom-sync-root.js';
 
 it('AtomSyncRoot', () => {
@@ -8,7 +9,7 @@ it('AtomSyncRoot', () => {
   };
   const name = 'name123';
   const atom = new AtomSyncRoot({
-    value: new ReadWriteSync({
+    value: new ReadWriteValueSync({
       get: () => 'hello',
       set: () => '',
     }),
