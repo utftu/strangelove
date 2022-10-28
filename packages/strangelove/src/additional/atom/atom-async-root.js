@@ -20,7 +20,7 @@ class AtomAsyncRoot extends AtomAsync {
     return this.listeners.subscribe(cb);
   }
   unsubscribe(cb) {
-    return this.listeners.subscribe(cb);
+    return this.listeners.unsubscribe(cb);
   }
 }
 

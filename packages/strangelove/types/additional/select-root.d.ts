@@ -1,4 +1,4 @@
-import {selectGetter} from '../essential/select';
+import {selectGetter} from '../essential/select-old';
 import {AtomRootAsync, AtomRootSync, AtomRootConfig} from './atom-root';
 
 export interface SelectRootConfig<TValue> {

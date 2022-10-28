@@ -1,6 +1,6 @@
 import Root from '../essential/root';
 import {AtomRootAsync, AtomRootSync, AtomRootConfig} from './atom-root';
-import {selectGetter} from '../essential/select';
+import {selectGetter} from '../essential/select-old';
 
 export class RootConnected extends Root {
   createAtomSync<TValue>(config?: AtomRootConfig<TValue>): AtomRootSync<TValue>;

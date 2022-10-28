@@ -1,3 +1,4 @@
+import {selectRoot} from 'strangelove/src/index.js';
 import useForceUpdate from 'utftu/use-force-update.js';
 import {useCallback, useEffect, useState} from 'react';
 import useRoot from '../user-root/use-root.js';
@@ -9,6 +10,7 @@ function useStrangeLoveSelect(cb, customRoot) {
     store.changedBeforeMount = true;
   }, []);
   const [store] = useState(() => {
+    selectRoot();
     const atom = root.select(cb);
 
     atom.listeners.subscribe(first);

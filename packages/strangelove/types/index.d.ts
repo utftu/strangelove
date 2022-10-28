@@ -6,7 +6,7 @@ import {ReadSync, ReadWriteSync} from './essential/sync-value';
 import {ReadAsync, ReadWriteAsync} from './essential/async-value';
 import Listeners from './essential/listeners';
 import Relations from './essential/relations';
-import {select} from './essential/select';
+import {select} from './essential/select-old';
 import Root from './essential/root';
 
 export {
