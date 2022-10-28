@@ -1,7 +1,7 @@
 import {it, expect} from '@jest/globals';
 import Root from '../../essential/root/root.js';
 import AtomSyncRoot from '../atom/atom-sync-root.js';
-import createAtomSyncRoot from './create-atom-sync.js';
+import createAtomSyncRoot from './create-atom-sync-root.js';
 
 it('createSyncAtom()', () => {
   const root = new Root();

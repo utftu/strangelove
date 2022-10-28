@@ -1,7 +1,7 @@
 import createValueSync from '../../essential/value/sync/create-value-sync.js';
-import createAtomSyncRoot from './create-atom-sync.js';
+import createAtomSyncRoot from './create-atom-sync-root.js';
 
-function createStateAtomSync(value, root) {
+function createStateAtomSyncRoot(value, root) {
   return createAtomSyncRoot(
     {
       value: createValueSync({
@@ -18,4 +18,4 @@ function createStateAtomSync(value, root) {
   );
 }
 
-export default createStateAtomSync;
+export default createStateAtomSyncRoot;

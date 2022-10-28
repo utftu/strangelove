@@ -1,7 +1,7 @@
 import createValueAsync from '../../essential/value/async/create-value-async.js';
 import createAtomAsyncRoot from './create-atom-async-root.js';
 
-function createStateAtomAsync(value, root) {
+function createStateAtomAsyncRoot(value, root) {
   return createAtomAsyncRoot(
     {
       value: createValueAsync({
@@ -18,4 +18,4 @@ function createStateAtomAsync(value, root) {
   );
 }
 
-export default createStateAtomAsync;
+export default createStateAtomAsyncRoot;
