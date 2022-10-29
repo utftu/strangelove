@@ -1,5 +1,5 @@
-import {Root} from 'strangelove';
+import {createDefaultRoot} from 'strangelove';
 
-const defaultRoot = new Root();
+const defaultRoot = createDefaultRoot();
 
 export default defaultRoot;
