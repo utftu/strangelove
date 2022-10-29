@@ -1,17 +1,17 @@
 import {AtomSync} from '../../atom/atom.js';
 import createControlledPromise from 'utftu/create-controlled-promise.js';
 import {noop} from '../../consts/consts.js';
-import DelayedCalls from './delayed-calls.js';
+import DelayedCalls from '../delayed-calls/delayed-calls.js';
 
 const transactionAtomKey = Symbol('transaction');
 
 function emptyBatch(cb) {
-  cb()
+  cb();
 }
 
 class FastUpdater {
   constructor({batch = emptyBatch} = {}) {
-    this.delayedCalls = new DelayedCalls(batch)
+    this.delayedCalls = new DelayedCalls(batch);
   }
   transactions = new WeakMap();
   update(atom, cb = noop) {
@@ -106,7 +106,7 @@ class FastUpdater {
       return;
     }
 
-    if (await atom.value?.update() === false) {
+    if ((await atom.value?.update()) === false) {
       this._finishTransactionOnAtom(transaction);
       return;
     }

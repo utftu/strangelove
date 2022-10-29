@@ -1,10 +1,11 @@
 import createStateAtomSyncRoot from '../../../additional/root/create-state-atom-sync-root.js';
+import createDefaultRoot from '../../root/create-default-root.js';
 import Root from '../../root/root.js';
 import runCb from './run-cb.js';
 import {expect, it} from '@jest/globals';
 
 it('run-cb', () => {
-  const root = new Root();
+  const root = createDefaultRoot();
   const parent1 = createStateAtomSyncRoot('parent1', root);
   const parent2 = createStateAtomSyncRoot('parent2', root);
   const resultValue = parent1.get() + parent2.get();

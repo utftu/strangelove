@@ -1,8 +1,6 @@
-import FastUpdater from '../updaters/fast/fast.js';
-
 class Root {
   constructor({updater} = {}) {
-    this.updater = updater ?? new FastUpdater();
+    this.updater = updater;
   }
 
   update(atom) {

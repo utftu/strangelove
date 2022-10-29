@@ -1,5 +1,6 @@
 import {describe, it, expect, jest} from '@jest/globals';
 import {AtomAsync, AtomSync} from '../../atom/atom.js';
+import createDefaultRoot from '../../root/create-default-root.js';
 import createValueSync from '../../value/sync/create-value-sync.js';
 import runCb from './../run-cb/run-cb.js';
 import Root from '../../root/root.js';
@@ -47,7 +48,7 @@ describe('async', () => {
     expect(calls.mock.calls.length).toBe(1);
     expect(calls.mock.calls[0][0]).toBe(parent1Value + parent2Value);
 
-    const root = new Root();
+    const root = createDefaultRoot();
 
     parent1.value.set(newParent1Value);
     await root.update(parent1);

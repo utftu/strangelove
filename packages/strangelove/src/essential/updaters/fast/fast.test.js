@@ -1,11 +1,11 @@
 import {describe, it, expect, jest} from '@jest/globals';
+import createDefaultRoot from '../../root/create-default-root.js';
 import createValueAsync from '../../value/async/create-value-async.js';
 import ReadValueAsync from '../../value/async/read-value-async.js';
 import ReadWriteValueAsync from '../../value/async/read-write-value-async.js';
 import Fast from './fast.js';
 import Atom, {AtomAsync, AtomSync} from '../../atom/atom.js';
 import waitTime from 'utftu/wait-time.js';
-import Root from '../../root/root.js';
 
 describe('updaters/fast', () => {
   it('one child', async () => {
@@ -40,7 +40,7 @@ describe('updaters/fast', () => {
       }),
     });
     atom.value.set(afterValue);
-    const root = new Root();
+    const root = createDefaultRoot();
     await root.update(atom);
     expect(atom.value.syncValue).toBe(afterValue);
   });
@@ -64,7 +64,7 @@ describe('updaters/fast', () => {
     Atom.connect(atom1, atom2);
     Atom.connect(atom2, atom3);
 
-    const root = new Root();
+    const root = createDefaultRoot();
     root.update(atom1);
     await waitTime(10);
     root.update(atom1);
@@ -74,7 +74,7 @@ describe('updaters/fast', () => {
   it('sync discard', async () => {
     let runCount = 0;
     let updateCount = 0;
-    const root = new Root();
+    const root = createDefaultRoot();
 
     const parent1 = new AtomAsync({
       value: createValueAsync({
@@ -103,7 +103,7 @@ describe('updaters/fast', () => {
   });
   it('async discard', async () => {
     let updateCount = 0;
-    const root = new Root();
+    const root = createDefaultRoot();
 
     const parent1 = new AtomAsync({
       value: createValueAsync({
@@ -133,7 +133,7 @@ describe('updaters/fast', () => {
   it('async after onBeforeUpdate() discard', async () => {
     let updateCount = 0;
     let runCount = 0;
-    const root = new Root();
+    const root = createDefaultRoot();
 
     const parent1 = new AtomAsync({
       value: createValueAsync({
@@ -167,7 +167,7 @@ describe('updaters/fast', () => {
     expect(updateCount).toBe(1);
   });
   it('sync discard onBeforeUpdate()', async () => {
-    const root = new Root();
+    const root = createDefaultRoot();
     const onUpdate = jest.fn();
     const atom = new AtomSync({
       onBeforeUpdate: () => false,
@@ -178,7 +178,7 @@ describe('updaters/fast', () => {
     expect(onUpdate.mock.calls.length).toBe(0);
   });
   it('async discard onBeforeUpdate()', async () => {
-    const root = new Root();
+    const root = createDefaultRoot();
     const onUpdate = jest.fn();
     const atom = new AtomAsync({
       onBeforeUpdate: async () => false,

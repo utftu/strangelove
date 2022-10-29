@@ -1,3 +1,4 @@
+import createDefaultRoot from '../../root/create-default-root.js';
 import createValueSync from '../../value/sync/create-state-value-sync.js';
 import ReadWriteValueSync from '../../value/sync/read-write-value-sync.js';
 import selectSyncInners from './select-sync-inners.js';
@@ -45,7 +46,7 @@ describe('select sync', () => {
     expect(calls.mock.calls.length).toBe(1);
     expect(calls.mock.calls[0][0]).toBe(parent1Value + parent2Value);
 
-    const root = new Root();
+    const root = createDefaultRoot();
 
     parent1.value.set(newParent1Value);
     root.update(parent1);
@@ -73,7 +74,7 @@ describe('select sync', () => {
     expect(selector.relations.parents.size).toBe(1);
     expect([...selector.relations.parents][0]).toBe(parent1);
     parentNum = 2;
-    const root = new Root();
+    const root = createDefaultRoot();
 
     root.update(parent1);
     expect(selector.relations.parents.size).toBe(1);
