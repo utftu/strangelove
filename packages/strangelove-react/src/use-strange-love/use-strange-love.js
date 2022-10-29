@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import useForceUpdate from 'utftu/use-force-update.js';
-import {Atom, Root} from 'strangelove';
+import {Atom, Root, createAtomSyncRoot} from 'strangelove';
 import useRoot from '../user-root/use-root.js';
 
 function parseArgs(args) {
@@ -31,9 +31,12 @@ function useStrangeLove(...args) {
     store.changedBeforeMount = true;
   }, []);
   const [store] = useState(() => ({
-    atom: root.createAtomSync({
-      onUpdate: first,
-    }),
+    atom: createAtomSyncRoot(
+      {
+        onUpdate: first,
+      },
+      root
+    ),
     changedBeforeMount: false,
   }));
 

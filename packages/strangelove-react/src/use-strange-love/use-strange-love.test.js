@@ -4,17 +4,21 @@
 
 import {render} from '@testing-library/react';
 import {describe, expect, it} from '@jest/globals';
-import {RootConnected, AtomRootSync} from 'strangelove';
 import {act} from 'react-dom/test-utils';
+import {
+  createDefaultRoot,
+  createStateAtomSyncRoot,
+  AtomSyncRoot,
+} from 'strangelove';
 import useStrangeLove from './use-strange-love.js';
 import {createElement} from 'react';
-import waitTime from "utftu/wait-time.js";
+import waitTime from 'utftu/wait-time.js';
 
 describe('use-strange-love', () => {
   it('values', () => {
-    const root = new RootConnected();
-    const parent1 = root.createStateAtomSync('parent1');
-    const parent2 = root.createStateAtomSync('parent2');
+    const root = createDefaultRoot();
+    const parent1 = createStateAtomSyncRoot('parent1', root);
+    const parent2 = createStateAtomSyncRoot('parent2', root);
     let values;
     function Component() {
       values = useStrangeLove(parent1, parent2);
@@ -23,12 +27,12 @@ describe('use-strange-love', () => {
     render(createElement(Component));
     expect(values[0]).toBe(parent1.get());
     expect(values[1]).toBe(parent2.get());
-    expect(values[2] instanceof AtomRootSync).toBe(true);
+    expect(values[2] instanceof AtomSyncRoot).toBe(true);
   });
   it('unsubscribe', () => {
-    const root = new RootConnected();
-    const parent1 = root.createStateAtomSync('parent1');
-    const parent2 = root.createStateAtomSync('parent2');
+    const root = createDefaultRoot();
+    const parent1 = createStateAtomSyncRoot('parent1', root);
+    const parent2 = createStateAtomSyncRoot('parent2', root);
     let values;
     function Component() {
       values = useStrangeLove(parent1, parent2);
@@ -39,9 +43,9 @@ describe('use-strange-love', () => {
     expect(values[2].relations.parents.size).toBe(0);
   });
   it('updates', async () => {
-    const root = new RootConnected();
-    const parent1 = root.createStateAtomSync('parent1');
-    const parent2 = root.createStateAtomSync('parent2');
+    const root = new createDefaultRoot();
+    const parent1 = createStateAtomSyncRoot('parent1', root);
+    const parent2 = createStateAtomSyncRoot('parent2', root);
     let values;
     let updateCount = 0;
     function Component() {
