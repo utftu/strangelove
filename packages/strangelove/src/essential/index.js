@@ -1,6 +1,7 @@
 import {Atom, AtomAsync, AtomSync} from './atom/atom.js';
 import createDefaultRoot from './root/create-default-root.js';
 import selectSync from './select/sync/select-sync.js';
+import SyncUpdater from './updaters/sync/sync.js';
 import createValueAsync from './value/async/create-value-async.js';
 import createValueSync from './value/sync/create-value-sync.js';
 import createStateValueSync from './value/sync/create-state-value-sync.js';
@@ -25,6 +26,7 @@ export {
   createValueAsync,
   createStateValueSync,
   FastUpdater,
+  SyncUpdater,
   Root,
   select,
   selectSync,
@@ -44,6 +46,7 @@ export default {
   createValueAsync,
   createStateValueSync,
   FastUpdater,
+  SyncUpdater,
   Root,
   select,
   selectSync,
