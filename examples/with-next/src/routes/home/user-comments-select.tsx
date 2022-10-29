@@ -7,7 +7,7 @@ interface Props {
 
 function UserCommentSelect(props: Props) {
   console.log('UserCommentSelect Component');
-  const [userComments, atom] = useStrangeLoveSelect((get) => {
+  const [userComments] = useStrangeLoveSelect((get) => {
     const users = get(props.store.atoms.users);
     const comments = get(props.store.atoms.comments);
 
