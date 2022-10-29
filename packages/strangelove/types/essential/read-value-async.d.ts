@@ -1,7 +1,7 @@
 export interface ReadValueAsyncConfig<TData> {
   get(): Promise<TData>;
-  needCheckPrev: boolean;
-  value: TData;
+  needCheckPrev?: boolean;
+  value?: TData;
 }
 
 export default class ReadValueAsync<TData> {
