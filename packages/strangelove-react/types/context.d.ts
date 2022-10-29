@@ -1,6 +1,6 @@
 import type {useContext, Provider, Context} from 'react';
-import type {RootConnected} from 'strangelove';
+import {Root} from 'strangelove';
 
-export type StrangeLoveContext = Context<RootConnected>;
-export type StrangeLoveProvider = Provider<RootConnected>;
-export type UseStrangeLoveRoot = typeof useContext<RootConnected>;
+export type StrangeLoveContext = Context<Root>;
+export type StrangeLoveProvider = Provider<Root>;
+export type UseStrangeLoveRoot = typeof useContext<Root>;
