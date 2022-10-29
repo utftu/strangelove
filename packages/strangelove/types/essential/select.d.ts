@@ -1,11 +1,13 @@
-import {Atom, AtomAsync, AtomConfig, AtomSync} from './atom';
+import Atom from './atom';
+import AtomAsync, {AtomAsyncProps} from './atom-async';
+import AtomSync, {AtomSyncProps} from './atom-sync';
 
-export interface Config<TValue> {
+export interface SelectConfig<TValue> {
   createAsyncAtom: <TAtom extends AtomAsync<TValue>>(
-    config: AtomConfig<TValue>
+    config: AtomAsyncProps<TValue>
   ) => TAtom;
   createSyncAtom: <TAtom extends AtomSync<TValue>>(
-    config: AtomConfig<TValue>
+    config: AtomSyncProps<TValue>
   ) => TAtom;
 }
 
@@ -13,7 +15,9 @@ export function getter<TAtomValue>(atom: Atom<TAtomValue>): TAtomValue;
 
 export default function select<TReturnValue>(
   cb: (get: typeof getter) => TReturnValue,
-  config: Config<TReturnValue extends Promise<infer Item> ? Item : TReturnValue>
+  config: SelectConfig<
+    TReturnValue extends Promise<infer Item> ? Item : TReturnValue
+  >
 ): TReturnValue extends Promise<infer Item>
   ? AtomAsync<Item>
   : AtomAsync<TReturnValue>;

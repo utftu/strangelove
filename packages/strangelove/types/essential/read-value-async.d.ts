@@ -6,6 +6,7 @@ export interface ReadValueAsyncConfig<TData> {
 
 export default class ReadValueAsync<TData> {
   constructor(config?: ReadValueAsyncConfig<TData>);
+  syncValue: TData;
   value: Promise<TData>;
   get(): Promise<TData>;
   getSync(): TData | undefined;

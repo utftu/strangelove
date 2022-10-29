@@ -1,4 +1,5 @@
-import {Atom, AtomSync} from './atom';
+import Atom from './atom';
+import AtomSync from './atom-sync';
 
 type Cb<TValue> = (
   getter: <TAtomValue>(atom: Atom<TAtomValue>) => TAtomValue

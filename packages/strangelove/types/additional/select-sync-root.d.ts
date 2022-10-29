@@ -1,13 +1,14 @@
 import AtomSyncRoot from './atom-sync-root';
 import Atom from '../essential/atom';
+import Root from '../essential/root';
 
 type Cb<TValue> = (
   getter: <TAtomValue>(atom: Atom<TAtomValue>) => TAtomValue
 ) => TValue | undefined;
 
-export function selectSync<TValue>(
+export function selectSyncRoot<TValue>(
   cb: Cb<TValue>,
-  createAtomSync?: <TAtom extends AtomSyncRoot<TValue>>() => TAtom
+  root: Root
 ): AtomSyncRoot<TValue>;
 
-export default selectSync;
+export default selectSyncRoot;
