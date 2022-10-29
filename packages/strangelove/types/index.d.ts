@@ -14,6 +14,7 @@ import Relations from './essential/relations';
 import Root from './essential/root';
 import select from './essential/select';
 import selectAsync from './essential/select-async';
+import createDefaultRoot from './essential/create-default-root';
 
 //additional
 import AtomAsyncRoot from './additional/atom-async-root';
@@ -43,6 +44,7 @@ export {
   Root,
   select,
   selectAsync,
+  createDefaultRoot,
 
   // additional
   AtomAsyncRoot,
