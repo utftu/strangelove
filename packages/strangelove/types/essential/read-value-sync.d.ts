@@ -1,7 +1,7 @@
 export interface ReadValueSyncConfig<TData> {
   get(): TData;
-  needCheckPrev: boolean;
-  value: TData;
+  needCheckPrev?: boolean;
+  value?: TData;
 }
 
 export default class ReadValueSync<TValue> {
