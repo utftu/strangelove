@@ -12,9 +12,9 @@ type AtomValues<TValue> =
   | ReadWriteValueAsync<TValue>;
 
 export interface AtomProps<TValue, TValueStore extends AtomValues<TValue>> {
-  value: TValueStore;
-  onBeforeUpdate: () => boolean;
-  onUpdate: () => void;
+  value?: TValueStore;
+  onBeforeUpdate?: () => boolean;
+  onUpdate?: () => void;
 }
 
 export class Atom<TValue = any> {
