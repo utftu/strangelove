@@ -16,6 +16,9 @@ class AtomSyncRoot extends AtomSync {
     }
     return this.root.update(this);
   }
+  update() {
+    return this.root.update(this);
+  }
   subscribe(cb) {
     return this.listeners.subscribe(cb);
   }

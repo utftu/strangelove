@@ -4,7 +4,6 @@ import ReadWriteValueSync from '../../value/sync/read-write-value-sync.js';
 import selectSyncInners from './select-sync-inners.js';
 import {describe, expect, it, jest} from '@jest/globals';
 import {AtomSync} from '../../atom/atom.js';
-import Root from '../../root/root.js';
 import runCb from '../run-cb/run-cb.js';
 
 function createReadWriteSync(value) {

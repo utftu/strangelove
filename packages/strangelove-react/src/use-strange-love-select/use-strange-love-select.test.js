@@ -31,7 +31,6 @@ describe('use-strange-love', () => {
     render(createElement(Component));
     expect(updateCount).toBe(1);
     expect(values[0]).toBe(parent1.get() + parent2.get());
-    console.log('-----', 'values[1].constructor', values[1].constructor);
     expect(values[1] instanceof AtomSyncRoot).toBe(true);
   });
   it('unsubscribe', async () => {
