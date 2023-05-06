@@ -7,14 +7,17 @@
   "scripts": {
     "build": "node ./scripts/build.js",
     "format": "prettier --write .",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "vitest",
+    "coverage": "vitest --coverage",
     "sandbox-next": "pnpm i && cd examples/with-next && pnpm dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "utftu": "^1.0.11"
+    "utftu": "^1.0.11",
+    "vite": "^4.3.5",
+    "vitest": "^0.31.0"
   },
   "devDependencies": {
     "@jest/globals": "^28.1.3",
