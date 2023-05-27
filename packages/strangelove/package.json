@@ -1,31 +1,17 @@
 {
   "name": "strangelove",
   "version": "1.0.8",
-  "description": "",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node ./build.js",
+    "test": "vitest"
   },
-  "types": "./dist/types/index.d.ts",
-  "main": "./dist/cjs/index.js",
   "files": [
     "dist/**/*"
   ],
-  "exports": {
-    ".": {
-      "development": {
-        "import": "./dist/esm/dev.js",
-        "require": "./dist/cjs/dev.js"
-      },
-      "production": {
-        "import": "./dist/esm/prod.js",
-        "require": "./dist/cjs/prod.js"
-      },
-      "import": "./dist/esm/prod.js",
-      "require": "./dist/cjs/prod.js"
-    }
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "sideEffects": false,
+  "main": "./dist/strangelove.js",
+  "import": "./dist/strangelove.js",
+  "require": "./dist/strangelove.cjs",
+  "license": "MIT"
 }

@@ -1,9 +1,9 @@
 import {runCb} from '../run-cb/run-cb.js';
-import {Select} from '../select.js';
-import {replaceParents} from '../utils.js';
+import {Atom} from '../../atom/atom.js';
+import {replaceParents} from '../utils/utils.js';
 
-export function selectSyncInners({cb, value, parents, root}) {
-  const atom = Select.new({
+export function selectSyncInners({cb, value, parents, root, onAtomCreate}) {
+  const atom = Atom.new({
     value,
     root,
     exec(atom) {
@@ -13,6 +13,8 @@ export function selectSyncInners({cb, value, parents, root}) {
     },
   });
   replaceParents(atom, parents);
+
+  onAtomCreate(atom);
 
   return atom;
 }

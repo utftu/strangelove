@@ -1,9 +1,15 @@
 import {runCb} from '../run-cb/run-cb.js';
-import {Select} from '../select.js';
-import {replaceParents} from '../utils.js';
+import {Atom} from '../../atom/atom.js';
+import {replaceParents} from '../utils/utils.js';
 
-export async function selectAsyncInners({cb, value, parents, root}) {
-  const atom = Select.new({
+export async function selectAsyncInners({
+  cb,
+  value,
+  parents,
+  root,
+  onAtomCreate,
+}) {
+  const atom = Atom.new({
     root,
     async exec(atom) {
       const {value, parents} = runCb(cb);
@@ -17,6 +23,7 @@ export async function selectAsyncInners({cb, value, parents, root}) {
       return true;
     },
   });
+  onAtomCreate(atom);
 
   const startTransaction = atom.transaction;
   const valueSync = await value;

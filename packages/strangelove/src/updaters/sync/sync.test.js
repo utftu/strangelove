@@ -1,7 +1,7 @@
 import {describe, it, vi, expect} from 'vitest';
 import {Root} from '../../root/root.js';
 import {SyncUpdater} from './sync.js';
-import {Atom} from '../../atom/atom.js';
+import {Atom, connectAtoms} from '../../atom/atom.js';
 
 describe('syncUpdater', () => {
   it('chain', () => {
@@ -15,8 +15,8 @@ describe('syncUpdater', () => {
       exec: atom3Exec,
     });
 
-    Atom.connect(atom1, atom2);
-    Atom.connect(atom2, atom3);
+    connectAtoms(atom1, atom2);
+    connectAtoms(atom2, atom3);
 
     expect(atom3Exec.mock.calls.length).toBe(0);
     root.update(atom1);
@@ -37,8 +37,8 @@ describe('syncUpdater', () => {
       exec: child2Exec,
     });
 
-    Atom.connect(parent, child1);
-    Atom.connect(parent, child2);
+    connectAtoms(parent, child1);
+    connectAtoms(parent, child2);
 
     root.update(parent);
 

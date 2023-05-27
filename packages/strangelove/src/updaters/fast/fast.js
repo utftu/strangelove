@@ -16,29 +16,39 @@ export class FastUpdater {
   constructor({batch = (cb) => cb()} = {}) {
     this.delayedCalls = new DelayedCalls(batch);
   }
-  transactions = new WeakMap();
+  #transactions = new WeakMap();
   update(atom) {
     const [promise, promiseControls] = createControlledPromise();
     const startTime = Date.now();
 
-    const externalTransactions = {
+    const fullTransaction = {
       promise,
       promiseControls,
       updateCount: 0,
       startTime: Date.now(),
-      endTime: null,
+      finishTime: null,
     };
 
     const transaction = {
       startTime,
     };
 
-    this.transactions.set(transaction, externalTransactions);
+    this.#transactions.set(transaction, fullTransaction);
 
     this.#updateSelect(atom, transaction);
-    return externalTransactions;
+
+    fullTransaction.promise.startTime = fullTransaction.startTime;
+    fullTransaction.promise.finishTime = fullTransaction.finishTime;
+    fullTransaction.promise.promise = promise;
+
+    // return fullTransaction.promise;
+    return {
+      startTime: fullTransaction.startTime,
+      finishTime: fullTransaction.finishTime,
+      promise: fullTransaction.promise,
+    };
   }
-  checkAtomTransaction(atom, transaction) {
+  #checkAtomTransaction(atom, transaction) {
     if (atom.transaction === transaction) {
       return false;
     }
@@ -49,25 +59,25 @@ export class FastUpdater {
   }
   #startTransasctionOnAtom(atom, transaction) {
     atom.transaction = transaction;
-    const transactionStore = this.transactions.get(transaction);
-    transactionStore.updateCount++;
+    const fullTransaction = this.#transactions.get(transaction);
+    fullTransaction.updateCount++;
   }
   #finishTransactionOnAtom(transaction) {
-    const transactionStore = this.transactions.get(transaction);
-    transactionStore.updateCount--;
+    const fullTransaction = this.#transactions.get(transaction);
+    fullTransaction.updateCount--;
 
     this.#checkAndFinishTransaction(transaction);
   }
   #checkAndFinishTransaction(transaction) {
-    const transactionStore = this.transactions.get(transaction);
+    const transactionStore = this.#transactions.get(transaction);
 
     if (transactionStore.updateCount === 0) {
-      transactionStore.endTime = Date.now();
-      transactionStore.promiseControls.resolve(transactionStore);
+      transactionStore.finishTime = Date.now();
+      transactionStore.promiseControls.resolve();
     }
   }
   #updateSelect(atom, transaction) {
-    if (this.checkAtomTransaction(atom, transaction) === false) {
+    if (this.#checkAtomTransaction(atom, transaction) === false) {
       this.#checkAndFinishTransaction(transaction);
       return;
     }

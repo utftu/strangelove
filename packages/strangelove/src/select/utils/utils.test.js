@@ -1,6 +1,6 @@
 import {describe, it, expect} from 'vitest';
 import {Atom} from '../../atom/atom.js';
-import {replaceParents} from '../utils.js';
+import {replaceParents} from './utils.js';
 
 describe('utils', () => {
   it('replaceParents', () => {

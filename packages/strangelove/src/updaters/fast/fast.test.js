@@ -27,8 +27,7 @@ describe('updaters/fast', () => {
     const atom1 = Atom.new();
     const atom2 = Atom.new({
       async exec() {
-        if (atom2Calls === 0) {
-          atom2Calls++;
+        if (atom2Calls++ === 0) {
           await waitTime(40);
         }
       },
@@ -37,14 +36,16 @@ describe('updaters/fast', () => {
     const atom3 = Atom.new({
       exec: atom3Exec,
     });
+
     Atom.connect(atom1, atom2);
     Atom.connect(atom2, atom3);
 
     const root = createDefaultRoot();
-    root.update(atom1);
-    await waitTime(10);
-    root.update(atom1);
-    await waitTime(50);
+    const update1 = root.update(atom1);
+    await waitTime(5);
+    const update2 = root.update(atom1);
+    await Promise.all([update1, update2]);
+
     expect(atom3Exec.mock.calls.length).toBe(1);
   });
   it('sync discard exec()', async () => {
@@ -53,8 +54,7 @@ describe('updaters/fast', () => {
     const atom = new Atom({
       exec: () => false,
     });
-    await root.update(atom);
-    await waitTime(10);
+    root.update(atom);
     expect(onUpdate.mock.calls.length).toBe(0);
   });
   it('async discard exec()', async () => {
@@ -63,8 +63,8 @@ describe('updaters/fast', () => {
     const atom = Atom.new({
       exec: async () => false,
     });
-    await root.update(atom);
-    await waitTime(10);
+    const update = root.update(atom);
+    await update.promise;
     expect(onUpdate.mock.calls.length).toBe(0);
   });
 });

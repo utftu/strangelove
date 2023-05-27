@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import {Atom} from './atom.js';
+import {Atom, connectAtoms, disconnectAtoms} from './atom.js';
 
 describe('atom', () => {
   it('creating', () => {
@@ -14,7 +14,7 @@ describe('atom', () => {
     const parent = Atom.new();
     const child = Atom.new();
 
-    Atom.connect(parent, child);
+    connectAtoms(parent, child);
 
     expect(parent.relations.children.size).toBe(1);
     expect([...parent.relations.children][0]).toBe(child);
@@ -26,8 +26,8 @@ describe('atom', () => {
     const parent = Atom.new();
     const child = Atom.new();
 
-    Atom.connect(parent, child);
-    Atom.disconnect(parent, child);
+    connectAtoms(parent, child);
+    disconnectAtoms(parent, child);
 
     expect(parent.relations.children.size).toBe(0);
     expect(child.relations.parents.size).toBe(0);

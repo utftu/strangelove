@@ -6,6 +6,9 @@ export class Value {
     this.value = value;
     this.checkPrev = checkPrev;
   }
+  setData(value) {
+    this.value = value;
+  }
   get() {
     return this.value;
   }
@@ -13,7 +16,7 @@ export class Value {
     if (this.checkPrev && this.value === value) {
       return false;
     }
-    this.value = value;
+    this.setData(value);
     return true;
   }
 }

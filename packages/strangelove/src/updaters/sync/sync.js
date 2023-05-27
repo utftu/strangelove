@@ -12,18 +12,11 @@ export class SyncUpdater {
     const startTime = Date.now();
     this.#updateSync(atom, {startTime});
 
-    const externalTransaction = {
-      promiseControls: {
-        resolve: () => {},
-        reject: () => {},
-      },
-      updateCount: 0,
+    return {
+      promise: Promise.resolve(),
       startTime,
-      endTime: startTime,
+      finishTime: Date.now(),
     };
-    const promise = Promise.resolve(externalTransaction);
-    externalTransaction.promise = promise;
-    return externalTransaction;
   }
   #updateChildren(atom, transaction) {
     for (const childAtom of [...atom.relations.children]) {
@@ -37,7 +30,7 @@ export class SyncUpdater {
       return;
     }
 
-    this.delayedCalls.add(atom, () => atom.listeners.trigger(atom));
+    // this.delayedCalls.add(atom, () => atom.listeners.trigger(atom));
 
     this.#updateChildren(atom, transaction);
   }
