@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node ./build.js"
   },
+  "main": "./dist/strangelove-svelte.js",
   "devDependencies": {
     "strangelove": "workspace:*"
   }

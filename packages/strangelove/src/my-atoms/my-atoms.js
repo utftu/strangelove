@@ -1,4 +1,3 @@
-// import {AtomState} from '../atom-state/atom-state.js';
 import {Atom} from '../atom/atom.js';
 import {select as selectBase} from '../select/select.js';
 import {createDefaultRoot} from '../root/default-root.js';
@@ -13,13 +12,17 @@ export class MyAtoms {
   }
   createAtom(value) {
     const atom = Atom.new({value, root: this.root});
+
     this.onAtomCreate(atom);
+
     return atom;
   }
   createSelect(cb) {
     return selectBase(cb, {
       root: this.root,
-      onAtomCreate: (atom) => this.onAtomCreate(atom),
+      onAtomCreate: (atom) => {
+        this.onAtomCreate(atom);
+      },
     });
   }
   constructor({plugins = []} = {}) {

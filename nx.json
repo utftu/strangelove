@@ -10,12 +10,17 @@
   "affected": {
     "defaultBase": "master"
   },
+  "targetDefaults": {
+    "dev": {
+      "dependsOn": ["^build"]
+    }
+  },
   "namedInputs": {
     "default": ["{projectRoot}/**/*"],
     "production": ["!{projectRoot}/**/*.test.tsx"]
   },
   "workspaceLayout": {
-    "appsDir": "packages",
+    "appsDir": "examples",
     "libsDir": "packages"
   }
 }

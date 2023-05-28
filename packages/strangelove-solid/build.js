@@ -8,6 +8,9 @@ await build({
         entry: ['./src/strangelove-solid.js'],
         formats: ['es', 'cjs'],
       },
+      rollupOptions: {
+        external: ['strangelove', 'solid-js'],
+      },
     },
   }),
 });
