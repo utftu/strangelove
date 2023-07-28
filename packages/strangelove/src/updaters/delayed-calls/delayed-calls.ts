@@ -23,7 +23,7 @@ export class DelayedCalls {
       const [promise, promiseControls] = createControlledPromise();
       this.promise = promise;
       this.promiseControls = promiseControls;
-      queueMicrotask(async () => {
+      Promise.resolve().then(async () => {
         await this.call();
         this.promiseControls!.resolve();
         this.calls.clear();

@@ -1,6 +1,6 @@
 import {Atom} from '../../atom/atom.ts';
 
-export function replaceParents(atom, newParents) {
+export function replaceParents(atom: Atom, newParents: Set<Atom>) {
   for (const oldParent of atom.relations.parents.values()) {
     Atom.disconnect(oldParent, atom);
   }
