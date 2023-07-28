@@ -9,12 +9,6 @@ type Props = {
   plugins?: Plugin[];
 };
 
-type Select<TCb extends Cb> = (
-  cb: Cb,
-) => ReturnType<TCb> extends Promise<infer TResult>
-  ? Promise<Atom<TResult>>
-  : Atom<ReturnType<TCb>>;
-
 export class MyAtoms {
   static new(props?: Props) {
     return new MyAtoms(props);
@@ -31,7 +25,11 @@ export class MyAtoms {
 
     return atom;
   }
-  createSelect(cb: Cb) {
+  createSelect<TCb extends Cb>(
+    cb: TCb,
+  ): ReturnType<TCb> extends Promise<infer TResult>
+    ? Promise<Atom<TResult>>
+    : Atom<ReturnType<TCb>> {
     return selectBase(cb, {
       root: this.root,
       onAtomCreate: (atom) => {
@@ -56,6 +54,7 @@ export function getMyAtoms() {
 
 export const atom = <TValue = any>(value: TValue) =>
   getMyAtoms().createAtom<TValue>(value);
+
 export const select = <TCb extends Cb>(
   cb: TCb,
 ): ReturnType<TCb> extends Promise<infer TResult>

@@ -1,5 +1,4 @@
-import {connectAtoms, disconnectAtoms, Atom} from 'strangelove';
-import {MyAtoms} from 'strangelove/src/my-atoms/my-atoms.ts';
+import {connectAtoms, disconnectAtoms, Atom, MyAtoms} from 'strangelove';
 
 type StoreWrite<TValue> = {
   subscribe: (subscription: (value: TValue) => void) => () => void;
@@ -34,7 +33,3 @@ export function addSvelteMyAtoms(myAtoms: MyAtoms) {
     return oldOnAtomCreate.call(myAtoms, atom);
   };
 }
-
-// export const hello = 'world';
-
-// sdsd 2323
