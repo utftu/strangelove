@@ -10,7 +10,13 @@ await build({
       formats: ['es'],
     },
   },
-  // plugins: [dts()],
+  plugins: [
+    dts({
+      outDir: './dist/types',
+      tsconfigPath: './tsconfig.json',
+      // entryRoot: '.',
+    }),
+  ],
   // ...defineConfig({
   //   build: {
   //     target: 'esnext',

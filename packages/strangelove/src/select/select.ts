@@ -1,5 +1,5 @@
 import {selectSyncInners} from './sync/select-sync-inners.ts';
-import {selectAsyncInners} from './async/select-async-inners.js';
+import {selectAsyncInners} from './async/select-async-inners.ts';
 import {Cb, runCb} from './run-cb/run-cb.ts';
 import {Atom} from '../atom/atom.ts';
 import {Root} from '../root/root.ts';

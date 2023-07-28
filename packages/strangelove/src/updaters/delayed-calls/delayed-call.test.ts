@@ -25,13 +25,19 @@ describe('delayed calls', () => {
     const calls = DelayedCalls.new((cb) => cb());
     let a = 0;
     let b = 0;
-    calls.add('a', () => a++);
-    calls.add('b', () => b++);
+    calls.add('a', () => {
+      a++;
+    });
+    calls.add('b', () => {
+      b++;
+    });
     await waitTime();
     expect(a).toBe(1);
     expect(b).toBe(1);
     await waitTime();
-    calls.add('a', () => a++);
+    calls.add('a', () => {
+      a++;
+    });
     await waitTime();
     expect(a).toBe(2);
     expect(b).toBe(1);

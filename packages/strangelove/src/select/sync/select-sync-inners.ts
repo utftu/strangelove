@@ -1,6 +1,6 @@
-import {Cb, runCb} from '../run-cb/run-cb.js';
+import {Cb, runCb} from '../run-cb/run-cb.ts';
 import {Atom} from '../../atom/atom.ts';
-import {replaceParents} from '../utils/utils.js';
+import {replaceParents} from '../utils/utils.ts';
 import {Root} from '../../root/root.ts';
 import {OnAtomCreate} from '../select.ts';
 

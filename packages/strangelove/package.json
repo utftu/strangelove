@@ -2,6 +2,7 @@
   "name": "strangelove",
   "version": "1.0.8",
   "type": "module",
+  "types": "./dist/types/strangelove.d.ts",
   "scripts": {
     "build": "node ./build.js",
     "test": "vitest"

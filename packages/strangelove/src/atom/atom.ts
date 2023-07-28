@@ -1,6 +1,6 @@
-import {Relations} from '../relations/relations.js';
-import {Listeners} from '../listeners/listeners.js';
-import {alwaysYes} from '../consts/consts.js';
+import {Relations} from '../relations/relations.ts';
+import {Listeners} from '../listeners/listeners.ts';
+import {alwaysYes} from '../consts/consts.ts';
 import {Value} from '../value/value.ts';
 import {Root} from '../root/root.ts';
 
