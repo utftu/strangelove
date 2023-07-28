@@ -1,7 +1,7 @@
-import {createDefaultRoot} from '../../root/default-root.js';
-import {runCb} from './run-cb.js';
+import {createDefaultRoot} from '../../root/default-root.ts';
+import {runCb} from './run-cb.ts';
 import {expect, it} from 'vitest';
-import {Atom} from '../../atom/atom.js';
+import {Atom} from '../../atom/atom.ts';
 
 it('run-cb', () => {
   const root = createDefaultRoot();

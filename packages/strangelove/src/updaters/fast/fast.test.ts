@@ -1,18 +1,21 @@
 import {describe, it, expect, vi} from 'vitest';
-import {FastUpdater} from './fast.js';
-import {Atom} from '../../atom/atom.js';
-import waitTime from 'utftu/wait-time.js';
-import {createDefaultRoot} from '../../root/default-root.js';
+import {FastUpdater} from './fast.ts';
+import {Atom} from '../../atom/atom.ts';
+import {waitTime} from 'utftu';
+import {createDefaultRoot} from '../../root/default-root.ts';
 
 describe('updaters/fast', () => {
   it('one child', async () => {
+    const root = vi.fn() as any;
     const parentExec = vi.fn();
     const childExec = vi.fn();
     const parent = Atom.new({
       exec: parentExec,
+      root,
     });
     const child = Atom.new({
       exec: childExec,
+      root,
     });
     Atom.connect(parent, child);
     const fast = FastUpdater.new();
@@ -22,25 +25,30 @@ describe('updaters/fast', () => {
     expect(childExec.mock.calls.length).toBe(1);
   });
   it('throw first update', async () => {
+    const root = createDefaultRoot();
     let atom2Calls = 0;
     const atom3Exec = vi.fn();
-    const atom1 = Atom.new();
+    const atom1 = Atom.new({
+      root,
+    });
     const atom2 = Atom.new({
+      root,
       async exec() {
         if (atom2Calls++ === 0) {
           await waitTime(40);
         }
+        return true;
       },
     });
 
     const atom3 = Atom.new({
       exec: atom3Exec,
+      root,
     });
 
     Atom.connect(atom1, atom2);
     Atom.connect(atom2, atom3);
 
-    const root = createDefaultRoot();
     const update1 = root.update(atom1);
     await waitTime(5);
     const update2 = root.update(atom1);
@@ -52,6 +60,7 @@ describe('updaters/fast', () => {
     const root = createDefaultRoot();
     const onUpdate = vi.fn();
     const atom = new Atom({
+      root,
       exec: () => false,
     });
     root.update(atom);
@@ -61,6 +70,7 @@ describe('updaters/fast', () => {
     const root = createDefaultRoot();
     const onUpdate = vi.fn();
     const atom = Atom.new({
+      root,
       exec: async () => false,
     });
     const update = root.update(atom);

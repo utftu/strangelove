@@ -1,5 +1,5 @@
 import {describe, expect, it, vi} from 'vitest';
-import {Listeners} from './listeners.js';
+import {Listeners} from './listeners.ts';
 
 describe('listeners', () => {
   it('subscribe()', () => {

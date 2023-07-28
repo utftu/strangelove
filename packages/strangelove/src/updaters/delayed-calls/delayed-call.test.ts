@@ -1,6 +1,6 @@
 import {expect, describe, it} from 'vitest';
-import waitTime from 'utftu/wait-time.js';
-import {DelayedCalls} from './delayed-calls.js';
+import {waitTime} from 'utftu';
+import {DelayedCalls} from './delayed-calls.ts';
 
 describe('delayed calls', () => {
   it('two values', async () => {

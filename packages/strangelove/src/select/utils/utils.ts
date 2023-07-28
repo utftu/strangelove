@@ -1,4 +1,4 @@
-import {Atom} from '../../atom/atom.js';
+import {Atom} from '../../atom/atom.ts';
 
 export function replaceParents(atom, newParents) {
   for (const oldParent of atom.relations.parents.values()) {

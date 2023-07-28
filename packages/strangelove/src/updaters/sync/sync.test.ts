@@ -1,7 +1,7 @@
 import {describe, it, vi, expect} from 'vitest';
-import {Root} from '../../root/root.js';
-import {SyncUpdater} from './sync.js';
-import {Atom, connectAtoms} from '../../atom/atom.js';
+import {Root} from '../../root/root.ts';
+import {SyncUpdater} from './sync.ts';
+import {Atom, connectAtoms} from '../../atom/atom.ts';
 
 describe('syncUpdater', () => {
   it('chain', () => {
@@ -9,9 +9,10 @@ describe('syncUpdater', () => {
       updater: SyncUpdater.new(),
     });
     const atom3Exec = vi.fn();
-    const atom1 = Atom.new();
-    const atom2 = Atom.new();
+    const atom1 = Atom.new({root});
+    const atom2 = Atom.new({root});
     const atom3 = Atom.new({
+      root,
       exec: atom3Exec,
     });
 
@@ -29,11 +30,13 @@ describe('syncUpdater', () => {
     });
     const child1Exec = vi.fn();
     const child2Exec = vi.fn();
-    const parent = Atom.new();
+    const parent = Atom.new({root});
     const child1 = Atom.new({
+      root,
       exec: child1Exec,
     });
     const child2 = Atom.new({
+      root,
       exec: child2Exec,
     });
 

@@ -1,6 +1,6 @@
 import {describe, it, expect} from 'vitest';
-import {atom, select} from '../my-atoms/my-atoms.js';
-import waitTime from 'utftu/wait-time.js';
+import {atom, select} from '../my-atoms/my-atoms.ts';
+import {waitTime} from 'utftu';
 
 describe('select', () => {
   it('select sync', () => {

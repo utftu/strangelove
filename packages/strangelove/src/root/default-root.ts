@@ -1,5 +1,5 @@
-import {FastUpdater} from '../updaters/fast/fast.js';
-import {Root} from './root.js';
+import {FastUpdater} from '../updaters/fast/fast.ts';
+import {Root} from './root.ts';
 
 export function createDefaultRoot() {
   return Root.new({

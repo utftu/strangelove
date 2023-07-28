@@ -1,20 +1,30 @@
-import {runCb} from '../run-cb/run-cb.js';
-import {Atom} from '../../atom/atom.js';
+import {Cb, runCb} from '../run-cb/run-cb.ts';
+import {Atom} from '../../atom/atom.ts';
 import {replaceParents} from '../utils/utils.js';
+import {Root} from '../../root/root.ts';
+import {OnAtomCreate} from '../select.ts';
 
-export async function selectAsyncInners({
+type Props<TValue> = {
+  cb: Cb;
+  value: Promise<TValue>;
+  parents: Set<Atom>;
+  root: Root;
+  onAtomCreate: OnAtomCreate;
+};
+
+export async function selectAsyncInners<TValue>({
   cb,
   value,
   parents,
   root,
   onAtomCreate,
-}) {
-  const atom = Atom.new({
+}: Props<TValue>) {
+  const atom = Atom.new<TValue>({
     root,
-    async exec(atom) {
+    async exec(atom: Atom<TValue>) {
       const {value, parents} = runCb(cb);
       const startTransaction = atom.transaction;
-      const valueSync = await value;
+      const valueSync = await (value as Promise<TValue>);
       if (atom.transaction !== startTransaction) {
         return false;
       }

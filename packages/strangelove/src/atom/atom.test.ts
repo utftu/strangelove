@@ -1,18 +1,19 @@
-import {describe, it, expect} from 'vitest';
-import {Atom, connectAtoms, disconnectAtoms} from './atom.js';
+import {describe, it, expect, vi} from 'vitest';
+import {Atom, connectAtoms, disconnectAtoms} from './atom.ts';
 
 describe('atom', () => {
   it('creating', () => {
-    const root = {};
-    const exec = () => {};
+    const root = vi.fn() as any;
+    const exec = () => true;
     const atom = Atom.new({exec, root});
     expect(atom.exec).toBe(exec);
     expect(atom.root).toBe(root);
   });
 
   it('static connect()', () => {
-    const parent = Atom.new();
-    const child = Atom.new();
+    const root: any = {};
+    const parent = Atom.new({root});
+    const child = Atom.new({root});
 
     connectAtoms(parent, child);
 
@@ -23,8 +24,9 @@ describe('atom', () => {
     expect([...child.relations.parents][0]).toBe(parent);
   });
   it('static disconnect()', () => {
-    const parent = Atom.new();
-    const child = Atom.new();
+    const root: any = {};
+    const parent = Atom.new({root});
+    const child = Atom.new({root});
 
     connectAtoms(parent, child);
     disconnectAtoms(parent, child);

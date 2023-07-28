@@ -5,5 +5,3 @@ export {createDefaultRoot} from './root/default-root.js';
 export {FastUpdater} from './updaters/fast/fast.js';
 export {SyncUpdater} from './updaters/sync/sync.js';
 export {atom, select, getMyAtoms} from './my-atoms/my-atoms.js';
-
-export const hello = 'world';

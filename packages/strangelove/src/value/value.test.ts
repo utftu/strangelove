@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {Value} from './value.js';
+import {Value} from './value.ts';
 
 describe('value', () => {
   it('constructor()', () => {

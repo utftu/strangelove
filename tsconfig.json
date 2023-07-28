@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
     "lib": ["esnext"],
-    "strict": false
+    "strict": true,
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "NodeNext",
+    "allowJs": true
   }
 }
