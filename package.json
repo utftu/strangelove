@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "node ./scripts/build.js",
+    "build": "nx run-many -t build",
     "format": "prettier --write .",
     "test": "vitest",
     "coverage": "vitest --coverage",
