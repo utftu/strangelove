@@ -5,7 +5,7 @@ import {Value} from '../value/value.ts';
 import {Root} from '../root/root.ts';
 
 export type ExecConfig = {
-  data: any;
+  data?: any;
   parent: Atom | null;
   initiator: Atom;
 };
@@ -61,8 +61,8 @@ export class Atom<TValue = any> {
 
   relations = new Relations();
 
-  update() {
-    return this.root.update(this);
+  update({data}: {data: any}) {
+    return this.root.update(this, {data});
   }
 
   get() {
