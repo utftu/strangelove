@@ -1,8 +1,6 @@
 import {createControlledPromise, PromiseControls} from 'utftu';
-import {DelayedCalls} from '../delayed-calls/delayed-calls.ts';
 import {Atom} from '../../atom/atom.ts';
-import {noopBatch} from '../batch.ts';
-import {Updater} from '../updaters.ts';
+import {Updater, Config} from '../updaters.ts';
 
 function runOnPromise<TValue>(
   maybePromise: Promise<TValue> | TValue,
@@ -32,18 +30,16 @@ type TransactionValue = {
   startTime: number;
   finishTime: number | null;
   updateCount: number;
+  data: any;
+  initiator: Atom;
 };
 
 export class FastUpdater implements Updater {
-  static new({batch = noopBatch} = {}) {
-    return new FastUpdater({batch});
-  }
-  delayedCalls: DelayedCalls;
-  constructor({batch = noopBatch} = {}) {
-    this.delayedCalls = new DelayedCalls(batch);
+  static new() {
+    return new FastUpdater();
   }
   private transactions = new WeakMap<TransactionKey, TransactionValue>();
-  update(atom: FastAtom) {
+  update(atom: FastAtom, config: Config = {data: null}) {
     const [promise, promiseControls] = createControlledPromise<PromiseResult>();
     const startTime = Date.now();
 
@@ -53,6 +49,8 @@ export class FastUpdater implements Updater {
       updateCount: 0,
       startTime: Date.now(),
       finishTime: null,
+      data: config.data,
+      initiator: atom,
     };
 
     const transactionKey = {
@@ -61,7 +59,7 @@ export class FastUpdater implements Updater {
 
     this.transactions.set(transactionKey, transactionValue);
 
-    this.updateSelect(atom, transactionKey);
+    this.updateSelect(atom, transactionKey, null);
 
     return {
       startTime: transactionValue.startTime,
@@ -106,28 +104,44 @@ export class FastUpdater implements Updater {
       });
     }
   }
-  private updateSelect(atom: FastAtom, transaction: TransactionKey) {
+
+  private updateSelect(
+    atom: FastAtom,
+    transaction: TransactionKey,
+    parent: FastAtom | null,
+  ) {
     if (this.checkAtomTransaction(atom, transaction) === false) {
       this.checkAndFinishTransaction(transaction);
       return;
     }
     this.startTransasctionOnAtom(atom, transaction);
 
-    runOnPromise(atom.exec(atom), (execResult) => {
-      if (execResult === false) {
+    const transactionValue = this.transactions.get(
+      transaction,
+    ) as TransactionValue;
+    runOnPromise(
+      atom.exec(atom, {
+        data: transactionValue.data,
+        initiator: transactionValue.initiator,
+        parent,
+      }),
+      (execResult) => {
+        if (execResult === false) {
+          this.finishTransactionOnAtom(transaction);
+          return;
+        }
+
+        atom.listeners.trigger(atom);
+        // this.delayedCalls.add(atom, () => atom.listeners.trigger(atom));
+
+        this.updateChildren(atom, transaction);
         this.finishTransactionOnAtom(transaction);
-        return;
-      }
-
-      this.delayedCalls.add(atom, () => atom.listeners.trigger(atom));
-
-      this.updateChildren(atom, transaction);
-      this.finishTransactionOnAtom(transaction);
-    });
+      },
+    );
   }
   private updateChildren(atom: FastAtom, transaction: TransactionKey) {
     for (const childAtom of [...atom.relations.children]) {
-      this.updateSelect(childAtom as FastAtom, transaction);
+      this.updateSelect(childAtom as FastAtom, transaction, atom);
     }
   }
 }

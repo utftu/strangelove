@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "allowArbitraryExtensions": true,
     "skipLibCheck": true,
     "target": "ESNext",
     "lib": ["esnext"],
     "strict": true,
-    "allowImportingTsExtensions": true,
     "moduleResolution": "NodeNext",
     "allowJs": true
   }

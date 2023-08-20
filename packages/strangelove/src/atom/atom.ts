@@ -4,7 +4,17 @@ import {alwaysYes} from '../consts/consts.ts';
 import {Value} from '../value/value.ts';
 import {Root} from '../root/root.ts';
 
-type Exec<TValue> = (atom: Atom<TValue>) => Promise<boolean> | boolean;
+export type ExecConfig = {
+  data: any;
+  parent: Atom | null;
+  initiator: Atom;
+};
+
+type Exec<TValue> = (
+  atom: Atom<TValue>,
+  config: ExecConfig,
+) => Promise<boolean> | boolean;
+
 type Props<TValue> = {
   exec?: Exec<TValue>;
   root: Root;
@@ -47,10 +57,8 @@ export class Atom<TValue = any> {
     this.relations = Relations.new();
   }
 
-  listeners = new Listeners();
+  listeners = new Listeners<TValue>();
 
-  listenersSync = new Listeners();
-  listenersAsync = new Listeners();
   relations = new Relations();
 
   update() {

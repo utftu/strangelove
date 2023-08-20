@@ -1,4 +1,4 @@
 {
-  "extends": "../../tsconfig.json",
-  "files": ["src/strangelove.ts"]
+  "extends": "../../tsconfig.json"
+  // "files": ["./src/strangelove.ts"]
 }
