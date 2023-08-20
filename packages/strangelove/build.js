@@ -14,7 +14,7 @@ await build({
     plugins: [
       dts({
         outDir: './dist/types',
-        tsconfigPath: './tsconfig.json',
+        tsconfigPath: './tsconfig.types.json',
       }),
     ],
   }),
