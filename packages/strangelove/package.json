@@ -1,6 +1,6 @@
 {
   "name": "strangelove",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "type": "module",
   "types": "./dist/types/strangelove.d.ts",
   "scripts": {
