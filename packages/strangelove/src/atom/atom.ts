@@ -47,7 +47,7 @@ export class Atom<TValue = any> {
   transaction?: any;
 
   value: Value<TValue>;
-  root: any;
+  root: Root;
   exec: Exec<TValue>;
 
   constructor({exec = alwaysYes, root, value}: Props<TValue>) {
