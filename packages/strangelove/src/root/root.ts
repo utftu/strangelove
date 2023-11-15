@@ -15,7 +15,7 @@ export class Root {
     this.updater = updater;
   }
 
-  update(atom: Atom) {
-    return this.updater.update(atom);
+  update(atom: Atom, config: {data: any}) {
+    return this.updater.update(atom, config);
   }
 }
