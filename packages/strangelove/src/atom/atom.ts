@@ -15,7 +15,7 @@ type Exec<TValue> = (
   config: ExecConfig,
 ) => Promise<boolean> | boolean;
 
-type Props<TValue> = {
+export type Props<TValue> = {
   exec?: Exec<TValue>;
   root: Root;
   value?: TValue;

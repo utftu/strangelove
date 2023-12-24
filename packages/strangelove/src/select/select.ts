@@ -5,6 +5,7 @@ import {Atom} from '../atom/atom.ts';
 import {Root} from '../root/root.ts';
 
 export type OnAtomCreate = (atom: Atom) => void;
+export type CreateAtom<TAtom extends Atom = any> = () => TAtom;
 
 type Config = {
   onAtomCreate: OnAtomCreate;
