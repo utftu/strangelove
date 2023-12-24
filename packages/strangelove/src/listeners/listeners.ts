@@ -13,7 +13,7 @@ export class Listeners<TValue = any> {
   unsubscribe(func: Listener<TValue>) {
     this.listeners = this.listeners.filter((compFunc) => func !== compFunc);
   }
-  trigger(data: TValue) {
+  trigger(data?: TValue) {
     this.listeners.forEach((listener) => listener(data as TValue));
   }
 }

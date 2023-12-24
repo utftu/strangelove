@@ -1,5 +1,6 @@
 import {describe, it, expect, vi} from 'vitest';
 import {Atom, connectAtoms, disconnectAtoms} from './atom.ts';
+import {createDefaultRoot} from '../strangelove.ts';
 
 describe('atom', () => {
   it('creating', () => {
@@ -33,5 +34,15 @@ describe('atom', () => {
 
     expect(parent.relations.children.size).toBe(0);
     expect(child.relations.parents.size).toBe(0);
+  });
+  it('set()', () => {
+    const root = createDefaultRoot();
+    const atom1 = Atom.new({exec: vi.fn(), root});
+    const exec2 = vi.fn();
+    const atom2 = Atom.new({exec: exec2, root});
+    connectAtoms(atom1, atom2);
+
+    atom1.set('1');
+    expect(exec2.mock.calls.length).toBe(1);
   });
 });

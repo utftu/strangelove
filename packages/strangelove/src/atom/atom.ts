@@ -61,7 +61,7 @@ export class Atom<TValue = any> {
 
   relations = new Relations();
 
-  update({data}: {data?: any}) {
+  update({data}: {data: any} | void = {data: {}}) {
     return this.root.update(this, {data});
   }
 
@@ -69,12 +69,13 @@ export class Atom<TValue = any> {
     return this.value.get();
   }
 
-  set(value: TValue) {
+  async set(value: TValue) {
     const needUpdate = this.value.set(value);
     if (!needUpdate) {
       return false;
     }
-    const update = this.update({data: null});
-    return update;
+    const {promise} = this.update({data: null});
+    await promise;
+    return true;
   }
 }

@@ -9,6 +9,7 @@
     "format": "prettier --write .",
     "test": "vitest",
     "coverage": "vitest --coverage",
+    "types": "tsc --project tsconfig.check.json",
     "sandbox-next": "pnpm i && cd examples/with-next && pnpm dev"
   },
   "keywords": [],

@@ -16,7 +16,7 @@ describe('select', () => {
     const child = await select(async (get) => {
       return get(parent) + ' + ' + 'child';
     });
-    await parent.set('parent new').promise;
+    await parent.set('parent new');
     expect(child.get()).toBe('parent new + child');
   });
   it('select async discard update', async () => {
@@ -31,7 +31,7 @@ describe('select', () => {
     });
     const update1 = parent.set('hello 1');
     const update2 = parent.set('hello 2');
-    await Promise.all([update1.promise, update2.promise]);
+    await Promise.all([update1, update2]);
     expect(selectInstance.get()).toBe('hello 2');
   });
 });

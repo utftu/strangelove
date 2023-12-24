@@ -32,7 +32,13 @@ export function patchAtom<TValue>(atom: Atom<TValue>) {
       return state();
     },
     set(value) {
-      return atom.set(value);
+      const updated = atom.value.set(value);
+      if (!updated) {
+        return false;
+      }
+      atom.update();
+
+      return true;
     },
   };
 }
