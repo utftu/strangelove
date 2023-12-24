@@ -15,10 +15,10 @@ export type TransactionKey = {
   startTime: number;
 };
 
-export type Config = {
+export type UpdaterConfig = {
   data: any;
 };
 
 export abstract class Updater {
-  abstract update(atom: Atom, config?: Config): UpdateResult;
+  abstract update(atom: Atom, config?: UpdaterConfig): UpdateResult;
 }

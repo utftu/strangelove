@@ -1,6 +1,6 @@
 import {createControlledPromise, PromiseControls} from 'utftu';
 import {Atom} from '../../atom/atom.ts';
-import {Updater, Config} from '../updaters.ts';
+import {Updater, UpdaterConfig} from '../updaters.ts';
 
 function runOnPromise<TValue>(
   maybePromise: Promise<TValue> | TValue,
@@ -39,7 +39,7 @@ export class FastUpdater implements Updater {
     return new FastUpdater();
   }
   private transactions = new WeakMap<TransactionKey, TransactionValue>();
-  update(atom: FastAtom, config: Config = {data: null}) {
+  update(atom: FastAtom, config: UpdaterConfig = {data: null}) {
     const [promise, promiseControls] = createControlledPromise<PromiseResult>();
     const startTime = Date.now();
 

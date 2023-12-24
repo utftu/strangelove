@@ -5,6 +5,28 @@ import {waitTime} from 'utftu';
 import {createDefaultRoot} from '../../root/default-root.ts';
 
 describe('updaters/fast', () => {
+  it('one child 1', async () => {
+    const root = vi.fn() as any;
+    const parentExec = vi.fn();
+    const childExec = vi.fn();
+    const parent = Atom.new({
+      exec: parentExec,
+      root,
+    });
+    const child = Atom.new({
+      exec: childExec,
+      root,
+    });
+    Atom.connect(parent, child);
+    const fast = FastUpdater.new();
+    await fast.update(parent);
+    expect(parentExec.mock.calls.length).toBe(1);
+    expect(childExec.mock.calls.length).toBe(1);
+
+    await fast.update(parent);
+    expect(parentExec.mock.calls.length).toBe(2);
+    expect(childExec.mock.calls.length).toBe(2);
+  });
   it('one child', async () => {
     const root = vi.fn() as any;
     const parentExec = vi.fn();
