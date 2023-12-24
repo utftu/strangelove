@@ -6,7 +6,9 @@
     "target": "ESNext",
     "lib": ["esnext"],
     "strict": true,
+    "noEmit": true,
     "moduleResolution": "NodeNext",
+    "module": "NodeNext",
     "allowJs": true
   }
 }
