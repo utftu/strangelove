@@ -44,6 +44,7 @@ export class SyncUpdater implements Updater {
     if (atom.exec(atom, config) === false) {
       return;
     }
+    atom.root.ee.emit('change', atom);
     atom.listeners.trigger(atom);
 
     this.updateChildren(atom, transaction, {...config, parent: atom});
