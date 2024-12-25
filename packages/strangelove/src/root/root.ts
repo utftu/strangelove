@@ -1,3 +1,4 @@
+import {createEventEmitter} from 'utftu';
 import {Atom} from '../atom/atom.ts';
 import {Updater} from '../updaters/updaters.ts';
 
@@ -18,4 +19,7 @@ export class Root {
   update(atom: Atom, config: {data: any} = {data: {}}) {
     return this.updater.update(atom, config);
   }
+
+  // change (after update) => args: Atom
+  ee = createEventEmitter();
 }

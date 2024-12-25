@@ -131,8 +131,13 @@ export class FastUpdater implements Updater {
           return;
         }
 
+        if (!atom.root.ee) {
+          console.log('-----', 'here1', atom.root);
+        }
+
+        atom.root.ee.emit('change', atom);
+
         atom.listeners.trigger(atom);
-        // this.delayedCalls.add(atom, () => atom.listeners.trigger(atom));
 
         this.updateChildren(atom, transaction);
         this.finishTransactionOnAtom(transaction);

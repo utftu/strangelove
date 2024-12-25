@@ -7,6 +7,7 @@ export class Value<TValue> {
     return new Value<TValue>(value, config);
   }
   value: TValue;
+  prevValue?: TValue;
   checkPrev: boolean = true;
   constructor(value: TValue, config: Config = {checkPrev: true}) {
     this.value = value;
@@ -14,6 +15,7 @@ export class Value<TValue> {
     this.checkPrev = config.checkPrev ?? this.checkPrev;
   }
   setData(value: TValue) {
+    this.prevValue = this.value;
     this.value = value;
   }
   get() {

@@ -6,7 +6,7 @@ import {createDefaultRoot} from '../../root/default-root.ts';
 
 describe('updaters/fast', () => {
   it('one child 1', async () => {
-    const root = vi.fn() as any;
+    const root = createDefaultRoot();
     const parentExec = vi.fn();
     const childExec = vi.fn();
     const parent = Atom.new({
@@ -28,7 +28,7 @@ describe('updaters/fast', () => {
     expect(childExec.mock.calls.length).toBe(2);
   });
   it('one child', async () => {
-    const root = vi.fn() as any;
+    const root = createDefaultRoot();
     const parentExec = vi.fn();
     const childExec = vi.fn();
     const parent = Atom.new({
