@@ -4,12 +4,6 @@ import { alwaysYes } from "../consts/consts.ts";
 import { Value } from "../value/value.ts";
 import { updateAtoms } from "../updater/updater.ts";
 
-const HIDDEN_ATOM_MARK = "STRANGLOVE_ATOM";
-
-export const checkAtom = (value: any): value is Atom => {
-  return !!(value && HIDDEN_ATOM_MARK in value);
-};
-
 type Exec<TValue> = (atom: Atom<TValue>) => boolean;
 
 export type Props<TValue> = {
@@ -27,7 +21,7 @@ function disconnectAtoms(parentAtom: Atom, childAtom: Atom) {
   childAtom.relations.parents.delete(parentAtom);
 }
 
-class Atom<TValue = any> {
+export class Atom<TValue = any> {
   static connect(parentAtom: Atom, childAtom: Atom) {
     connectAtoms(parentAtom, childAtom);
   }
@@ -74,10 +68,5 @@ class Atom<TValue = any> {
     disconnectAtoms(this, childAtom);
   }
 }
-
-// @ts-ignore
-Atom.prototype[HIDDEN_ATOM_MARK] = true;
-
-export { Atom };
 
 export const atom = <TValue = any>(value: TValue) => new Atom({ value });

@@ -1,4 +1,4 @@
-import {Atom} from '../atom/atom.ts';
+import { Atom } from "../atom/atom.ts";
 
 export const updateAtoms = (atom: Atom) => {
   const atomsToUpdate = [atom];
