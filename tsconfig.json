@@ -10,5 +10,6 @@
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
     "allowJs": true
-  }
+  },
+  "files": ["./src/strangelove.ts"]
 }
