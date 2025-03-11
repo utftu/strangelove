@@ -1,0 +1,83 @@
+import { Relations } from "../relations/relations.ts";
+import { Listeners } from "../listeners/listeners.ts";
+import { alwaysYes } from "../consts/consts.ts";
+import { Value } from "../value/value.ts";
+import { updateAtoms } from "../updater/updater.ts";
+
+const HIDDEN_ATOM_MARK = "STRANGLOVE_ATOM";
+
+export const checkAtom = (value: any): value is Atom => {
+  return !!(value && HIDDEN_ATOM_MARK in value);
+};
+
+type Exec<TValue> = (atom: Atom<TValue>) => boolean;
+
+export type Props<TValue> = {
+  exec?: Exec<TValue>;
+  value?: TValue;
+};
+
+function connectAtoms(parentAtom: Atom, childAtom: Atom) {
+  parentAtom.relations.children.add(childAtom);
+  childAtom.relations.parents.add(parentAtom);
+}
+
+function disconnectAtoms(parentAtom: Atom, childAtom: Atom) {
+  parentAtom.relations.children.delete(childAtom);
+  childAtom.relations.parents.delete(parentAtom);
+}
+
+class Atom<TValue = any> {
+  static connect(parentAtom: Atom, childAtom: Atom) {
+    connectAtoms(parentAtom, childAtom);
+  }
+
+  static disconnect(parentAtom: Atom, childAtom: Atom) {
+    disconnectAtoms(parentAtom, childAtom);
+  }
+
+  value: Value<TValue>;
+  exec: Exec<TValue>;
+
+  constructor({ exec = alwaysYes, value }: Props<TValue> = {}) {
+    this.exec = exec;
+    this.value = new Value(value as TValue);
+    this.relations = new Relations();
+  }
+
+  listeners = new Listeners<TValue>();
+
+  relations = new Relations();
+
+  update() {
+    updateAtoms(this);
+  }
+
+  get() {
+    return this.value.get();
+  }
+
+  set(value: TValue) {
+    const needUpdate = this.value.set(value);
+    if (!needUpdate) {
+      return false;
+    }
+    this.update();
+    return true;
+  }
+
+  connect(childAtom: Atom) {
+    connectAtoms(this, childAtom);
+  }
+
+  disconnect(childAtom: Atom) {
+    disconnectAtoms(this, childAtom);
+  }
+}
+
+// @ts-ignore
+Atom.prototype[HIDDEN_ATOM_MARK] = true;
+
+export { Atom };
+
+export const atom = <TValue = any>(value: TValue) => new Atom({ value });
