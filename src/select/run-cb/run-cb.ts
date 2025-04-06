@@ -1,6 +1,6 @@
-import {Atom} from '../../atom/atom.ts';
+import { Atom } from "../../atom/atom.ts";
 
-export type Get<TValue = any> = (atom: Atom<TValue>) => TValue;
+export type Get = <TValue = any>(atom: Atom<TValue>) => TValue;
 export type Cb = (get: Get) => any;
 
 export function runCb<TCb extends Cb = Cb>(cb: TCb) {
