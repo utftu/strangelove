@@ -4,7 +4,7 @@
   "type": "module",
   "types": "./dist/types/strangelove.d.ts",
   "scripts": {
-    "build": "vite build && bun run types",
+    "build": "vite build",
     "types": "tsc --project tsconfig.types.json",
     "check": "tsc --project tsconfig.check.json",
     "test": "vitest"
@@ -17,9 +17,8 @@
   "license": "MIT",
   "devDependencies": {
     "typescript": "^5.8.2",
-    "vite": "^6.2.1"
-  },
-  "dependencies": {
-    "vitest": "^3.0.8"
+    "vite": "^6.2.1",
+    "vitest": "^3.0.8",
+    "dapes": "^0.0.32"
   }
 }

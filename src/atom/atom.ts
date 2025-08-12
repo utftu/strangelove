@@ -6,6 +6,9 @@ import { updateAtoms } from "../updater/updater.ts";
 
 type Exec<TValue> = (atom: Atom<TValue>) => boolean;
 
+const instanceValue = "strnglv";
+const instanceKey = "_strnglv";
+
 export type Props<TValue> = {
   exec?: Exec<TValue>;
   value?: TValue;
@@ -37,6 +40,9 @@ export class Atom<TValue = any> {
     this.exec = exec;
     this.value = new Value(value as TValue);
     this.relations = new Relations();
+
+    // @ts-ignore
+    this[instanceKey] = instanceValue;
   }
 
   listeners = new Listeners<TValue>();
@@ -68,5 +74,16 @@ export class Atom<TValue = any> {
     disconnectAtoms(this, childAtom);
   }
 }
+
+export const checkAtom = (mayAtom: Atom | any) => {
+  if (
+    mayAtom &&
+    instanceKey in mayAtom &&
+    mayAtom[instanceKey] === instanceValue
+  ) {
+    return true;
+  }
+  return false;
+};
 
 export const atom = <TValue = any>(value: TValue) => new Atom({ value });
