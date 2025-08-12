@@ -78,6 +78,7 @@ export class Atom<TValue = any> {
 export const checkAtom = (mayAtom: Atom | any) => {
   if (
     mayAtom &&
+    typeof mayAtom === "object" &&
     instanceKey in mayAtom &&
     mayAtom[instanceKey] === instanceValue
   ) {
