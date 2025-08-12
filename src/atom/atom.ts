@@ -75,7 +75,7 @@ export class Atom<TValue = any> {
   }
 }
 
-export const checkAtom = (mayAtom: Atom | any) => {
+export const checkAtom = (mayAtom: unknown): mayAtom is Atom => {
   if (
     mayAtom &&
     typeof mayAtom === "object" &&
