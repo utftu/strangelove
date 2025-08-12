@@ -1,4 +1,4 @@
-export { Atom, atom, checkAtom } from "./atom/atom.ts";
+export { Atom, createAtom, checkAtom } from "./atom/atom.ts";
 export { select } from "./select/select.ts";
 export {
   type Cb as SelectCb,

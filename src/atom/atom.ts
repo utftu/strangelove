@@ -87,4 +87,4 @@ export const checkAtom = (mayAtom: Atom | any) => {
   return false;
 };
 
-export const atom = <TValue = any>(value: TValue) => new Atom({ value });
+export const createAtom = <TValue = any>(value: TValue) => new Atom({ value });
