@@ -16,9 +16,9 @@
   "main": "./dist/strangelove.js",
   "license": "MIT",
   "devDependencies": {
+    "dapes": "^0.0.37",
     "typescript": "^5.8.2",
     "vite": "^6.2.1",
-    "vitest": "^3.0.8",
-    "dapes": "^0.0.32"
+    "vitest": "^3.0.8"
   }
 }

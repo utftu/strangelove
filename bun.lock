@@ -4,7 +4,7 @@
     "": {
       "name": "strangelove",
       "devDependencies": {
-        "dapes": "^0.0.32",
+        "dapes": "^0.0.37",
         "typescript": "^5.8.2",
         "vite": "^6.2.1",
         "vitest": "^3.0.8",
@@ -134,7 +134,7 @@
 
     "check-error": ["check-error@2.1.1", "", {}, "sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw=="],
 
-    "dapes": ["dapes@0.0.32", "", { "dependencies": { "utftu": "^1.0.29", "vite": "^7.0.0" } }, "sha512-bwdBDC3ZcId2xZhrWibDG/xHhrqiomNUdf2rV1GPTzNhzwIsb+5g9pHLQURs5zekaxB2/tjUq3LEnCb/ADDiJQ=="],
+    "dapes": ["dapes@0.0.37", "", { "dependencies": { "utftu": "^1.0.31", "vite": "^7.0.0" } }, "sha512-t+43sRCsy9vtW2XbkbhuVIwb4R6zf/1TQ22/3CRnyoDBupeTH8ZnXJUee1cGLoJrr4zYGtsx26MARnZNLVYsNw=="],
 
     "debug": ["debug@4.4.1", "", { "dependencies": { "ms": "^2.1.3" } }, "sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ=="],
 

@@ -18,10 +18,11 @@ const build = new Task({
 const publish = new Task({
   parents: [build],
   name: "publish",
-  exec: (ctx) => {
-    publishPackage({
-      pathToPackage: "./package.json",
-      version: "minor",
+  beforeExec: async ({ command }) => {
+    await command("rm -rf dist");
+  },
+  exec: async (ctx) => {
+    await publishPackage({
       ctx,
     });
   },
