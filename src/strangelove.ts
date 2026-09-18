@@ -1,6 +1,10 @@
-export { Atom, createAtom, checkAtom } from "./atom/atom.ts";
-export { select } from "./select/select.ts";
-export {
-  type Cb as SelectCb,
-  type Get as SelectGet,
-} from "./select/run-cb/run-cb.ts";
+import { Atom, createAtom, checkAtom } from "./atom/atom.ts";
+import { select } from "./select/select.ts";
+import { type Cb, type Get } from "./select/run-cb/run-cb.ts";
+
+type SelectCb = Cb;
+type SelectGet = Get;
+
+export { Atom, createAtom, checkAtom };
+export { select };
+export { type SelectCb, type SelectGet };

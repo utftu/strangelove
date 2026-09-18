@@ -6,8 +6,7 @@ import { updateAtoms } from "../updater/updater.ts";
 
 type Exec<TValue> = (atom: Atom<TValue>) => boolean;
 
-const instanceValue = "strnglv";
-const instanceKey = "_strnglv";
+const magicKey = "_strnglv";
 
 export type Props<TValue> = {
   exec?: Exec<TValue>;
@@ -39,10 +38,9 @@ export class Atom<TValue = any> {
   constructor({ exec = alwaysYes, value }: Props<TValue> = {}) {
     this.exec = exec;
     this.value = new Value(value as TValue);
-    this.relations = new Relations();
 
     // @ts-ignore
-    this[instanceKey] = instanceValue;
+    this[magicKey] = magicKey;
   }
 
   listeners = new Listeners<TValue>();
@@ -79,8 +77,8 @@ export const checkAtom = (mayAtom: unknown): mayAtom is Atom => {
   if (
     mayAtom &&
     typeof mayAtom === "object" &&
-    instanceKey in mayAtom &&
-    mayAtom[instanceKey] === instanceValue
+    magicKey in mayAtom &&
+    mayAtom[magicKey] === magicKey
   ) {
     return true;
   }

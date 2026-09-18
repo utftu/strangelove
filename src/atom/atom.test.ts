@@ -1,5 +1,5 @@
 import {describe, it, expect, vi} from 'vitest';
-import {Atom} from './atom.ts';
+import {Atom, createAtom, checkAtom} from './atom.ts';
 
 describe('atom', () => {
   it('creating', () => {
@@ -32,6 +32,13 @@ describe('atom', () => {
 
     expect(parent.relations.children.size).toBe(0);
     expect(child.relations.parents.size).toBe(0);
+  });
+  it('checkAtom()', () => {
+    expect(checkAtom(createAtom(1))).toBe(true);
+    expect(checkAtom(new Atom())).toBe(true);
+    expect(checkAtom(5)).toBe(false);
+    expect(checkAtom(undefined)).toBe(false);
+    expect(checkAtom({})).toBe(false);
   });
   it('set()', () => {
     const atom1 = new Atom({exec: vi.fn()});
