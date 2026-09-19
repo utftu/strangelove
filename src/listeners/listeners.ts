@@ -9,6 +9,9 @@ export class Listeners<TValue = any> {
   unsubscribe(func: Listener<TValue>) {
     this.listeners = this.listeners.filter((compFunc) => func !== compFunc);
   }
+  clear() {
+    this.listeners = [];
+  }
   trigger(data?: TValue) {
     this.listeners.forEach((listener) => listener(data as TValue));
   }

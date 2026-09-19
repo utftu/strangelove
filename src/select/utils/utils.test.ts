@@ -1,5 +1,5 @@
 import {describe, it, expect, vi} from 'vitest';
-import {Atom} from '../../atom/atom.ts';
+import {Atom, connectAtoms} from '../../atom/atom.ts';
 import {replaceParents} from './utils.ts';
 
 describe('utils', () => {
@@ -9,7 +9,7 @@ describe('utils', () => {
     const oldParent = new Atom();
     const newParent = new Atom();
 
-    Atom.connect(oldParent, child);
+    connectAtoms(oldParent, child);
     replaceParents(child, new Set([newParent]));
     expect(child.relations.parents.size).toBe(1);
     expect([...child.relations.parents][0]).toBe(newParent);

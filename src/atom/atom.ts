@@ -13,25 +13,41 @@ export type Props<TValue> = {
   value?: TValue;
 };
 
-function connectAtoms(parentAtom: Atom, childAtom: Atom) {
+export function connectAtoms(parentAtom: Atom, childAtom: Atom): void {
   parentAtom.relations.children.add(childAtom);
   childAtom.relations.parents.add(parentAtom);
 }
 
-function disconnectAtoms(parentAtom: Atom, childAtom: Atom) {
+export function disconnectAtoms(parentAtom: Atom, childAtom: Atom): void {
   parentAtom.relations.children.delete(childAtom);
   childAtom.relations.parents.delete(parentAtom);
 }
 
+export function destroyAtom(atom: Atom): void {
+  for (const parentAtom of atom.relations.parents) {
+    disconnectAtoms(parentAtom, atom);
+  }
+
+  for (const childAtom of atom.relations.children) {
+    disconnectAtoms(atom, childAtom);
+  }
+
+  atom.listeners.clear();
+}
+
+export const checkAtom = (mayAtom: unknown): mayAtom is Atom => {
+  if (
+    mayAtom &&
+    typeof mayAtom === "object" &&
+    magicKey in mayAtom &&
+    mayAtom[magicKey] === magicKey
+  ) {
+    return true;
+  }
+  return false;
+};
+
 export class Atom<TValue = any> {
-  static connect(parentAtom: Atom, childAtom: Atom) {
-    connectAtoms(parentAtom, childAtom);
-  }
-
-  static disconnect(parentAtom: Atom, childAtom: Atom) {
-    disconnectAtoms(parentAtom, childAtom);
-  }
-
   value: Value<TValue>;
   exec: Exec<TValue>;
 
@@ -63,26 +79,6 @@ export class Atom<TValue = any> {
     this.update();
     return true;
   }
-
-  connect(childAtom: Atom) {
-    connectAtoms(this, childAtom);
-  }
-
-  disconnect(childAtom: Atom) {
-    disconnectAtoms(this, childAtom);
-  }
 }
-
-export const checkAtom = (mayAtom: unknown): mayAtom is Atom => {
-  if (
-    mayAtom &&
-    typeof mayAtom === "object" &&
-    magicKey in mayAtom &&
-    mayAtom[magicKey] === magicKey
-  ) {
-    return true;
-  }
-  return false;
-};
 
 export const createAtom = <TValue = any>(value: TValue) => new Atom({ value });

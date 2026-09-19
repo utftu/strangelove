@@ -1,11 +1,11 @@
-import {Atom} from '../../atom/atom.ts';
+import {Atom, connectAtoms, disconnectAtoms} from '../../atom/atom.ts';
 
 export function replaceParents(atom: Atom, newParents: Set<Atom>) {
   for (const oldParent of atom.relations.parents.values()) {
-    Atom.disconnect(oldParent, atom);
+    disconnectAtoms(oldParent, atom);
   }
 
   for (const newParent of newParents.values()) {
-    Atom.connect(newParent, atom);
+    connectAtoms(newParent, atom);
   }
 }

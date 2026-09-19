@@ -1,6 +1,6 @@
 import { describe, it, vi, expect } from "vitest";
 
-import { Atom, createAtom } from "../atom/atom.ts";
+import { Atom, createAtom, connectAtoms } from "../atom/atom.ts";
 import { select } from "../select/select.ts";
 
 describe("updater", () => {
@@ -10,8 +10,8 @@ describe("updater", () => {
     const atom2 = new Atom();
     const atom3 = new Atom({ exec: atom3Exec });
 
-    Atom.connect(atom1, atom2);
-    Atom.connect(atom2, atom3);
+    connectAtoms(atom1, atom2);
+    connectAtoms(atom2, atom3);
 
     expect(atom3Exec.mock.calls.length).toBe(0);
     atom1.update();
@@ -26,8 +26,8 @@ describe("updater", () => {
     const child1 = new Atom({ exec: child1Exec });
     const child2 = new Atom({ exec: child2Exec });
 
-    Atom.connect(parent, child1);
-    Atom.connect(parent, child2);
+    connectAtoms(parent, child1);
+    connectAtoms(parent, child2);
 
     parent.update();
 
@@ -216,8 +216,8 @@ describe("updater", () => {
     it("отвергает цикл через корень", () => {
       const first = new Atom();
       const second = new Atom();
-      Atom.connect(first, second);
-      Atom.connect(second, first);
+      connectAtoms(first, second);
+      connectAtoms(second, first);
 
       expect(() => first.update()).toThrow("cycle in the atom graph");
     });
@@ -226,9 +226,9 @@ describe("updater", () => {
       const first = new Atom();
       const second = new Atom();
       const third = new Atom();
-      Atom.connect(first, second);
-      Atom.connect(second, third);
-      Atom.connect(third, second);
+      connectAtoms(first, second);
+      connectAtoms(second, third);
+      connectAtoms(third, second);
 
       expect(() => first.update()).toThrow("cycle in the atom graph");
     });
