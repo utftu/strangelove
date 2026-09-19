@@ -1,11 +1,11 @@
-import { describe, it, vi, expect } from "vitest";
+import {describe, it, mock, expect} from "bun:test";
 
 import { Atom, createAtom, connectAtoms } from "../atom/atom.ts";
 import { select } from "../select/select.ts";
 
 describe("updater", () => {
   it("chain", () => {
-    const atom3Exec = vi.fn();
+    const atom3Exec = mock();
     const atom1 = new Atom();
     const atom2 = new Atom();
     const atom3 = new Atom({ exec: atom3Exec });
@@ -20,8 +20,8 @@ describe("updater", () => {
   });
 
   it("several", () => {
-    const child1Exec = vi.fn();
-    const child2Exec = vi.fn();
+    const child1Exec = mock();
+    const child2Exec = mock();
     const parent = new Atom();
     const child1 = new Atom({ exec: child1Exec });
     const child2 = new Atom({ exec: child2Exec });

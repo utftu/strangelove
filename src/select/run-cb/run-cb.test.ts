@@ -1,5 +1,5 @@
 import {runCb, type Cb} from './run-cb.ts';
-import {expect, it} from 'vitest';
+import {expect, it} from "bun:test";
 import {Atom} from '../../atom/atom.ts';
 
 it('run-cb', () => {

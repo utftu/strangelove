@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import {describe, it, expect} from "bun:test";
 
 import { Atom, createAtom } from "../atom/atom.ts";
 import { select } from "../select/select.ts";

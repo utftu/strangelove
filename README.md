@@ -142,8 +142,7 @@ first.update(); // Error: strangelove: cycle in the atom graph
 
 ```bash
 bun install
-npm run test   # vitest
+npm test       # тесты
 npm run check  # типы
-npm run build  # сборка в dist
-npm run types  # .d.ts
+npm run build  # бандл и .d.ts в dist
 ```

@@ -1,10 +1,10 @@
-import {describe, expect, it, vi} from 'vitest';
+import {describe, expect, it, mock} from "bun:test";
 import {Listeners} from './listeners.ts';
 
 describe('listeners', () => {
   it('subscribe()', () => {
     const listeners = new Listeners();
-    const fn = vi.fn();
+    const fn = mock();
     const unsubscribe = listeners.subscribe(fn);
     expect(listeners.listeners.length).toBe(1);
     expect(listeners.listeners[0]).toBe(fn);
@@ -15,7 +15,7 @@ describe('listeners', () => {
   });
   it('unsubscribe()', () => {
     const listeners = new Listeners();
-    const fn = vi.fn();
+    const fn = mock();
     listeners.subscribe(fn);
 
     listeners.unsubscribe(fn);
@@ -23,8 +23,8 @@ describe('listeners', () => {
   });
   it('trigger()', () => {
     const listeners = new Listeners();
-    const fn1 = vi.fn();
-    const fn2 = vi.fn();
+    const fn1 = mock();
+    const fn2 = mock();
 
     listeners.subscribe(fn1);
     listeners.subscribe(fn2);

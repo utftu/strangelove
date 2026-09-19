@@ -1,4 +1,4 @@
-import {describe, it, expect, vi} from 'vitest';
+import {describe, it, expect, mock} from "bun:test";
 import {
   Atom,
   createAtom,
@@ -10,14 +10,12 @@ import {
 
 describe('atom', () => {
   it('creating', () => {
-    const root = vi.fn() as any;
     const exec = () => true;
     const atom = new Atom({exec});
     expect(atom.exec).toBe(exec);
   });
 
   it('static connect()', () => {
-    const root: any = {};
     const parent = new Atom();
     const child = new Atom();
 
@@ -30,7 +28,6 @@ describe('atom', () => {
     expect([...child.relations.parents][0]).toBe(parent);
   });
   it('static disconnect()', () => {
-    const root: any = {};
     const parent = new Atom();
     const child = new Atom();
 
@@ -65,7 +62,7 @@ describe('atom', () => {
 
   it('destroy() снимает слушателей', () => {
     const atom = createAtom(1);
-    const listener = vi.fn();
+    const listener = mock();
     atom.listeners.subscribe(listener);
 
     destroyAtom(atom);
@@ -76,8 +73,8 @@ describe('atom', () => {
 
   it('destroy() не задевает соседей', () => {
     const source = createAtom(1);
-    const first = new Atom({exec: vi.fn()});
-    const second = new Atom({exec: vi.fn()});
+    const first = new Atom({exec: mock()});
+    const second = new Atom({exec: mock()});
 
     connectAtoms(source, first);
     connectAtoms(source, second);
@@ -91,8 +88,8 @@ describe('atom', () => {
   });
 
   it('set()', () => {
-    const atom1 = new Atom({exec: vi.fn()});
-    const exec2 = vi.fn();
+    const atom1 = new Atom({exec: mock()});
+    const exec2 = mock();
     const atom2 = new Atom({exec: exec2});
     connectAtoms(atom1, atom2);
 

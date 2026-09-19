@@ -3,7 +3,7 @@ import { Group, publishPackage, startIfMain, Task } from "dapes";
 const types = new Task({
   name: "types",
   exec: async ({ command }) => {
-    await command("npm run types");
+    await command("npm run build:types");
   },
 });
 

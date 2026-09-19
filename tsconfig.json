@@ -9,7 +9,8 @@
     "noEmit": true,
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
-    "allowJs": true
+    "allowJs": true,
+    "types": ["bun"]
   },
-  "files": ["./src/strangelove.ts"]
+  "include": ["src/**/*.ts"]
 }

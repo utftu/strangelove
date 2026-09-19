@@ -1,10 +1,9 @@
-import {describe, it, expect, vi} from 'vitest';
+import {describe, it, expect, mock} from "bun:test";
 import {Atom, connectAtoms} from '../../atom/atom.ts';
 import {replaceParents} from './utils.ts';
 
 describe('utils', () => {
   it('replaceParents', () => {
-    const root = vi.fn() as any;
     const child = new Atom();
     const oldParent = new Atom();
     const newParent = new Atom();

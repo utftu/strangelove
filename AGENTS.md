@@ -6,16 +6,19 @@
 
 ## Стек
 
-Bun, TypeScript в strict, Vite для сборки, vitest для тестов, dapes как раннер задач.
+Bun — рантайм, сборщик и тест-раннер. TypeScript в strict. dapes как раннер задач.
 
 ## Команды
 
 ```bash
-npm run test   # vitest
-npm run check  # типы по всему src, включая тесты
-npm run build  # сборка в dist
-npm run types  # .d.ts в dist/types
+npm test            # bun test
+npm run check       # типы по всему src, включая тесты
+npm run build       # build:js, затем build:types
+npm run build:js    # бандл в dist/strangelove.js
+npm run build:types # .d.ts в dist/types
 ```
+
+Типы собирает tsc: `bun build` деклараций не выпускает.
 
 ## Структура
 
